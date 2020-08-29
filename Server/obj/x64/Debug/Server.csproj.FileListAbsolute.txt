@@ -1,0 +1,12 @@
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\x64\Debug\ZServer.net.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\x64\Debug\ZServer.net.pdb
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\x64\Debug\CitizenFX.Core.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\x64\Debug\MsgPack.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\x64\Debug\CitizenFX.Core.pdb
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\x64\Debug\CitizenFX.Core.xml
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\x64\Debug\MsgPack.xml
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\obj\x64\Debug\Server.csprojAssemblyReference.cache
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\obj\x64\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\obj\x64\Debug\Server.csproj.CopyComplete
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\obj\x64\Debug\ZServer.net.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\obj\x64\Debug\ZServer.net.pdb
