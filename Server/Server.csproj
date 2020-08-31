@@ -72,7 +72,9 @@
     <Compile Include="Utils\Math.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Boot\" />
     <Folder Include="Config\" />
+    <Folder Include="Data\" />
     <Folder Include="Loadscreen\" />
     <Folder Include="Locales\" />
     <Folder Include="Modules\Base\" />

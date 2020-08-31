@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Outbreak.Utils
+namespace Outbreak
 {
     class Game
     {
+
     }
 }

@@ -15,6 +15,7 @@ namespace Outbreak.Core
         {
             EventHandlers["Outbreak.Core.Admin:GetCoords"] += new Action(GetCoords);
             EventHandlers["Outbreak.Core.Admin:TPMarker"] += new Action(TPMarker);
+            EventHandlers["Outbreak.Core.Admin:GiveWeapon"] += new Action<List<object>>(GiveWeapon);
         }
 
         private async void TPMarker()
@@ -55,6 +56,11 @@ namespace Outbreak.Core
         {
             Vector3 playercoords = GetEntityCoords(PlayerPedId(), true);
             Debug.WriteLine($"^1[Outbreak.Core.Admin]^7: {playercoords}");
+        }
+
+        private void GiveWeapon(List<object> args)
+        {
+            GiveWeaponToPed(PlayerPedId(), (uint)GetHashKey(args[0].ToString()), int.Parse(args[1].ToString()), false, true);
         }
     }
 }
