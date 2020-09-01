@@ -18,3 +18,4 @@ ensure outbreak
 ```
 
 ## Documentation
+[Wiki](https://github.com/Dislaik/outbreak/wiki)
