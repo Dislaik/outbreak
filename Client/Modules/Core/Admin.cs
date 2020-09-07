@@ -9,13 +9,51 @@ using static CitizenFX.Core.Native.API;
 
 namespace Outbreak.Core
 {
-    class Admin : BaseScript
+    public class Admin : BaseScript
     {
+
         public Admin()
         {
-            EventHandlers["Outbreak.Core.Admin:GetCoords"] += new Action(GetCoords);
-            EventHandlers["Outbreak.Core.Admin:TPMarker"] += new Action(TPMarker);
-            EventHandlers["Outbreak.Core.Admin:GiveWeapon"] += new Action<List<object>>(GiveWeapon);
+            Menu MainMenu = new Menu("Admin Menu", "Manage the server")
+            {
+                TitleFont = 2,
+                HeaderColor = new int[] { 199, 0, 57, 255 }
+            };
+
+            MainMenu.Register(MainMenu);
+            MainMenu.AddItem("Get Coords", "Prints on the screen your own coords.");
+            MainMenu.AddItem("TP Marker", "Teleport to the marker.");
+            MainMenu.AddItem("Get a pistol", "Get a simple weapon.");
+
+            MainMenu.OnItemSelect += (name, index) =>
+            {
+                if (index == 1)
+                {
+                    GetCoords();
+                }
+                else if (index == 2)
+                {
+                    TPMarker();
+                }
+                else if (index == 3)
+                {
+                    GiveWeapon();
+                }
+
+            };
+
+            Tick += async () =>
+            {
+                MainMenu.Initiation();
+
+                if (Game.IsControlJustPressed(0, Control.InteractionMenu) && !MainMenu.IsAnyMenuOpen())
+                {
+                    MainMenu.Changer();
+                }
+
+                await Task.FromResult(0);
+            };
+
         }
 
         private async void TPMarker()
@@ -58,9 +96,9 @@ namespace Outbreak.Core
             Debug.WriteLine($"^1[Outbreak.Core.Admin]^7: {playercoords}");
         }
 
-        private void GiveWeapon(List<object> args)
+        private void GiveWeapon()
         {
-            GiveWeaponToPed(PlayerPedId(), (uint)GetHashKey(args[0].ToString()), int.Parse(args[1].ToString()), false, true);
+            GiveWeaponToPed(PlayerPedId(), (uint)GetHashKey("WEAPON_PISTOL"), 250, false, true);
         }
     }
 }

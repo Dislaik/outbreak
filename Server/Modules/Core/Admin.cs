@@ -18,6 +18,7 @@ namespace Outbreak
             GetCoords("getcoords");
             TPMarker("tpmarker");
             GiveWeapon("giveweapon");
+            Menu("menu");
         }
 
         private void GetCoords(string command)
@@ -51,6 +52,16 @@ namespace Outbreak
                     new { name="Ammo", help="Weapon Ammo." }
                 });
                 TriggerClientEvent("Outbreak.Core.Admin:GiveWeapon", args);
+
+            }), false);
+        }
+
+        private void Menu(string command)
+        {
+            RegisterCommand(command, new Action<int, List<object>, string>((source, args, rawCommand) =>
+            {
+                TriggerClientEvent("chat:addSuggestion", "/" + command, "Menu Test.");
+                TriggerClientEvent("Outbreak.Core.Admin:Menu");
 
             }), false);
         }

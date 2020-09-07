@@ -23,14 +23,13 @@ namespace Outbreak
                 new {X = 446.6374f, Y = -992.9275f, Z = 32.67834f, R = 170, G = 255, B = 200, Range = 8.0f, Intensity = 0.4f},
                 new {X = 439.0417f, Y = -993.5868f, Z = 32.67834f, R = 170, G = 255, B = 200, Range = 8.0f, Intensity = 0.4f}
             };
-
         public Environment()
         {
             SetArtificialLightsState(true);
             StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE");
             SetDistantCarsEnabled(true);
 
-            SetMaxWantedLevel(0);// mover a boot
+            SetMaxWantedLevel(0);
 
             Tick += InteriorLights;
             Tick += CheckVehicles;

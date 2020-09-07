@@ -9,6 +9,7 @@ namespace Outbreak
     public class Config
     {
         public bool Debug = true;
-        public float DistanceZombieGoToPlayer = 25.0f;
+        public float ZombieTargetToPlayer = 25.0f;
+        public bool ZombieCanRun = false;
     }
 }

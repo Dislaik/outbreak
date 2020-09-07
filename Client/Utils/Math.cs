@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Outbreak
 {
-    class Math
+    class Utilss
     {
     }
 }

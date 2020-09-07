@@ -3,7 +3,7 @@ games { 'gta5' }
 
 author 'Dislaik'
 description 'Zombie Roleplay Framework'
-version '0.0.1'
+version '0.1.2'
 
 client_script "ZClient.net.dll"
 

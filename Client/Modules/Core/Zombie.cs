@@ -15,7 +15,6 @@ namespace Outbreak
         Config Config = new Config();
         private string PlayerGroup = "PLAYER";
         private string ZombieGroup = "ZOMBIE";
-
         public Zombie()
         {
             uint GroupHandle = 0;
@@ -55,14 +54,14 @@ namespace Outbreak
                     Vector3 PedsCoords = GetEntityCoords(PedHandle, false);
                     var Distance = GetDistanceBetweenCoords(PlayerCoords.X, PlayerCoords.Y, PlayerCoords.Z, PedsCoords.X, PedsCoords.Y, PedsCoords.Z, true);
 
-                    if (Distance <= Config.DistanceZombieGoToPlayer & !GetPedConfigFlag(PedHandle, 100, false))
+                    if (Distance <= Config.ZombieTargetToPlayer & !GetPedConfigFlag(PedHandle, 100, false))
                     {
                         SetPedConfigFlag(PedHandle, 100, true);
                         ClearPedTasks(PedHandle);
                         TaskGoToEntity(PedHandle, PlayerPedId(), -1, 0.0f, 1.0f, 1073741824, 0);
                     }
 
-                    if (Distance <= 0.8f)
+                    if (Distance <= 1.3f)
                     {
                         if (!IsPedRagdoll(PedHandle) & !IsPedGettingUp(PedHandle))
                         {
@@ -119,7 +118,7 @@ namespace Outbreak
             //ClearPedTasksImmediately(ZombiePed);
             //ClearPedSecondaryTask(ZombiePed);
             //ClearPedTasks(ZombiePed);
-            //SetPedIsDrunk(ZombiePed, true);
+            SetPedIsDrunk(ZombiePed, true); //Maybe
             SetPedConfigFlag(ZombiePed, 166, false); // Maybe dont works
             SetPedConfigFlag(ZombiePed, 170, false); // Maybe dont works
             //TaskSetBlockingOfNonTemporaryEvents(ZombiePed, true); // More tests /Maybe dont works
