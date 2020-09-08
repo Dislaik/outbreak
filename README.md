@@ -1,4 +1,4 @@
-# Zombie Outbreak V 0.1.2
+# Zombie Outbreak V 0.1.7
 Zombie Outbreak is a Zombie RolePlay Framework, you will must survive and fight against hordes of zombies to ensure your survival, help or loot other players.
 
 ![](https://i.imgur.com/FxFWHmx.png)
