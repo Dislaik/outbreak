@@ -22,11 +22,8 @@ namespace Outbreak
         private float Rest { get; set; } = 0;
         internal Dictionary<int, string> ListOfItems { get; set; } = new Dictionary<int, string>();
         internal Dictionary<int, string> ListOfDescription { get; set; } = new Dictionary<int, string>();
-
         private static List<Menu> Menus = new List<Menu>();
-
         private int OnPressed { get; set; } = 0;
-
         public delegate void ItemSelectEvent(string name, int index);
 
         protected virtual void ItemSelectedEvent(string name, int index)
@@ -35,7 +32,6 @@ namespace Outbreak
         }
 
         public event ItemSelectEvent OnItemSelect;
-
 
         public Menu(string title, string description)
         {
@@ -251,6 +247,7 @@ namespace Outbreak
                     SetTextJustification(0);
                     EndTextCommandDisplayText(TitleX + 0.77f, TitleY + 0.378f);
                 }
+
                 ResetScriptGfxAlign();
             }
 
@@ -295,7 +292,8 @@ namespace Outbreak
         {
             Menus.Add(name);
         }
-        public void Changer()
+
+        public void OpenMenu()
         {
             Visible = !Visible;
             PlaySoundFrontend(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);

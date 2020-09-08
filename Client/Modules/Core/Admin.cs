@@ -45,10 +45,9 @@ namespace Outbreak.Core
             Tick += async () =>
             {
                 MainMenu.Initiation();
-
                 if (Game.IsControlJustPressed(0, Control.InteractionMenu) && !MainMenu.IsAnyMenuOpen())
                 {
-                    MainMenu.Changer();
+                    MainMenu.OpenMenu();
                 }
 
                 await Task.FromResult(0);

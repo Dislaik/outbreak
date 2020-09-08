@@ -12,6 +12,7 @@ namespace Outbreak
     public class Environment : BaseScript
     {
         Config Config = new Config();
+        Random Random = new Random();
         private dynamic Interior = new[] {
                 new {X = 438.6989f, Y = -983.5912f, Z = 32.67834f, R = 170, G = 255, B = 200, Range = 8.0f, Intensity = 0.4f},
                 new {X = 441.9033f, Y = -976.4308f, Z = 32.67834f, R = 170, G = 255, B = 200, Range = 8.0f, Intensity = 0.4f},
@@ -23,12 +24,12 @@ namespace Outbreak
                 new {X = 446.6374f, Y = -992.9275f, Z = 32.67834f, R = 170, G = 255, B = 200, Range = 8.0f, Intensity = 0.4f},
                 new {X = 439.0417f, Y = -993.5868f, Z = 32.67834f, R = 170, G = 255, B = 200, Range = 8.0f, Intensity = 0.4f}
             };
+
         public Environment()
         {
             SetArtificialLightsState(true);
             StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE");
             SetDistantCarsEnabled(true);
-
             SetMaxWantedLevel(0);
 
             Tick += InteriorLights;
@@ -54,65 +55,46 @@ namespace Outbreak
             {
                 await Delay(10);
 
-                if (IsEntityInAir(VehicleHandle))
+                int VehicleClass = GetVehicleClass(VehicleHandle);
+
+                if (IsEntityInAir(VehicleHandle) || VehicleClass == 15 || VehicleClass == 16)
                 {
                     DeleteVehicle(ref VehicleHandle);
                 }
 
-                /*if (!IsVehicleStolen(VehicleHandle))
+                if (IsPedInVehicle(PlayerPedId(), VehicleHandle, false) && GetIsVehicleEngineRunning(VehicleHandle))
                 {
-                    //GetIsVehicleEngineRunning();
-                    //GetVehicleClass();
-                    //GetVehicleDirtLevel(VehicleHandle);
-                    //GetVehicleEngineHealth();
-                    //GetVehiclePlateType();
-                    //SetAmbientVehicleRangeMultiplierThisFrame();
-                    //SetFarDrawVehicles();
-                    //SetVehicleIsConsideredByPlayer();
-                    //IsVehicleStolen(); //SetVehicleIsStolen();
-                    //IsVehicleStopped();
-                    SetVehicleIsStolen(VehicleHandle, true);
-                    BringVehicleToHalt(VehicleHandle, 0.0f, 0, false);
-                    Debug.WriteLine($"{IsVehicleStolen(VehicleHandle)}");
 
-                    if (Config.Debug)
+                    if (GetVehicleEngineHealth(VehicleHandle) > 900)
                     {
-                        Vector3 VehiclesCoords = GetEntityCoords(VehicleHandle, false);
-                        World.DrawMarker(MarkerType.VerticalCylinder, VehiclesCoords + new Vector3(0, 0, -1), new Vector3(0, 0, 0), new Vector3(0, 0, 0), new Vector3(1f, 1f, 2f), Color.FromArgb(255, 255, 255, 255));
+                        
+                        SetVehicleEngineOn(VehicleHandle, false, true, false);
+
+                        SetVehicleEngineHealth(VehicleHandle, 700f);
                     }
-
-                }*/
-
-                //IsPedInAnyVehicle(PlayerPedId(), false)
-
-                /*if (IsVehicleSeatFree(VehicleHandle, -1))
-                {
-                    int VehicleModel = GetEntityModel(VehicleHandle);
-                    BringVehicleToHalt(VehicleHandle, 0.1f, 1, false);
-                    SetModelAsNoLongerNeeded((uint)VehicleModel);
-                    SetVehicleEngineOn(VehicleHandle, false, true, false);
                 }
                 else
                 {
-                    if (!IsVehicleStolen(VehicleHandle))
+                    BringVehicleToHalt(VehicleHandle, 0.1f, 1, false);
+
+                    if (GetVehicleEngineHealth(VehicleHandle) > 900)
                     {
-                        int VehicleNetwork = NetworkGetNetworkIdFromEntity(VehicleHandle);
-                        SetNetworkIdCanMigrate(VehicleNetwork, true);
-                        SetEntityAsMissionEntity(VehicleHandle, true, false);
-                        SetVehicleHasBeenOwnedByPlayer(VehicleHandle, true);
-                        SetVehRadioStation(VehicleHandle, "OFF");
-                        SetVehicleNeedsToBeHotwired(VehicleHandle, true);
-                        SetVehicleIsStolen(VehicleHandle, true);
-                        Debug.WriteLine("PASO");
-                    }
-                }*/
+                        if (Random.Next(0, 100) <= Config.PercentageVehiclesUndriveable)
+                        {
+                            SetVehicleEngineOn(VehicleHandle, false, true, false);
+                            SetEntityRenderScorched(VehicleHandle, true);
+                            SetVehRadioStation(VehicleHandle, "OFF");
+                            SetVehicleIsConsideredByPlayer(VehicleHandle, false);
+                        }
 
+                        SetVehicleEngineHealth(VehicleHandle, 700f);
+                    } 
+                }
 
-                    success = FindNextVehicle(Handle, ref VehicleHandle);
+                success = FindNextVehicle(Handle, ref VehicleHandle);
             } while (success);
 
             EndFindVehicle(Handle);
-
 
             await Delay(100);
         }

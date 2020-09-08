@@ -54,11 +54,15 @@ namespace Outbreak
                     Vector3 PedsCoords = GetEntityCoords(PedHandle, false);
                     var Distance = GetDistanceBetweenCoords(PlayerCoords.X, PlayerCoords.Y, PlayerCoords.Z, PedsCoords.X, PedsCoords.Y, PedsCoords.Z, true);
 
-                    if (Distance <= Config.ZombieTargetToPlayer & !GetPedConfigFlag(PedHandle, 100, false))
+                    if (Distance <= Config.DistanceZombieTargetToPlayer & !GetPedConfigFlag(PedHandle, 100, false))
                     {
                         SetPedConfigFlag(PedHandle, 100, true);
                         ClearPedTasks(PedHandle);
-                        TaskGoToEntity(PedHandle, PlayerPedId(), -1, 0.0f, 1.0f, 1073741824, 0);
+                        if (Config.ZombieCanRun)
+                        {
+                            TaskGoToEntity(PedHandle, PlayerPedId(), -1, 0.0f, 2.0f, 1073741824, 0);
+                        }
+                        else { TaskGoToEntity(PedHandle, PlayerPedId(), -1, 0.0f, 1.0f, 1073741824, 0); }
                     }
 
                     if (Distance <= 1.3f)
@@ -70,8 +74,9 @@ namespace Outbreak
                             {
                                 await Delay(1);
                             }
+
                             TaskPlayAnim(PedHandle, "melee@unarmed@streamed_core_fps", "ground_attack_0_psycho", 8.0f, 1.0f, -1, 48, 0.001f, false, false, false);
-                            ApplyDamageToPed(PlayerPedId(), 20, false);
+                            ApplyDamageToPed(PlayerPedId(), Config.ZombieDamage, false);
                         }
                     }
 
@@ -125,13 +130,6 @@ namespace Outbreak
             SetBlockingOfNonTemporaryEvents(ZombiePed, true); // Works
             SetPedCanEvasiveDive(ZombiePed, false); // Works
             RemoveAllPedWeapons(ZombiePed, true); // Works
-            //SetPedCombatAttributes(ZombiePed, 0, false); //Maybe
-            //SetPedCombatAttributes(ZombiePed, 1, false); // Maybe
-            //SetPedCombatAttributes(ZombiePed, 2, false); // Maybe
-            //SetPedCombatAttributes(ZombiePed, 0, false); // Maybe
-            //SetPedCombatAttributes(ZombiePed, 1, false); // Maybe
-            //SetPedCombatAttributes(ZombiePed, 2, false); // Maybe
-            //SetPedCombatAttributes(ZombiePed, 20, false); // Maybe
         }
 
     }
