@@ -18,7 +18,7 @@ namespace Outbreak
         private void Init()
         {
             Debug.WriteLine("");
-            Debug.WriteLine("^1[Outbreak]^7 https://github.com/dislaik/outbreak - Version 0.0.1");
+            Debug.WriteLine("^1[Outbreak]^7 https://github.com/dislaik/outbreak - Version 0.1.7");
             Debug.WriteLine("^1[Outbreak]^7 Zombie Outbreak Ready!");
             Debug.WriteLine("");
         }
