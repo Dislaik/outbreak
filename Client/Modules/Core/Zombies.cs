@@ -39,10 +39,12 @@ namespace Outbreak
                 {
                     if (GetRelationshipBetweenPeds(PedHandle, PlayerPedId()) != 0)
                     {
+                        ClearPedTasks(PedHandle);
                         TaskWanderStandard(PedHandle, 10.0f, 10);
                         SetPedRelationshipGroupHash(PedHandle, (uint)GetHashKey(ZombieGroup));
                         ApplyPedDamagePack(PedHandle, "BigHitByVehicle", 0.0f, 9.0f);
                         SetPedConfigFlag(PedHandle, 100, false);
+                        SetEntityHealth(PedHandle, 500);
 
                         if (IsPedInAnyVehicle(PedHandle, false))
                         {
@@ -67,16 +69,26 @@ namespace Outbreak
 
                     if (Distance <= 1.3f)
                     {
-                        if (!IsPedRagdoll(PedHandle) & !IsPedGettingUp(PedHandle))
+                        Debug.WriteLine($"{GetEntityHealth(PlayerPedId())}");
+                        
+                        if (!IsPedRagdoll(PedHandle) && !IsPedGettingUp(PedHandle))
                         {
-                            RequestAnimSet("melee@unarmed@streamed_core_fps");
-                            while (!HasAnimSetLoaded("melee@unarmed@streamed_core_fps"))
+                            if (GetEntityHealth(PlayerPedId()) == 0)
                             {
-                                await Delay(1);
+                                ClearPedTasks(PedHandle);
+                                TaskWanderStandard(PedHandle, 10.0f, 10);
                             }
+                            else
+                            {
+                                RequestAnimSet("melee@unarmed@streamed_core_fps");
+                                while (!HasAnimSetLoaded("melee@unarmed@streamed_core_fps"))
+                                {
+                                    await Delay(1);
+                                }
 
-                            TaskPlayAnim(PedHandle, "melee@unarmed@streamed_core_fps", "ground_attack_0_psycho", 8.0f, 1.0f, -1, 48, 0.001f, false, false, false);
-                            ApplyDamageToPed(PlayerPedId(), Config.ZombieDamage, false);
+                                TaskPlayAnim(PedHandle, "melee@unarmed@streamed_core_fps", "ground_attack_0_psycho", 8.0f, 1.0f, -1, 48, 0.001f, false, false, false);
+                                ApplyDamageToPed(PlayerPedId(), Config.ZombieDamage, false);
+                            }
                         }
                     }
 
@@ -119,6 +131,7 @@ namespace Outbreak
             StopPedSpeaking(ZombiePed, true); // Works
             SetPedDiesWhenInjured(ZombiePed, false); // Works
             StopPedRingtone(ZombiePed); //Maybe dont works
+            //SetPedMaxHealth(ZombiePed, 1000);
             //SetPedMute(ZombiePed); // test
             //ClearPedTasksImmediately(ZombiePed);
             //ClearPedSecondaryTask(ZombiePed);
