@@ -68,7 +68,7 @@
     <Compile Include="Config\Config.cs" />
     <Compile Include="Modules\Core\Admin.cs" />
     <Compile Include="Modules\Core\Environment.cs" />
-    <Compile Include="Modules\Core\Player.cs" />
+    <Compile Include="Modules\Core\Players.cs" />
     <Compile Include="Modules\Core\Zombie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Menu.cs" />

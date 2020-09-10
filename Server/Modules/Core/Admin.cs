@@ -9,7 +9,7 @@ using static CitizenFX.Core.Native.API;
 
 namespace Outbreak
 {
-    class Admin : BaseScript
+    class Admin
     {
 
         public Admin()
