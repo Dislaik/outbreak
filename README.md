@@ -14,6 +14,12 @@ Zombie Outbreak is a Zombie RolePlay Framework, you will must survive and fight 
 2. Put `outbreak` folder in your folder resources
 3. Add the resource in your `server.cfg`
 ```cfg
+ensure mapmanager
+ensure chat
+ensure spawnmanager
+ensure sessionmanager
+ensure fivem
+ensure rconlog
 ensure outbreak
 ```
 
