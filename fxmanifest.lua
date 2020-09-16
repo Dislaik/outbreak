@@ -2,8 +2,8 @@ fx_version 'adamant'
 games { 'gta5' }
 
 author 'Dislaik'
-description 'Zombie Roleplay Framework'
-version '0.1.9'
+description 'Zombie Survival RPG Framework'
+version '0.2.5'
 
 client_script "ZClient.net.dll"
 

@@ -9,17 +9,17 @@ using static CitizenFX.Core.Native.API;
 
 namespace Outbreak.Core
 {
-    public class Admin : BaseScript
+    public class Panel : BaseScript
     {
 
-        public Admin()
+        public Panel()
         {
             Menu MainMenu = new Menu("Admin Menu", "Manage the server")
             {
                 TitleFont = 2,
                 HeaderColor = new int[] { 199, 0, 57, 255 }
             };
-
+ 
             MainMenu.Register(MainMenu);
             MainMenu.AddItem("Get Coords", "Prints on the screen your own coords.");
             MainMenu.AddItem("TP Marker", "Teleport to the marker.");
@@ -45,13 +45,16 @@ namespace Outbreak.Core
             Tick += async () =>
             {
                 MainMenu.Initiation();
+
                 if (Game.IsControlJustPressed(0, Control.InteractionMenu) && !MainMenu.IsAnyMenuOpen())
                 {
-                    MainMenu.OpenMenu();
+                    MainMenu.InteractMenu();
                 }
 
                 await Task.FromResult(0);
             };
+
+            Testcommand();
 
         }
 
@@ -98,6 +101,17 @@ namespace Outbreak.Core
         private void GiveWeapon()
         {
             GiveWeaponToPed(PlayerPedId(), (uint)GetHashKey("WEAPON_PISTOL"), 250, false, true);
+        }
+
+        private void Testcommand()
+        {
+            RegisterCommand("test", new Action<int, List<object>, string>((source, args, raw) =>
+            {
+                // TODO
+
+            }), false);
+
+            
         }
     }
 }

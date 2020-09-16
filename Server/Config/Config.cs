@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Outbreak
 {
-    class Config
+    public class Config
     {
-        public string PlayerIdentifier = "steam";
+        public static string PlayerIdentifier = "steam"; // [WARNING] Don't change this if your server already have players with a identifier
     }
 }

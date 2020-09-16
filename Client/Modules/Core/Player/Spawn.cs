@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 using CitizenFX.Core;
 using static CitizenFX.Core.Native.API;
 
-namespace Outbreak.Core
+namespace Outbreak.Core.Player
 {
-    class Players : BaseScript
+    class Spawn : BaseScript
     {
-        Config Config = new Config();
-        public Players()
+        public Spawn()
         {
             Exports["spawnmanager"].spawnPlayer(SpawnPosition());
-            Exports["spawnmanager"].setAutoSpawn(false);
         }
 
         public dynamic SpawnPosition()
@@ -24,8 +22,8 @@ namespace Outbreak.Core
             obj.x = Config.PlayerSpawn.X;
             obj.y = Config.PlayerSpawn.Y;
             obj.z = Config.PlayerSpawn.Z;
-            obj.heading = 0f;
-            obj.model = "s_m_y_marine_01";
+            obj.heading = Config.PlayerSpawn.Heading;
+            obj.model = "mp_m_freemode_01";
             return obj;
         }
     }

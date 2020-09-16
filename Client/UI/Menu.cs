@@ -9,12 +9,13 @@ using static CitizenFX.Core.Native.API;
 
 namespace Outbreak
 {
-    class Menu : BaseScript
+    public class Menu
     {
         public string Title { get; set; }
         public string Description { get; set; }
         public int[] HeaderColor { get; set; } = new int[] { 16, 72, 144, 255 };
-        public bool Visible { get; set; } = false;
+        public bool CanExit { get; set; } = true;
+        private bool Visible { get; set; } = true;
         public int Index { get; set; } = 1;
         public int TitleFont { get; set; } = 1;
         public int DescriptionFont { get; set; } = 0;
@@ -22,7 +23,7 @@ namespace Outbreak
         private float Rest { get; set; } = 0;
         internal Dictionary<int, string> ListOfItems { get; set; } = new Dictionary<int, string>();
         internal Dictionary<int, string> ListOfDescription { get; set; } = new Dictionary<int, string>();
-        private static List<Menu> Menus = new List<Menu>();
+        private static List<Menu> Menus { get; set; } = new List<Menu>();
         private int OnPressed { get; set; } = 0;
         public delegate void ItemSelectEvent(string name, int index);
 
@@ -84,7 +85,7 @@ namespace Outbreak
                         }
                     }
 
-                    OnPressed = 5;
+                    OnPressed = 2;
                 }
             }
             else if (Game.IsControlPressed(0, Control.PhoneDown))
@@ -104,7 +105,7 @@ namespace Outbreak
                         }
                     }
 
-                    OnPressed = 5;
+                    OnPressed = 2;
                 }
             }
             else if (Game.IsControlJustPressed(0, Control.FrontendRdown))
@@ -114,8 +115,11 @@ namespace Outbreak
             }
             else if (Game.IsControlJustPressed(0, Control.FrontendRdown) || Game.IsControlJustPressed(0, Control.FrontendCancel))
             {
-                Visible = false;
-                PlaySoundFrontend(-1, "BACK", "HUD_FRONTEND_DEFAULT_SOUNDSET", false); //EXIT //	QUIT //CANCEL
+                if (CanExit)
+                {
+                    Visible = false;
+                    PlaySoundFrontend(-1, "BACK", "HUD_FRONTEND_DEFAULT_SOUNDSET", false); //EXIT //	QUIT //CANCEL
+                }
             }
             else
             {
@@ -295,8 +299,21 @@ namespace Outbreak
 
         public void OpenMenu()
         {
+            Visible = true;
+        }
+
+        public void ClosedMenu()
+        {
+            Visible = false;
+        }
+
+        public void InteractMenu()
+        {
             Visible = !Visible;
-            PlaySoundFrontend(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
+            if(Visible)
+            {
+                PlaySoundFrontend(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
+            }
         }
     }
 }

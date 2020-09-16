@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 using CitizenFX.Core;
 using static CitizenFX.Core.Native.API;
 
-namespace Outbreak
+namespace Outbreak.Core
 {
     class Admin
     {
 
         public Admin()
         {
-
+            
         }
     }
 }

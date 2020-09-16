@@ -24,3 +24,13 @@ C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\Debug\CitizenFX.Co
 C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\Debug\CitizenFX.Core.xml
 C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\Debug\MsgPack.xml
 C:\Users\Dislaik\Desktop\server\resources\outbreak\server\obj\Debug\Server.csproj.CopyComplete
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\Debug\MySqlConnector.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\Debug\System.Buffers.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\Debug\System.Memory.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\Debug\MySqlConnector.xml
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\Debug\System.Buffers.xml
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\Debug\System.Memory.xml
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\bin\Debug\System.Threading.Tasks.Extensions.xml

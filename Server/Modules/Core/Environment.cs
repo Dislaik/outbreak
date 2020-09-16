@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 using CitizenFX.Core;
 using static CitizenFX.Core.Native.API;
 
-namespace server.Modules.Core
+namespace Outbreak.Core
 {
     class Environment : BaseScript
     {
         private Environment()
         {
             SetMapName("Los Santos and Blaine");
-            SetGameType("Zombie Roleplay");
+            SetGameType("Zombie Survival RPG");
+
         }
     }
 }

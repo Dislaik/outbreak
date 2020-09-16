@@ -10,12 +10,11 @@ using static CitizenFX.Core.Native.API;
 
 namespace Outbreak
 {
-    class Zombie : BaseScript
+    class Zombies : BaseScript
     {
-        Config Config = new Config();
-        private string PlayerGroup = "PLAYER";
-        private string ZombieGroup = "ZOMBIE";
-        public Zombie()
+        private string PlayerGroup { get; } = "PLAYER";
+        private string ZombieGroup { get; } = "ZOMBIE";
+        public Zombies()
         {
             uint GroupHandle = 0;
             AddRelationshipGroup(ZombieGroup, ref GroupHandle);
@@ -35,16 +34,18 @@ namespace Outbreak
             {
                 await Delay(10);
 
-                if (IsPedHuman(PedHandle) & !IsPedAPlayer(PedHandle) & !IsPedDeadOrDying(PedHandle, true))
+                if (IsPedHuman(PedHandle) && !IsPedAPlayer(PedHandle) && !IsPedDeadOrDying(PedHandle, true))
                 {
                     if (GetRelationshipBetweenPeds(PedHandle, PlayerPedId()) != 0)
                     {
                         ClearPedTasks(PedHandle);
+                        ClearPedSecondaryTask(PedHandle);
+                        ClearPedTasksImmediately(PedHandle);
                         TaskWanderStandard(PedHandle, 10.0f, 10);
                         SetPedRelationshipGroupHash(PedHandle, (uint)GetHashKey(ZombieGroup));
                         ApplyPedDamagePack(PedHandle, "BigHitByVehicle", 0.0f, 9.0f);
+                        SetEntityHealth(PedHandle, Config.ZombieHealth);
                         SetPedConfigFlag(PedHandle, 100, false);
-                        SetEntityHealth(PedHandle, 500);
 
                         if (IsPedInAnyVehicle(PedHandle, false))
                         {
@@ -54,9 +55,9 @@ namespace Outbreak
 
                     Vector3 PlayerCoords = GetEntityCoords(PlayerPedId(), false);
                     Vector3 PedsCoords = GetEntityCoords(PedHandle, false);
-                    var Distance = GetDistanceBetweenCoords(PlayerCoords.X, PlayerCoords.Y, PlayerCoords.Z, PedsCoords.X, PedsCoords.Y, PedsCoords.Z, true);
+                    float Distance = GetDistanceBetweenCoords(PlayerCoords.X, PlayerCoords.Y, PlayerCoords.Z, PedsCoords.X, PedsCoords.Y, PedsCoords.Z, true);
 
-                    if (Distance <= Config.DistanceZombieTargetToPlayer & !GetPedConfigFlag(PedHandle, 100, false))
+                    if (Distance <= Config.DistanceZombieTargetToPlayer && !GetPedConfigFlag(PedHandle, 100, false) && GetEntityHealth(PlayerPedId()) != 0)
                     {
                         SetPedConfigFlag(PedHandle, 100, true);
                         ClearPedTasks(PedHandle);
@@ -68,15 +69,14 @@ namespace Outbreak
                     }
 
                     if (Distance <= 1.3f)
-                    {
-                        Debug.WriteLine($"{GetEntityHealth(PlayerPedId())}");
-                        
+                    {                        
                         if (!IsPedRagdoll(PedHandle) && !IsPedGettingUp(PedHandle))
                         {
                             if (GetEntityHealth(PlayerPedId()) == 0)
                             {
                                 ClearPedTasks(PedHandle);
                                 TaskWanderStandard(PedHandle, 10.0f, 10);
+                                SetPedConfigFlag(PedHandle, 100, false);
                             }
                             else
                             {
@@ -123,23 +123,18 @@ namespace Outbreak
         
         private void ZombiePedAttributes(int ZombiePed)
         {
-            SetPedRagdollBlockingFlags(ZombiePed, 1); //Works
+            if (!Config.ZombieCanRagdollByShots) { SetPedRagdollBlockingFlags(ZombiePed, 1); }
             SetPedCanRagdollFromPlayerImpact(ZombiePed, false); // Works
-            SetPedSuffersCriticalHits(ZombiePed, false); //Works
+            SetPedSuffersCriticalHits(ZombiePed, Config.ZombieInstantDeathByHeadshot); //Works
             SetPedEnableWeaponBlocking(ZombiePed, true); //Works
             DisablePedPainAudio(ZombiePed, true); //Works
             StopPedSpeaking(ZombiePed, true); // Works
             SetPedDiesWhenInjured(ZombiePed, false); // Works
             StopPedRingtone(ZombiePed); //Maybe dont works
-            //SetPedMaxHealth(ZombiePed, 1000);
-            //SetPedMute(ZombiePed); // test
-            //ClearPedTasksImmediately(ZombiePed);
-            //ClearPedSecondaryTask(ZombiePed);
-            //ClearPedTasks(ZombiePed);
+            SetPedMute(ZombiePed); // Works
             SetPedIsDrunk(ZombiePed, true); //Maybe
             SetPedConfigFlag(ZombiePed, 166, false); // Maybe dont works
             SetPedConfigFlag(ZombiePed, 170, false); // Maybe dont works
-            //TaskSetBlockingOfNonTemporaryEvents(ZombiePed, true); // More tests /Maybe dont works
             SetBlockingOfNonTemporaryEvents(ZombiePed, true); // Works
             SetPedCanEvasiveDive(ZombiePed, false); // Works
             RemoveAllPedWeapons(ZombiePed, true); // Works

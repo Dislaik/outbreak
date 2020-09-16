@@ -12,16 +12,15 @@ namespace Outbreak
     {
         public Main()
         {
-            EventHandlers["onResourceStarting"] += new Action(Init);
+            EventHandlers["onResourceStarting"] += new Action(OnResourceStarting);
         }
 
-        private void Init()
+        public void OnResourceStarting()
         {
             Debug.WriteLine("");
-            Debug.WriteLine("^1[Outbreak]^7 https://github.com/dislaik/outbreak - Version 0.1.9");
+            Debug.WriteLine("^1[Outbreak]^7 https://github.com/dislaik/outbreak - Version 0.2.5");
             Debug.WriteLine("^1[Outbreak]^7 Zombie Outbreak Ready!");
             Debug.WriteLine("");
         }
-
     }
 }
