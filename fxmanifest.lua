@@ -5,6 +5,6 @@ author 'Dislaik'
 description 'Zombie Survival RPG Framework'
 version '0.2.5'
 
-client_script "ZClient.net.dll"
+client_script "Client/Release/Outbreak.Client.net.dll"
 
-server_script "ZServer.net.dll"
+server_script "Server/Release/Outbreak.Server.net.dll"

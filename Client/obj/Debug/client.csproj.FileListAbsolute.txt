@@ -15,8 +15,6 @@ C:\Users\Dislaik\Desktop\server\resources\z_framework\client\obj\Debug\ZClient.n
 C:\Users\Dislaik\Desktop\server\resources\outbreak\client\bin\Debug\ZClient.net.dll
 C:\Users\Dislaik\Desktop\server\resources\outbreak\client\bin\Debug\ZClient.net.pdb
 C:\Users\Dislaik\Desktop\server\resources\outbreak\client\obj\Debug\Client.csproj.CoreCompileInputs.cache
-C:\Users\Dislaik\Desktop\server\resources\outbreak\client\obj\Debug\ZClient.net.dll
-C:\Users\Dislaik\Desktop\server\resources\outbreak\client\obj\Debug\ZClient.net.pdb
 C:\Users\Dislaik\Desktop\server\resources\outbreak\client\bin\Debug\CitizenFX.Core.dll
 C:\Users\Dislaik\Desktop\server\resources\outbreak\client\bin\Debug\System.Reflection.Metadata.dll
 C:\Users\Dislaik\Desktop\server\resources\outbreak\client\bin\Debug\System.Collections.Immutable.dll
@@ -26,3 +24,14 @@ C:\Users\Dislaik\Desktop\server\resources\outbreak\client\bin\Debug\CitizenFX.Co
 C:\Users\Dislaik\Desktop\server\resources\outbreak\client\bin\Debug\MsgPack.xml
 C:\Users\Dislaik\Desktop\server\resources\outbreak\client\obj\Debug\Client.csproj.CopyComplete
 C:\Users\Dislaik\Desktop\server\resources\outbreak\client\obj\Debug\Client.csprojAssemblyReference.cache
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\CitizenFX.Core.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\System.Reflection.Metadata.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\System.Collections.Immutable.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\MsgPack.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\CitizenFX.Core.pdb
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\CitizenFX.Core.xml
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\MsgPack.xml
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\Outbreak.Client.net.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\Outbreak.Client.net.pdb
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\obj\Debug\Outbreak.Client.net.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\obj\Debug\Outbreak.Client.net.pdb

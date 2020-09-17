@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "THEatqLqAli933b2+mOWvDjva5/TIekZyKnWy5A37SFqx8LJM47RR3t+D41qpXDqOrfCSG3WrwPlGY/xEM+E6g==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Dislaik\\Desktop\\server\\resources\\outbreak\\server\\Server.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Dislaik\\.nuget\\packages\\mysqlconnector\\1.0.1\\mysqlconnector.1.0.1.nupkg.sha512",
+    "C:\\Users\\Dislaik\\.nuget\\packages\\system.buffers\\4.4.0\\system.buffers.4.4.0.nupkg.sha512",
+    "C:\\Users\\Dislaik\\.nuget\\packages\\system.memory\\4.5.0\\system.memory.4.5.0.nupkg.sha512",
+    "C:\\Users\\Dislaik\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.0\\system.runtime.compilerservices.unsafe.4.5.0.nupkg.sha512",
+    "C:\\Users\\Dislaik\\.nuget\\packages\\system.threading.tasks.extensions\\4.3.0\\system.threading.tasks.extensions.4.3.0.nupkg.sha512"
+  ],
+  "logs": []
+}
