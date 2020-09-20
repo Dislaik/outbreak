@@ -14,6 +14,7 @@ namespace Outbreak.Core.Player
         public Spawn()
         {
             Exports["spawnmanager"].spawnPlayer(SpawnPosition());
+            Skin.DefaultCharacterComponents("Male");
         }
 
         public dynamic SpawnPosition()
