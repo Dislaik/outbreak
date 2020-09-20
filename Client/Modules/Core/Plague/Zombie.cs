@@ -10,11 +10,11 @@ using static CitizenFX.Core.Native.API;
 
 namespace Outbreak
 {
-    class Zombies : BaseScript
+    class Zombie : BaseScript
     {
         private string PlayerGroup { get; } = "PLAYER";
         private string ZombieGroup { get; } = "ZOMBIE";
-        public Zombies()
+        public Zombie()
         {
             uint GroupHandle = 0;
             AddRelationshipGroup(ZombieGroup, ref GroupHandle);
@@ -57,7 +57,7 @@ namespace Outbreak
                     Vector3 PedsCoords = GetEntityCoords(PedHandle, false);
                     float Distance = GetDistanceBetweenCoords(PlayerCoords.X, PlayerCoords.Y, PlayerCoords.Z, PedsCoords.X, PedsCoords.Y, PedsCoords.Z, true);
 
-                    if (Distance <= Config.DistanceZombieTargetToPlayer && !GetPedConfigFlag(PedHandle, 100, false) && GetEntityHealth(PlayerPedId()) != 0)
+                    if (Distance <= Config.ZombieDistanceTargetToPlayer && !GetPedConfigFlag(PedHandle, 100, false) && GetEntityHealth(PlayerPedId()) != 0)
                     {
                         SetPedConfigFlag(PedHandle, 100, true);
                         ClearPedTasks(PedHandle);
