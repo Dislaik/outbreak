@@ -73,12 +73,13 @@
     <Compile Include="Modules\Core\Environment\Interiorlights.cs" />
     <Compile Include="Modules\Core\Player\Skin.cs" />
     <Compile Include="Modules\Core\Player\Spawn.cs" />
-    <Compile Include="Modules\Core\Zombie\Zombies.cs" />
+    <Compile Include="Modules\Core\Plague\Zombie.cs" />
     <Compile Include="Modules\Core\Environment\Zones.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Menu.cs" />
     <Compile Include="Utils\Game.cs" />
     <Compile Include="Utils\Math.cs" />
+    <Compile Include="Utils\String.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Boot\" />
