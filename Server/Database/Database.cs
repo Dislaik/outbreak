@@ -10,20 +10,16 @@ namespace Outbreak
 {
     public class Database
     {
-        private const string HOST = "127.0.0.1";
-        private const string USER = "root";
-        private const string PASSWORD = "";
-        private const string DATABASE = "outbreak";
         public static MySqlConnection Connection;
 
         public static void Initialize()
         {
             MySqlConnectionStringBuilder Builder = new MySqlConnectionStringBuilder
             {
-                Server = HOST,
-                UserID = USER,
-                Password = PASSWORD,
-                Database = DATABASE
+                Server = Config.Host,
+                UserID = Config.User,
+                Password = Config.Password,
+                Database = Config.Database
             };
 
             Connection = new MySqlConnection(Builder.ToString());
