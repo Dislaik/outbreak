@@ -18,7 +18,7 @@ namespace Outbreak.Core.Players
 
             EventHandlers["playerConnecting"] += new Action<Player, string, dynamic, dynamic>(OnPlayerConnecting);
             EventHandlers["Outbreak.Core.Player:InitPlayerRegister"] += new Action<Player>(OnPlayerRegister);
-            EventHandlers["Outbreak.Core.Player:SetPlayerGender"] += new Action<Player, string>(OnSetPlayerGender);
+            EventHandlers["Outbreak.Core.Player:SetPlayerGender"] += new Action<Player, string, string, string>(OnSetPlayerGender);
         }
 
         private async void OnPlayerConnecting([FromSource] Player source, string playerName, dynamic setKickReason, dynamic deferrals)
@@ -87,10 +87,11 @@ namespace Outbreak.Core.Players
             else { TriggerClientEvent(source, "Outbreak.Core.Player:PlayerAlreadyRegistered", GetPlayerGender(Identifier)); }
 
         }
-        public void OnSetPlayerGender([FromSource] Player source, string gender)
+        public void OnSetPlayerGender([FromSource] Player source, string name, string age, string gender)
         {
+            Convert.ToInt32(age);
             string Identifier = source.Identifiers[Config.PlayerIdentifier];
-            Database.ExecuteUpdateQuery($"UPDATE users SET Sex = '{gender}' WHERE Identifier = '{Identifier}'");
+            Database.ExecuteUpdateQuery($"UPDATE users SET Name = '{name}', Age = '{age}', Sex = '{gender}' WHERE Identifier = '{Identifier}'");
         }
     }
 }
