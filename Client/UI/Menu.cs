@@ -17,22 +17,46 @@ namespace Outbreak
         public bool CanExit { get; set; } = true;
         private bool Visible { get; set; } = true;
         public int Index { get; set; } = 1;
+        public int IndexList { get; set; } = 1;
         public int TitleFont { get; set; } = 1;
         public int DescriptionFont { get; set; } = 0;
         private int Select { get; set; } = 1;
+        private List<int> Sideway { get; set; } = new List<int>();
         private float Rest { get; set; } = 0;
-        internal Dictionary<int, string> ListOfItems { get; set; } = new Dictionary<int, string>();
+        public Dictionary<int, string> ListOfItems { get; set; } = new Dictionary<int, string>();
+        internal List<int> ListOfItemList { get; set; } = new List<int>();
+        private List<Dictionary<int, string>> ListDictionaryItemList = new List<Dictionary<int, string>>();
         internal Dictionary<int, string> ListOfDescription { get; set; } = new Dictionary<int, string>();
         private static List<Menu> Menus { get; set; } = new List<Menu>();
         private int OnPressed { get; set; } = 0;
+
         public delegate void ItemSelectEvent(string name, int index);
 
         protected virtual void ItemSelectedEvent(string name, int index)
         {
-            OnItemSelect.Invoke(name, index);
+            OnItemSelect?.Invoke(name, index);
         }
 
         public event ItemSelectEvent OnItemSelect;
+
+        public delegate void ItemListSelectEvent(string name, int index, string namelist, int indexlist);
+
+        protected virtual void ItemListSelectedEvent(string name, int index, string namelist, int indexlist)
+        {
+            OnItemListSelect?.Invoke(name, index, namelist, indexlist);
+        }
+
+        public event ItemListSelectEvent OnItemListSelect;
+
+        public delegate void ItemListSelectSidesEvent(string name, int index, string namelist, int indexlist);
+
+        protected virtual void ItemListSidesSelectedEvent(string name, int index, string namelist, int indexlist)
+        {
+            OnItemListSelectSides?.Invoke(name, index, namelist, indexlist);
+        }
+
+        public event ItemListSelectSidesEvent OnItemListSelectSides;
+
 
         public Menu(string title, string description)
         {
@@ -44,6 +68,26 @@ namespace Outbreak
         {
             ListOfItems.Add(Index, item);
             ListOfDescription.Add(Index, description);
+            Index += 1;
+        }
+
+        public void AddItemList(string item, string description, List<string> Test)
+        {
+            ListOfItems.Add(Index, item);
+            ListOfDescription.Add(Index, description);
+
+            var TestDictonary = new Dictionary<int, string>();
+
+            foreach (string i in Test)
+            {
+                TestDictonary.Add(IndexList, i);
+                IndexList += 1;
+            }
+            IndexList = 1;
+            ListDictionaryItemList.Add(TestDictonary);
+            ListOfItemList.Add(Index);
+            Sideway.Add(1);
+
             Index += 1;
         }
 
@@ -79,6 +123,17 @@ namespace Outbreak
                         Select -= 1;
                         PlaySoundFrontend(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
 
+                        for (int i = 0; i < ListOfItemList.Count; i++)
+                        {
+                            for (int j = 0; j < Sideway.Count; j++)
+                            {
+                                if (Select == ListOfItemList[i] && i == j)
+                                {
+                                    ItemListSidesSelectedEvent(ListOfItems[Select], Select, ListDictionaryItemList[i].ElementAt(Sideway[j] - 1).Value, Sideway[j]);
+                                }
+                            }
+                        }
+
                         if (Rest > 0f)
                         {
                             Rest -= 1f;
@@ -90,14 +145,27 @@ namespace Outbreak
             }
             else if (Game.IsControlPressed(0, Control.PhoneDown))
             {
+
                 OnPressed += 1;
 
                 if (OnPressed == 1 ||  OnPressed == 13)
                 {
                     if (Select < Index - 1)
                     {
+
                         Select += 1;
                         PlaySoundFrontend(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false); //NAV_UP_DOWN
+
+                        for (int i = 0; i < ListOfItemList.Count; i++)
+                        {
+                            for (int j = 0; j < Sideway.Count; j++)
+                            {
+                                if (Select == ListOfItemList[i] && i == j)
+                                {
+                                    ItemListSidesSelectedEvent(ListOfItems[Select], Select, ListDictionaryItemList[i].ElementAt(Sideway[j] - 1).Value, Sideway[j]);
+                                }
+                            }
+                        }
 
                         if (Select > 8)
                         {
@@ -108,9 +176,59 @@ namespace Outbreak
                     OnPressed = 2;
                 }
             }
+            else if (Game.IsControlJustPressed(0, Control.PhoneLeft))
+            {
+                for (int i = 0; i < ListOfItemList.Count; i++)
+                {
+                    for (int j = 0; j < Sideway.Count; j++)
+                    {
+                        if (Select == ListOfItemList[i] && i == j)
+                        {
+                            if (Sideway[j] > 1)
+                            {
+                                Sideway[j] -= 1;
+                                PlaySoundFrontend(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
+
+                                ItemListSidesSelectedEvent(ListOfItems[Select], Select, ListDictionaryItemList[i].ElementAt(Sideway[j] - 1).Value, Sideway[j]);
+                            }
+                        }
+                    }
+                }
+            }
+            else if (Game.IsControlJustPressed(0, Control.PhoneRight))
+            {
+                for (int i = 0; i < ListOfItemList.Count; i++)
+                {
+                    for (int j = 0; j < Sideway.Count; j++)
+                    {
+                        if (Select == ListOfItemList[i] && i == j)
+                        {
+
+                            if (Sideway[j] < ListDictionaryItemList[i].Keys.Last()) 
+                            {
+                                Sideway[j] += 1;
+                                PlaySoundFrontend(-1, "SELECT", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
+
+                                ItemListSidesSelectedEvent(ListOfItems[Select], Select, ListDictionaryItemList[i].ElementAt(Sideway[j] - 1).Value, Sideway[j]);
+                            }
+                        }
+                    }
+                }
+            }
             else if (Game.IsControlJustPressed(0, Control.FrontendRdown))
             {
                 ItemSelectedEvent(ListOfItems[Select], Select);
+                for (int i = 0; i < ListOfItemList.Count; i++)
+                {
+                    for (int j = 0; j < Sideway.Count; j++)
+                    {
+                        if (Select == ListOfItemList[i] && i == j)
+                        {
+                            ItemListSelectedEvent(ListOfItems[Select], Select, ListDictionaryItemList[i].ElementAt(Sideway[j] - 1).Value, Sideway[j]);
+                        }
+                    }
+                }
+
                 PlaySoundFrontend(-1, "OK", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
             }
             else if (Game.IsControlJustPressed(0, Control.FrontendRdown) || Game.IsControlJustPressed(0, Control.FrontendCancel))
@@ -118,7 +236,7 @@ namespace Outbreak
                 if (CanExit)
                 {
                     Visible = false;
-                    PlaySoundFrontend(-1, "BACK", "HUD_FRONTEND_DEFAULT_SOUNDSET", false); //EXIT //	QUIT //CANCEL
+                    PlaySoundFrontend(-1, "BACK", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
                 }
             }
             else
@@ -129,9 +247,9 @@ namespace Outbreak
 
         public void Interface()
         {
-            float TitleX = 0.11f;
+            float TitleX = 0.12f;
             float TitleY = 0.06f;
-            float TitleWidth = 0.23f;
+            float TitleWidth = 0.231f;
             float TitleHeight = 0.1f;
 
             //////////////////// Header ////////////////////
@@ -179,10 +297,43 @@ namespace Outbreak
             SetScriptGfxAlign(82, 84);
             SetScriptGfxAlignParams(0f, 0f, 0f, 0f);
 
+            for (int i = 0; i < ListOfItemList.Count; i++)
+            {
+                for (int j = 0; j < Sideway.Count; j++)
+                {
+                    if (Select == ListOfItemList[i] && i == j)
+                    {
+                        BeginTextCommandDisplayText("STRING");
+                        SetTextFont(0);
+                        SetTextScale(0.3f, 0.3f);
+                        SetTextJustification(2);
+                        AddTextComponentSubstringPlayerName($"~u~← {ListDictionaryItemList[i].ElementAt(Sideway[j]-1).Value} → ");
+                        if (Select > 8)
+                        {
+                            EndTextCommandDisplayText(500f, (TitleY + 0.052f) + (0.0357f * (ListOfItemList[i] - Rest)));
+                        }
+                        else 
+                        {
+                            EndTextCommandDisplayText(500f, (TitleY + 0.052f) + (0.0357f * ListOfItemList[i]));
+                        }
+                    }
+                    else if (ListOfItemList[i] - Rest > 0 && i == j && ListOfItemList[i] - Rest <= 8)
+                    {
+                        BeginTextCommandDisplayText("STRING");
+                        SetTextFont(0);
+                        SetTextScale(0.3f, 0.3f);
+                        SetTextJustification(2);
+                        AddTextComponentSubstringPlayerName($"← {ListDictionaryItemList[i].ElementAt(Sideway[j] - 1).Value} → ");
+                        EndTextCommandDisplayText(500f, (TitleY + 0.052f) + (0.0357f * (ListOfItemList[i] - Rest)));
+                    }
+                }
+            }
+
             for (float i = 1; i <= (Index-1); i++)
             {
                 if (Select == i)
                 {
+
                     BeginTextCommandDisplayText("STRING");
                     SetTextFont(0);
                     SetTextScale(0.35f, 0.35f);
@@ -193,6 +344,7 @@ namespace Outbreak
                     {
                         DrawRect(TitleX, (TitleY + 0.066f) + (0.0357f * (i - Rest)), TitleWidth, TitleHeight / 2.8f, 255, 255, 255, 180);
                         EndTextCommandDisplayText(TitleX + 0.658f, (TitleY + 0.052f) + (0.0357f * (i - Rest)));
+
                     }
                     else
                     {
@@ -223,13 +375,13 @@ namespace Outbreak
 
             //////////////////// Indicator ////////////////////
 
-            if (Index > 7)
+            if (Index > 8)
             {
                 SetScriptGfxAlign(82, 84);
                 SetScriptGfxAlignParams(0f, 0f, 0f, 0f);
                 DrawRect(TitleX, TitleY + 0.39f, TitleWidth, 0.03f, 0, 0, 0, 200);
 
-                if (Select > 8)
+                if (Select > 9)
                 {
                     BeginTextCommandDisplayText("STRING");
                     AddTextComponentSubstringPlayerName("↑");
