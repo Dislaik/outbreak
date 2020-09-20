@@ -11,7 +11,6 @@ namespace Outbreak.Core
 {
     public class Panel : BaseScript
     {
-
         public Panel()
         {
             Menu MainMenu = new Menu("Admin Menu", "Manage the server")
@@ -23,7 +22,15 @@ namespace Outbreak.Core
             MainMenu.Register(MainMenu);
             MainMenu.AddItem("Get Coords", "Prints on the screen your own coords.");
             MainMenu.AddItem("TP Marker", "Teleport to the marker.");
-            MainMenu.AddItem("Get a pistol", "Get a simple weapon.");
+
+            List<string> What = new List<string>
+            {
+                "WEAPON_PISTOL",
+                "WEAPON_ASSAULTRIFLE",
+                "WEAPON_BAT"
+            };
+            MainMenu.AddItemList("Get Weapon", "Get a weapon.", What);
+
 
             MainMenu.OnItemSelect += (name, index) =>
             {
@@ -35,10 +42,18 @@ namespace Outbreak.Core
                 {
                     TPMarker();
                 }
-                else if (index == 3)
+            };
+
+            MainMenu.OnItemListSelect += (name, index, namelist, indexlist) =>
+            {
+                for (int i = 0; i <= What.Count; i++)
                 {
-                    GiveWeapon();
+                    if (index == 3 && indexlist == i)
+                    {
+                        GiveWeapon(namelist);
+                    }
                 }
+                
 
             };
 
@@ -98,20 +113,21 @@ namespace Outbreak.Core
             Debug.WriteLine($"^1[Outbreak.Core.Admin]^7: {playercoords}");
         }
 
-        private void GiveWeapon()
+        private void GiveWeapon(string Weapon)
         {
-            GiveWeaponToPed(PlayerPedId(), (uint)GetHashKey("WEAPON_PISTOL"), 250, false, true);
+            GiveWeaponToPed(PlayerPedId(), (uint)GetHashKey(Weapon), 250, false, true);
         }
 
         private void Testcommand()
         {
             RegisterCommand("test", new Action<int, List<object>, string>((source, args, raw) =>
             {
-                // TODO
+                
 
             }), false);
-
             
         }
+
+        
     }
 }
