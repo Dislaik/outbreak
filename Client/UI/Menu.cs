@@ -25,7 +25,7 @@ namespace Outbreak
         private float Rest { get; set; } = 0;
         public Dictionary<int, string> ListOfItems { get; set; } = new Dictionary<int, string>();
         internal List<int> ListOfItemList { get; set; } = new List<int>();
-        private List<Dictionary<int, string>> ListDictionaryItemList = new List<Dictionary<int, string>>();
+        private List<Dictionary<int, string>> ListDictionaryItemList { get; set; } = new List<Dictionary<int, string>>();
         internal Dictionary<int, string> ListOfDescription { get; set; } = new Dictionary<int, string>();
         private static List<Menu> Menus { get; set; } = new List<Menu>();
         private int OnPressed { get; set; } = 0;
@@ -98,8 +98,8 @@ namespace Outbreak
             {
                 if (!Game.IsPaused && IsScreenFadedIn() && !IsPlayerSwitchInProgress() && !Game.PlayerPed.IsDead)
                 {
-                    Controller();
                     Interface();
+                    Controller();
                 }
                 else
                 {
@@ -215,7 +215,7 @@ namespace Outbreak
                     }
                 }
             }
-            else if (Game.IsControlJustPressed(0, Control.FrontendRdown))
+            else if (Game.IsControlJustReleased(0, Control.FrontendRdown))
             {
                 ItemSelectedEvent(ListOfItems[Select], Select);
                 for (int i = 0; i < ListOfItemList.Count; i++)
@@ -231,7 +231,7 @@ namespace Outbreak
 
                 PlaySoundFrontend(-1, "OK", "HUD_FRONTEND_DEFAULT_SOUNDSET", false);
             }
-            else if (Game.IsControlJustPressed(0, Control.FrontendRdown) || Game.IsControlJustPressed(0, Control.FrontendCancel))
+            else if (Game.IsControlJustPressed(0, Control.FrontendCancel))
             {
                 if (CanExit)
                 {
@@ -457,6 +457,16 @@ namespace Outbreak
         public void ClosedMenu()
         {
             Visible = false;
+        }
+
+        public void ResetSelect()
+        {
+            Select = 1;
+        }
+
+        public bool IsOpen()
+        {
+            return Visible;
         }
 
         public void InteractMenu()

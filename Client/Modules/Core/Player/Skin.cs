@@ -10,7 +10,9 @@ namespace Outbreak.Core.Player
 {
     public class Skin : BaseScript
     {
-        public static async void SetPlayerModels(string Sex)
+        public static bool PlayerLoaded = false;
+
+        public static async void SetPlayerModels(string Sex, int Skin, int Face, int Hair, int HairColor, int Eyes, int Eyebrows, int Beard)
         {
             if (Sex == "Male")
             {
@@ -21,9 +23,10 @@ namespace Outbreak.Core.Player
                 SetModelToPlayer("mp_f_freemode_01");
             }
 
-            await Delay(2000);
+            await Delay(1000);
+            IdentityCharacterComponents(Sex, Skin, Face, Hair, HairColor, Eyes, Eyebrows, Beard);
 
-            DefaultCharacterComponents(Sex);
+            PlayerLoaded = true;
         }
         public static async void SetModelToPlayer(string Model)
         {
@@ -36,10 +39,8 @@ namespace Outbreak.Core.Player
 
             SetPlayerModel(PlayerId(), (uint)Hash);
         }
-        public static async void DefaultCharacterComponents(string Sex)
+        public static void DefaultCharacterComponents(string Sex)
         {
-            await Delay(500);
-
             if (Sex == "Male")
             {
                 SetPedHeadBlendData(PlayerPedId(), 0, 0, 0, 0, 0, 0, 0f, 0f, 0f, false);
@@ -51,7 +52,7 @@ namespace Outbreak.Core.Player
                 SetPedHeadOverlay(PlayerPedId(), 2, 0, 0f);
                 SetPedHeadOverlay(PlayerPedId(), 4, 0, 0f);
                 SetPedHeadOverlay(PlayerPedId(), 8, 0, 0f);
-                SetPedComponentVariation(PlayerPedId(), 2, 4, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 2, 0, 0, 0);
                 SetPedHeadOverlayColor(PlayerPedId(), 1, 1, 0, 0);
                 SetPedHeadOverlayColor(PlayerPedId(), 2, 1, 0, 0);
                 SetPedHeadOverlayColor(PlayerPedId(), 4, 1, 0, 0);
@@ -86,7 +87,7 @@ namespace Outbreak.Core.Player
             }
             else if (Sex == "Female")
             {
-                SetPedHeadBlendData(PlayerPedId(), 21, 0, 0, 0, 0, 0, 0f, 0f, 0f, false);
+                SetPedHeadBlendData(PlayerPedId(), 0, 0, 0, 0, 0, 0, 0f, 0f, 0f, false);
                 SetPedHairColor(PlayerPedId(), 0, 0);
                 SetPedHeadOverlay(PlayerPedId(), 3, 0, 0f);
                 SetPedHeadOverlay(PlayerPedId(), 0, 0, 0f);
@@ -95,7 +96,101 @@ namespace Outbreak.Core.Player
                 SetPedHeadOverlay(PlayerPedId(), 2, 0, 0f);
                 SetPedHeadOverlay(PlayerPedId(), 4, 0, 0f);
                 SetPedHeadOverlay(PlayerPedId(), 8, 0, 0f);
-                SetPedComponentVariation(PlayerPedId(), 2, 2, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 2, 0, 0, 0);
+                SetPedHeadOverlayColor(PlayerPedId(), 1, 1, 0, 0);
+                SetPedHeadOverlayColor(PlayerPedId(), 2, 1, 0, 0);
+                SetPedHeadOverlayColor(PlayerPedId(), 4, 1, 0, 0);
+                SetPedHeadOverlayColor(PlayerPedId(), 8, 1, 0, 0);
+                SetPedHeadOverlay(PlayerPedId(), 5, 0, 0f);
+                SetPedHeadOverlayColor(PlayerPedId(), 5, 2, 0, 0);
+                SetPedHeadOverlay(PlayerPedId(), 6, 0, 0f);
+                SetPedHeadOverlay(PlayerPedId(), 7, 0, 0f);
+                SetPedHeadOverlay(PlayerPedId(), 9, 0, 0f);
+                SetPedHeadOverlay(PlayerPedId(), 10, 0, 0f);
+                SetPedHeadOverlayColor(PlayerPedId(), 10, 1, 0, 0);
+                SetPedHeadOverlay(PlayerPedId(), 11, 0, 0f);
+                SetPedPropIndex(PlayerPedId(), 2, -1, 0, true);
+
+
+                SetPedComponentVariation(PlayerPedId(), 8, 15, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 11, 49, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 3, 14, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 10, 0, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 4, 1, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 6, 3, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 1, 0, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 9, 0, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 7, 0, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 5, 0, 0, 0);
+
+
+                SetPedPropIndex(PlayerPedId(), 0, -1, 0, true);
+                SetPedPropIndex(PlayerPedId(), 1, 5, 0, true);
+                SetPedPropIndex(PlayerPedId(), 6, -1, 0, true);
+                SetPedPropIndex(PlayerPedId(), 7, -1, 0, true);
+            }
+        }
+
+        public static void IdentityCharacterComponents(string Sex, int Skin, int Face, int Hair, int HairColor, int Eyes, int Eyebrows, int Beard)
+        {
+            if (Sex == "Male")
+            {
+                SetPedHeadBlendData(PlayerPedId(), Face, 0, 0, Skin, 0, 0, 0f, 0f, 0f, false);
+                SetPedHairColor(PlayerPedId(), HairColor, 0);
+                SetPedHeadOverlay(PlayerPedId(), 3, 0, 0f);
+                SetPedHeadOverlay(PlayerPedId(), 0, 0, 0f);
+                if (Beard == 0) { SetPedHeadOverlay(PlayerPedId(), 1, Beard, 0f); } 
+                else { SetPedHeadOverlay(PlayerPedId(), 1, Beard, 1f); }
+                SetPedEyeColor(PlayerPedId(), Eyes);
+                SetPedHeadOverlay(PlayerPedId(), 2, Eyebrows, 1f);
+                SetPedHeadOverlay(PlayerPedId(), 4, 0, 0f);
+                SetPedHeadOverlay(PlayerPedId(), 8, 0, 0f);
+                SetPedComponentVariation(PlayerPedId(), 2, Hair, 0, 0);
+                SetPedHeadOverlayColor(PlayerPedId(), 1, 1, HairColor, 0);
+                SetPedHeadOverlayColor(PlayerPedId(), 2, 1, HairColor, 0);
+                SetPedHeadOverlayColor(PlayerPedId(), 4, 1, 0, 0);
+                SetPedHeadOverlayColor(PlayerPedId(), 8, 1, 0, 0);
+                SetPedHeadOverlay(PlayerPedId(), 5, 0, 0f);
+                SetPedHeadOverlayColor(PlayerPedId(), 5, 2, 0, 0);
+                SetPedHeadOverlay(PlayerPedId(), 6, 0, 0f);
+                SetPedHeadOverlay(PlayerPedId(), 7, 0, 0f);
+                SetPedHeadOverlay(PlayerPedId(), 9, 0, 0f);
+                SetPedHeadOverlay(PlayerPedId(), 10, 0, 0f);
+                SetPedHeadOverlayColor(PlayerPedId(), 10, 1, 0, 0);
+                SetPedHeadOverlay(PlayerPedId(), 11, 0, 0f);
+                SetPedPropIndex(PlayerPedId(), 2, -1, 0, true);
+
+
+                SetPedComponentVariation(PlayerPedId(), 8, 15, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 11, 56, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 3, 0, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 10, 0, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 4, 1, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 6, 1, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 1, 0, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 9, 0, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 7, 0, 0, 0);
+                SetPedComponentVariation(PlayerPedId(), 5, 0, 0, 0);
+
+
+                SetPedPropIndex(PlayerPedId(), 0, -1, 0, true);
+                SetPedPropIndex(PlayerPedId(), 1, 0, 0, true);
+                SetPedPropIndex(PlayerPedId(), 6, -1, 0, true);
+                SetPedPropIndex(PlayerPedId(), 7, -1, 0, true);
+            }
+            else if (Sex == "Female")
+            {
+                SetPedHeadBlendData(PlayerPedId(), Face, 0, 0, Skin, 0, 0, 0f, 0f, 0f, false);
+                SetPedHairColor(PlayerPedId(), HairColor, 0);
+                SetPedHeadOverlay(PlayerPedId(), 3, 0, 0f);
+                SetPedHeadOverlay(PlayerPedId(), 0, 0, 0f);
+                if (Beard == 0) { SetPedHeadOverlay(PlayerPedId(), 1, Beard, 0f); }
+                else { SetPedHeadOverlay(PlayerPedId(), 1, Beard, 1f); }
+                SetPedEyeColor(PlayerPedId(), Eyes);
+                SetPedHeadOverlay(PlayerPedId(), 2, Eyebrows, 1f);
+                SetPedHeadOverlay(PlayerPedId(), 4, 0, 0f);
+                SetPedHeadOverlay(PlayerPedId(), 8, 0, 0f);
+                SetPedComponentVariation(PlayerPedId(), 2, Hair, 0, 0);
                 SetPedHeadOverlayColor(PlayerPedId(), 1, 1, 0, 0);
                 SetPedHeadOverlayColor(PlayerPedId(), 2, 1, 0, 0);
                 SetPedHeadOverlayColor(PlayerPedId(), 4, 1, 0, 0);

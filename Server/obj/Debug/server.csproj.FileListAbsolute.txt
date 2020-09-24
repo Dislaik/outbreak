@@ -13,3 +13,4 @@ C:\Users\Dislaik\Desktop\server\resources\outbreak\server\obj\Debug\Server.cspro
 C:\Users\Dislaik\Desktop\server\resources\outbreak\server\obj\Debug\Server.csproj.CoreCompileInputs.cache
 C:\Users\Dislaik\Desktop\server\resources\outbreak\server\obj\Debug\Server.csproj.CopyComplete
 C:\Users\Dislaik\Desktop\server\resources\outbreak\server\obj\Debug\Outbreak.Server.net.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\Release\Newtonsoft.Json.dll

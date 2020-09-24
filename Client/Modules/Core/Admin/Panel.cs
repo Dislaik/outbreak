@@ -7,7 +7,7 @@ using CitizenFX.Core;
 using CitizenFX.Core.UI;
 using static CitizenFX.Core.Native.API;
 
-namespace Outbreak.Core
+namespace Outbreak.Core.Admin
 {
     public class Panel : BaseScript
     {

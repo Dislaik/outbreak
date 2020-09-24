@@ -10,7 +10,15 @@ namespace Outbreak.Utils
 {
     public class String
     {
-
+        public static string DictionaryToString(Dictionary<string, string> dictionary)
+        {
+            string dictionaryString = "{";
+            foreach (KeyValuePair<string, string> keyValues in dictionary)
+            {
+                dictionaryString += "\"" +keyValues.Key + "\" : " + keyValues.Value + ", ";
+            }
+            return dictionaryString.TrimEnd(',', ' ') + "}";
+        }
     }
 }
 

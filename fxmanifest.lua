@@ -3,7 +3,7 @@ games { 'gta5' }
 
 author 'Dislaik'
 description 'Zombie Survival RPG Framework'
-version '0.3.1'
+version '0.4.2'
 
 client_script "Client/Release/Outbreak.Client.net.dll"
 
