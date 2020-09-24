@@ -28,6 +28,9 @@ ensure outbreak
 ## Documentation
 You want know how configure, contribute, etc. Take look to [Wiki](https://github.com/Dislaik/outbreak/wiki)
 
+## Discord
+https://discord.gg/5KZBHPP (Unofficial Discord)
+
 ## License
 Copyright © 2020 Matías Salas.
 
