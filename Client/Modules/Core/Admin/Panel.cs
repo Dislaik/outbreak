@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,21 +27,32 @@ namespace Outbreak.Core.Admin
             {
                 "WEAPON_PISTOL",
                 "WEAPON_ASSAULTRIFLE",
-                "WEAPON_BAT"
+                "WEAPON_BAT",
+                "WEAPON_RPG"
             };
             MainMenu.AddItemList("Get Weapon", "Get a weapon.", What);
+            MainMenu.AddItem("Heal", "Replenish your health and armour.");
 
 
             MainMenu.OnItemSelect += (name, index) =>
             {
-                if (index == 1)
+                switch (index)
                 {
-                    GetCoords();
+                    case 1:
+                        GetCoords();
+                        break;
+                    case 2:
+                        TPMarker();
+                        break;
+                    case 4:
+                        Heal();
+                        break;
+                    default:
+                        Screen.ShowNotification("You fucked up");
+                        Debug.WriteLine(index.ToString());
+                        break;
                 }
-                else if (index == 2)
-                {
-                    TPMarker();
-                }
+                
             };
 
             MainMenu.OnItemListSelect += (name, index, namelist, indexlist) =>
@@ -128,6 +139,10 @@ namespace Outbreak.Core.Admin
             
         }
 
-        
+        private void Heal()
+        {
+            SetEntityHealth(PlayerPedId(), 200);
+            SetPedArmour(PlayerPedId(), 100);
+        }
     }
 }
