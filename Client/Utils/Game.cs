@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,6 +37,24 @@ namespace Outbreak.Utils
                 DrawText(_ScreenX, _ScreenY);
             }
 
+        }
+
+        public static void DrawText2D(float X, float Y, float width, float height, float scale, string text, int r, int g, int b,int a, bool outline)
+        {
+            SetTextFont(0);
+            SetTextProportional(false);
+            SetTextScale(scale, scale);
+            SetTextColour(r, g, b, a);
+            SetTextDropshadow(0, 0, 0, 0, 255);
+            SetTextEdge(1, 0, 0, 0, 255);
+            SetTextDropShadow();
+            if (outline)
+            {
+                SetTextOutline();
+            }
+            SetTextEntry("STRING");
+            AddTextComponentString(text);
+            DrawText(X - width / 2, Y - height / 2 + 0.005f);
         }
     }
 
