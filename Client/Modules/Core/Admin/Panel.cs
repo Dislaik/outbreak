@@ -47,10 +47,6 @@ namespace Outbreak.Core.Admin
                     case 4:
                         Heal();
                         break;
-                    default:
-                        Screen.ShowNotification("You fucked up");
-                        Debug.WriteLine(index.ToString());
-                        break;
                 }
                 
             };
