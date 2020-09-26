@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -22,6 +22,37 @@ namespace Outbreak.Core.Plague
             SetRelationshipBetweenGroups(5, (uint)GetHashKey(PlayerGroup), (uint)GetHashKey(ZombieGroup));
 
             Tick += OnTick;
+            Tick += OnDeath;
+        }
+
+
+        private async Task OnDeath()
+        {
+            if (GetEntityHealth(PlayerPedId()) <= 5)
+            {
+                Exports["spawnmanager"].setAutoSpawn(false);
+                TaskPlayAnim(GetPlayerPed(-1), "dead", "dead_a", 1.0f, 1.0f, -1, 1, 0, false, false, false);
+                Outbreak.Utils.Game.DrawText2D(0.68f, 1.4f, 1.0f, 1.0f, 0.4f, "~w~Press ~w~[~r~E~w~] to respawn", 255, 255, 255, 255, false);
+                await Task.FromResult(0);
+                if (IsControlJustPressed(0, 38))
+                {
+                    Respawn();
+                }
+            }
+            else
+            {
+                await Task.FromResult(500);
+            }
+        }
+
+        private void Respawn()
+        {
+            var Player = PlayerPedId();
+            ClearPedTasks(Player);
+            ClearPedSecondaryTask(Player);
+            ClearPedTasksImmediately(Player);
+            SetEntityHealth(Player, 200);
+            SetEntityCoords(Player, 427.4668f, -979.3f, 30.71004f, true, true, true, false);
         }
 
         private async Task OnTick()
