@@ -31,7 +31,7 @@ ensure outbreak
 4. Add database `outbreak.sql` to your server
 5. Open file `outbreak.sln` with Visual Studio
 6. Establish the connection to the database in `Server/Config/Config.cs`
-8. Compile (F7) the project for save the changes
+7. Compile (F7) the project for save the changes
 
 ## Documentation
 Take a look at [Wiki](https://github.com/Dislaik/outbreak/wiki)
@@ -46,3 +46,4 @@ https://www.patreon.com/Dislaik
 Copyright © 2020 Matías Salas.
 
 Outbreak Framework is a community project, you legal permission to copy, distribute and/or modify it only if you have forked this repository, If it's not a forked repo, then the release will be taken down by DMCA request.
+
