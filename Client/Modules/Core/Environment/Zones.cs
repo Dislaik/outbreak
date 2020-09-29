@@ -12,7 +12,7 @@ namespace Outbreak.Core.Environment
     {
         private dynamic SafeZones { get; } = new[]
         {
-            new {X = 449.2966f , Y = -984.9636f, Z = 30.6896f, Radio = 40.0f }
+            new {X = 449.2966f , Y = -984.9636f, Z = 30.6896f, Radius = 40.0f }
         };
 
         private dynamic RadiationZones { get; } = new[]
@@ -23,6 +23,7 @@ namespace Outbreak.Core.Environment
         public Zones()
         {
             Tick += SafeZone;
+            SafeZoneBlip();
         }
 
         private async Task SafeZone()
@@ -41,7 +42,7 @@ namespace Outbreak.Core.Environment
                     {
                         Vector3 PedsCoords = GetEntityCoords(PedHandle, false);
                         float Distance = GetDistanceBetweenCoords(v.X, v.Y, v.Z, PedsCoords.X, PedsCoords.Y, PedsCoords.Z, true);
-                        if (Distance <= v.Radio)
+                        if (Distance <= v.Radius)
                         {
                             //string ZombieGroup = "ZOMBIE";
                             //Debug.WriteLine($"{GetHashKey(ZombieGroup)}");
@@ -56,6 +57,17 @@ namespace Outbreak.Core.Environment
             }
 
             await Delay(500);
+        }
+
+        private void SafeZoneBlip()
+        {
+            foreach (var i in SafeZones)
+            {
+                int Blip = AddBlipForRadius(i.X, i.Y, i.Z, i.Radius);
+                SetBlipHighDetail(Blip, true);
+                SetBlipColour(Blip, 2);
+                SetBlipAlpha(Blip, 128);
+            }
         }
     }
 }

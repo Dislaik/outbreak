@@ -31,13 +31,7 @@ namespace Outbreak.Core.Player
 
         public Identity()
         {
-            EventHandlers["playerSpawned"] += new Action(InitPlayerRegister);
             EventHandlers["Outbreak.Core.Player:PlayerRegister"] += new Action(MenuIdentity);
-            EventHandlers["Outbreak.Core.Player:PlayerAlreadyRegistered"] += new Action<string, int, int, int, int, int, int, int>(Skin.SetPlayerModels);
-        }
-        private void InitPlayerRegister()
-        {
-            TriggerServerEvent("Outbreak.Core.Player:InitPlayerRegister");
         }
         private void MenuIdentity()
         {

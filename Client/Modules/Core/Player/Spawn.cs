@@ -18,11 +18,10 @@ namespace Outbreak.Core.Player
             Exports["spawnmanager"].spawnPlayer(SpawnPosition());
             Skin.DefaultCharacterComponents("Male");
 
-            EventHandlers["playerSpawned"] += new Action(InitPlayerPosition);
-            EventHandlers["Outbreak.Core.Player:SetPlayerPosition"] += new Action<float, float, float>(SetPlayerPosition); // Set saved Player coords
+            EventHandlers["playerSpawned"] += new Action(InitPlayer);
+            EventHandlers["Outbreak.Core.Player:SetPlayerPosition"] += new Action<float, float, float>(SetPlayerPosition);
             Tick += GetPlayerCoords;
         }
-
         public dynamic SpawnPosition()
         {
             dynamic obj = new ExpandoObject();
@@ -33,12 +32,10 @@ namespace Outbreak.Core.Player
             obj.model = "mp_m_freemode_01";
             return obj;
         }
-
         public void SetPlayerPosition(float X, float Y, float Z)
         {
             SetEntityCoords(PlayerPedId(), X, Y, Z, false, false, false, true);
         }
-
         public async Task GetPlayerCoords()
         {
             if (Skin.PlayerLoaded)
@@ -55,9 +52,9 @@ namespace Outbreak.Core.Player
             
             await Delay(60000);
         }
-
-        public void InitPlayerPosition()
+        public void InitPlayer()
         {
+            TriggerServerEvent("Outbreak.Core.Player:InitPlayerRegister");
             TriggerServerEvent("Outbreak.Core.Player:InitPlayerPosition");
         }
     }

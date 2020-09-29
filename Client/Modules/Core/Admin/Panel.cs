@@ -13,12 +13,12 @@ namespace Outbreak.Core.Admin
     {
         public Panel()
         {
-            Menu MainMenu = new Menu("Admin Menu", "Manage the server")
+            Menu MainMenu = new Menu("Developer Menu", "Just for tests")
             {
                 TitleFont = 2,
                 HeaderColor = new int[] { 199, 0, 57, 255 }
             };
- 
+
             MainMenu.Register(MainMenu);
             MainMenu.AddItem("Get Coords", "Prints on the screen your own coords.");
             MainMenu.AddItem("TP Marker", "Teleport to the marker.");
@@ -31,14 +31,13 @@ namespace Outbreak.Core.Admin
             };
             MainMenu.AddItemList("Get Weapon", "Get a weapon.", What);
 
-
             MainMenu.OnItemSelect += (name, index) =>
             {
-                if (index == 1)
+                if (name == "Get Coords")
                 {
                     GetCoords();
                 }
-                else if (index == 2)
+                else if (name == "TP Marker")
                 {
                     TPMarker();
                 }
@@ -46,15 +45,10 @@ namespace Outbreak.Core.Admin
 
             MainMenu.OnItemListSelect += (name, index, namelist, indexlist) =>
             {
-                for (int i = 0; i <= What.Count; i++)
+                if (name == "Get Weapon")
                 {
-                    if (index == 3 && indexlist == i)
-                    {
-                        GiveWeapon(namelist);
-                    }
+                    GiveWeapon(namelist);
                 }
-                
-
             };
 
             Tick += async () =>
@@ -122,12 +116,9 @@ namespace Outbreak.Core.Admin
         {
             RegisterCommand("test", new Action<int, List<object>, string>((source, args, raw) =>
             {
-                
 
             }), false);
-            
-        }
 
-        
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using CitizenFX.Core;
+using Outbreak.Core.Player;
 using static CitizenFX.Core.Native.API;
 
 namespace Outbreak.Core.Plague
@@ -21,10 +22,10 @@ namespace Outbreak.Core.Plague
             SetRelationshipBetweenGroups(0, (uint)GetHashKey(ZombieGroup), (uint)GetHashKey(PlayerGroup));
             SetRelationshipBetweenGroups(5, (uint)GetHashKey(PlayerGroup), (uint)GetHashKey(ZombieGroup));
 
-            Tick += OnTick;
+            Tick += CheckPeds;
         }
 
-        private async Task OnTick()
+        private async Task CheckPeds()
         {
             int PedHandle = -1;
             bool success;
@@ -33,6 +34,18 @@ namespace Outbreak.Core.Plague
             do
             {
                 await Delay(10);
+
+                if(IsPedHuman(PedHandle) && !IsPedAPlayer(PedHandle) && IsPedDeadOrDying(PedHandle, true) && !GetPedConfigFlag(PedHandle, 100, true))
+                {
+                    if (GetPedSourceOfDeath(PedHandle) == PlayerPedId())  // GetPedSourceOfDeath(PedHandle) != PlayerPedId() <-- Any player that not be source player
+                    {
+                        //Debug.WriteLine($"{GetPlayerServerId(NetworkGetPlayerIndexFromPed(GetPedSourceOfDeath(PlayerPedId())))}");
+                        //Debug.WriteLine($"{GetPedConfigFlag(PedHandle, 100, true)}");
+                        //Experience.Exp += 1;
+                        SetPedConfigFlag(PedHandle, 100, true);
+                    }
+                }
+
 
                 if (IsPedHuman(PedHandle) && !IsPedAPlayer(PedHandle) && !IsPedDeadOrDying(PedHandle, true))
                 {
@@ -105,7 +118,11 @@ namespace Outbreak.Core.Plague
                         await Delay(1);
                     }
                     SetPedMovementClipset(PedHandle, "move_m@drunk@verydrunk", 1.0f);
+
                     
+
+
+
                     if (Config.Debug)
                     {
                         World.DrawMarker(MarkerType.VerticalCylinder, PedsCoords + new Vector3(0, 0, -1), new Vector3(0, 0, 0), new Vector3(0, 0, 0), new Vector3(1f, 1f, 2f), Color.FromArgb(255, 255, 255, 255));

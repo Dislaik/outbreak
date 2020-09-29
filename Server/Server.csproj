@@ -20,7 +20,7 @@
     <OutputPath>Release\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>0</WarningLevel>
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -73,9 +73,8 @@
   <ItemGroup>
     <Compile Include="Config\Config.cs" />
     <Compile Include="Init.cs" />
-    <Compile Include="Modules\Core\Admin.cs" />
-    <Compile Include="Modules\Core\Environment.cs" />
-    <Compile Include="Modules\Core\Spawn.cs" />
+    <Compile Include="Modules\Core\Environment\Game.cs" />
+    <Compile Include="Modules\Core\Player\Spawn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Database\Database.cs" />
     <Compile Include="Utils\Game.cs" />
@@ -83,7 +82,6 @@
     <Compile Include="Utils\String.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Boot\" />
     <Folder Include="Data\" />
     <Folder Include="Loadscreen\" />
     <Folder Include="Locales\" />

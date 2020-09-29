@@ -11,11 +11,11 @@ namespace Outbreak.Utils
 {
     public class Game
     {
-        public static void DrawText3D(float X, float Y, float Z, string Text)
+        public static void DrawText3D(string Text, float X, float Y, float Z)
         {
             float _ScreenX = (Screen.Resolution.Width / 2f);
             float _ScreenY = (Screen.Resolution.Height / 2f);
-            var OnScreen = GetScreenCoordFromWorldCoord(X, Y, Z, ref _ScreenX, ref _ScreenY); //Screen.WorldToScreen(X, Y, Z)
+            var OnScreen = GetScreenCoordFromWorldCoord(X, Y, Z, ref _ScreenX, ref _ScreenY);
             var PlayerCam = GetFinalRenderedCamCoord();
             var Distance = GetDistanceBetweenCoords(PlayerCam.X, PlayerCam.Y, PlayerCam.Z, X, Y, Z, true);
             var Scale = ((1 / Distance) * 2);
@@ -28,7 +28,6 @@ namespace Outbreak.Utils
                 SetTextProportional(true);
                 SetTextColour(255, 255, 255, 255);
                 SetTextDropshadow(0, 0, 0, 0, 255);
-                SetTextEdge(2, 0, 0, 0, 150);
                 SetTextDropShadow();
                 SetTextOutline();
                 SetTextEntry("STRING");
@@ -38,6 +37,20 @@ namespace Outbreak.Utils
             }
 
         }
-    }
 
+        public static void DrawText2D(string Text, float X, float Y, float Scale, int Font, int Justification, int Red, int Green, int Blue, int Alpha)
+        {
+            SetTextScale(Scale, Scale);
+            SetTextFont(Font);
+            SetTextProportional(true);
+            SetTextColour(Red, Green, Blue, Alpha);
+            SetTextDropshadow(0, 0, 0, 0, 255);
+            SetTextDropShadow();
+            SetTextOutline();
+            SetTextEntry("STRING");
+            SetTextJustification(Justification);
+            AddTextComponentString(Text);
+            DrawText(X, Y);
+        }
+    }
 }

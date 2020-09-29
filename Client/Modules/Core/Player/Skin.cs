@@ -11,8 +11,11 @@ namespace Outbreak.Core.Player
     public class Skin : BaseScript
     {
         public static bool PlayerLoaded = false;
-
-        public static async void SetPlayerModels(string Sex, int Skin, int Face, int Hair, int HairColor, int Eyes, int Eyebrows, int Beard)
+        public Skin()
+        {
+            EventHandlers["Outbreak.Core.Player:PlayerAlreadyRegistered"] += new Action<string, int, int, int, int, int, int, int>(OnPlayerModel);
+        }
+        public static async void OnPlayerModel(string Sex, int Skin, int Face, int Hair, int HairColor, int Eyes, int Eyebrows, int Beard)
         {
             if (Sex == "Male")
             {
@@ -23,11 +26,34 @@ namespace Outbreak.Core.Player
                 SetModelToPlayer("mp_f_freemode_01");
             }
 
-            await Delay(1000);
-            IdentityCharacterComponents(Sex, Skin, Face, Hair, HairColor, Eyes, Eyebrows, Beard);
+            await Delay(2000);
 
+            IdentityCharacterComponents(Sex, Skin, Face, Hair, HairColor, Eyes, Eyebrows, Beard);
             PlayerLoaded = true;
+
         }
+        public static async void SetPlayerModels(string Sex, int Skin, int Face, int Hair, int HairColor, int Eyes, int Eyebrows, int Beard)
+        {
+            if (Sex == "Male")
+            {
+                SetModelToPlayer("mp_m_freemode_01");
+
+                await Delay(100);
+
+                PlayerLoaded = true;
+                IdentityCharacterComponents(Sex, Skin, Face, Hair, HairColor, Eyes, Eyebrows, Beard);
+            }
+            else if (Sex == "Female")
+            {
+                SetModelToPlayer("mp_f_freemode_01");
+
+                await Delay(100);
+
+                IdentityCharacterComponents(Sex, Skin, Face, Hair, HairColor, Eyes, Eyebrows, Beard);
+                PlayerLoaded = true;
+            }
+        }
+
         public static async void SetModelToPlayer(string Model)
         {
             int Hash = GetHashKey(Model);

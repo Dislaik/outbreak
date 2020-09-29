@@ -154,7 +154,7 @@ namespace Outbreak.Core.Players
                 var PlayerPosition = JsonConvert.DeserializeObject<Dictionary<string, float>>(json);
                 float X = PlayerPosition["X"];
                 float Y = PlayerPosition["Y"];
-                float Z = PlayerPosition["Z"]-1f;
+                float Z = PlayerPosition["Z"];
 
                 TriggerClientEvent(source, "Outbreak.Core.Player:SetPlayerPosition", X, Y, Z);
             }

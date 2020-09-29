@@ -1,9 +1,9 @@
-fx_version 'adamant'
-games { 'gta5' }
+fx_version "adamant"
+games { "gta5" }
 
-author 'Dislaik'
-description 'Zombie Survival RPG Framework'
-version '0.4.2'
+author "Dislaik"
+description "Zombie Survival RPG Framework"
+version "0.4.5"
 
 client_script "Client/Release/Outbreak.Client.net.dll"
 

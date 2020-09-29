@@ -67,10 +67,14 @@
   <ItemGroup>
     <Compile Include="Config\Config.cs" />
     <Compile Include="Modules\Core\Admin\Panel.cs" />
+    <Compile Include="Modules\Core\Environment\Game.cs" />
     <Compile Include="Modules\Core\Environment\Vehicles.cs" />
     <Compile Include="Modules\Core\Player\Clothes.cs" />
+    <Compile Include="Modules\Core\Player\Death.cs" />
+    <Compile Include="Modules\Core\Player\Experience.cs" />
     <Compile Include="Modules\Core\Player\Identity.cs" />
     <Compile Include="Modules\Core\Environment\Interiorlights.cs" />
+    <Compile Include="Modules\Core\Player\Inventory.cs" />
     <Compile Include="Modules\Core\Player\Skin.cs" />
     <Compile Include="Modules\Core\Player\Spawn.cs" />
     <Compile Include="Modules\Core\Plague\Zombie.cs" />
@@ -82,7 +86,6 @@
     <Compile Include="Utils\String.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Boot\" />
     <Folder Include="Data\" />
     <Folder Include="Loadscreen\" />
     <Folder Include="Locales\" />
