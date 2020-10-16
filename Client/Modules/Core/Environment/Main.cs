@@ -35,6 +35,12 @@ namespace Outbreak.Core
         {
             Events();
 
+            SetArtificialLightsState(true);
+            SetScenarioGroupEnabled("LSA_Planes", false);
+            StartAudioScene("CHARACTER_CHANGE_IN_SKY_SCENE");
+            SetDistantCarsEnabled(true);
+            SetMaxWantedLevel(0);
+
             Tick += CheckVehicles;
             Tick += VehicleLights;
             Tick += SafeZone;
