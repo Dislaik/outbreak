@@ -18,9 +18,10 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Release\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -36,7 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>preview</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -46,9 +48,12 @@
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>preview</LangVersion>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CitizenFX.Core">
@@ -66,20 +71,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\Config.cs" />
-    <Compile Include="Modules\Core\Admin\Panel.cs" />
-    <Compile Include="Modules\Core\Environment\Game.cs" />
-    <Compile Include="Modules\Core\Environment\Vehicles.cs" />
-    <Compile Include="Modules\Core\Player\Clothes.cs" />
-    <Compile Include="Modules\Core\Player\Death.cs" />
-    <Compile Include="Modules\Core\Player\Experience.cs" />
-    <Compile Include="Modules\Core\Player\Identity.cs" />
-    <Compile Include="Modules\Core\Environment\Interiorlights.cs" />
-    <Compile Include="Modules\Core\Player\Inventory.cs" />
-    <Compile Include="Modules\Core\Player\Skin.cs" />
-    <Compile Include="Modules\Core\Player\Spawn.cs" />
-    <Compile Include="Modules\Core\Plague\Zombie.cs" />
-    <Compile Include="Modules\Core\Environment\Zones.cs" />
+    <Compile Include="Locales\Translation.cs" />
+    <Compile Include="Modules\Base\Example\Events.cs" />
+    <Compile Include="Modules\Base\Example\Main.cs" />
+    <Compile Include="Modules\Base\Example\Locales.cs" />
+    <Compile Include="Modules\Core\Admin\Events.cs" />
+    <Compile Include="Modules\Core\Environment\Events.cs" />
+    <Compile Include="Modules\Core\Identity\Events.cs" />
+    <Compile Include="Modules\Core\Plague\Events.cs" />
+    <Compile Include="Modules\Core\Player\Events.cs" />
+    <Compile Include="Modules\Core\Player\Main.cs" />
+    <Compile Include="Modules\Core\Skin\Events.cs" />
+    <Compile Include="Modules\Core\Skin\Main.cs" />
+    <Compile Include="Root\Commands.cs" />
+    <Compile Include="Modules\Core\Admin\Main.cs" />
+    <Compile Include="Modules\Core\Environment\Main.cs" />
+    <Compile Include="Modules\Core\Identity\Main.cs" />
+    <Compile Include="Modules\Core\Plague\Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Root\Default.cs" />
     <Compile Include="UI\Menu.cs" />
     <Compile Include="Utils\Game.cs" />
     <Compile Include="Utils\Math.cs" />
@@ -88,9 +98,88 @@
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="Loadscreen\" />
-    <Folder Include="Locales\" />
-    <Folder Include="Modules\Base\" />
     <Folder Include="Modules\User\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="UI\HTML\Assets\CSS\Identity.css" />
+    <Content Include="UI\HTML\Assets\CSS\NUI.css" />
+    <Content Include="UI\HTML\Assets\CSS\Skin.css" />
+    <Content Include="UI\HTML\Assets\Images\Identity\heart.png" />
+    <Content Include="UI\HTML\Assets\Images\Identity\logo.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face0.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face1.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face10.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face11.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face12.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face13.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face14.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face15.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face16.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face17.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face18.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face19.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face2.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face20.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face3.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face4.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face42.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face43.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face44.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face5.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face6.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face7.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face8.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\face9.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair0.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair1.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair10.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair11.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair12.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair13.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair14.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair15.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair16.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair17.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair18.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair19.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair2.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair20.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair21.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair22.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair24.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair25.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair26.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair27.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair28.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair29.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair3.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair30.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair31.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair32.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair33.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair34.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair35.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair36.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair4.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair5.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair6.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair7.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair72.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair73.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair74.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair8.png" />
+    <Content Include="UI\HTML\Assets\Images\Skin\hair9.png" />
+    <Content Include="UI\HTML\Assets\JS\Identity.js" />
+    <Content Include="UI\HTML\Assets\JS\NUI.js" />
+    <Content Include="UI\HTML\Assets\JS\Skin.js" />
+    <Content Include="UI\HTML\NUI.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UI\HTML\Assets\Fonts\Bebas_Neue\BebasNeue-Regular.ttf" />
+    <None Include="UI\HTML\Assets\Fonts\Roboto_Mono\RobotoMono-Italic-VariableFont_wght.ttf" />
+    <None Include="UI\HTML\Assets\Fonts\Roboto_Mono\RobotoMono-VariableFont_wght.ttf" />
+    <None Include="UI\HTML\Assets\Images\Skin\faces.psd" />
+    <None Include="UI\HTML\Assets\Images\Skin\MaleHair.psd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

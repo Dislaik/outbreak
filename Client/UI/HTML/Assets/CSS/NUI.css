@@ -1,0 +1,21 @@
+﻿body {
+    background: none !important;
+    margin: 0px;
+}
+@font-face {
+    font-family: Roboto;
+    src: url(../Fonts/Roboto_Mono/RobotoMono-VariableFont_wght.ttf);
+}
+@font-face {
+    font-family: Bebas;
+    src: url(../Fonts/Bebas_Neue/BebasNeue-Regular.ttf);
+}
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+  
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
