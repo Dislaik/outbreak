@@ -1,4 +1,4 @@
-# Zombie Outbreak V 0.4.5
+# Zombie Outbreak V 0.4.9
 Zombie Outbreak is a Zombie Surival RPG Framework, you will must survive and fight against hordes of zombies to ensure your survival.
 
 ![](https://i.imgur.com/sE2NCpr.png)
@@ -31,7 +31,7 @@ ensure outbreak
 4. Add database `outbreak.sql` to your server
 5. Open file `outbreak.sln` with Visual Studio
 6. Establish the connection to the database in `Server/Config/Config.cs`
-7. Compile (F7) the project for save the changes
+8. Compile (F7) the project for save the changes
 
 ## Documentation
 Take a look at [Wiki](https://github.com/Dislaik/outbreak/wiki)
@@ -40,10 +40,9 @@ Take a look at [Wiki](https://github.com/Dislaik/outbreak/wiki)
 https://discord.gg/5KZBHPP (Unofficial Discord)
 
 ### Patreon
-https://www.patreon.com/Dislaik
+https://www.patreon.com/dislaik
 
 ## License
 Copyright © 2020 Matías Salas.
 
 Outbreak Framework is a community project, you legal permission to copy, distribute and/or modify it only if you have forked this repository, If it's not a forked repo, then the release will be taken down by DMCA request.
-

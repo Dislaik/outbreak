@@ -1,0 +1,101 @@
+﻿#Identity {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+#Identity p {
+    user-select: none;
+    font-family: Bebas;
+    color: rgba(200, 200, 200, 1);
+    font-size: 20px;
+    margin-bottom: 0px;
+    margin-top: 10px;
+}
+
+#Identity .LeftBox {
+    position: absolute;
+    background-color: rgba(35,35,35,0.95);
+    left: auto;
+    width: 500px;
+    height: 100%;
+    text-align: center;
+} 
+
+#Identity form {
+    padding-top: 50px;
+}
+
+#Identity .Logo {
+    background: url(../Images/Identity/logo.png);
+    width: 300px;
+    height: 250px;
+    margin:0px auto;
+    margin-top: 80px;
+}
+
+#Identity button {
+    user-select: none;
+    background-color: rgba(200, 200, 200, 0.5);
+    outline: none;
+    border: none;
+    margin-top: 20px;
+    padding: 12px 60px 12px 60px;
+    transition: background-color 0.2s;
+    font-family: Bebas;
+    font-size: 20px;
+}
+
+#Identity button:hover {
+    background-color: rgba(200, 200, 200, 1);
+}
+
+#Identity input {
+    margin-bottom: 5px;
+    background-color: transparent;
+    outline: none;
+    width: 90%;
+    font-size: 15px;
+    text-align: center;
+    padding: 5px;
+    color: white;
+    border-width: 0px 0px 2px;
+    border-color: rgba(200, 200, 200, 0.5);
+    transition: border-color 0.2s ease-in-out;
+}
+
+#Identity input:focus {
+    border-color: rgba(200, 200, 200, 1);
+}
+
+#Identity input.Checkbox{
+    width : 20px;
+    height : 20px;
+}
+
+#Identity .CheckboxContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#Identity .InfoBox {
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+}
+#Identity .InfoBox > p {
+    font-family: Roboto;
+    font-size: 12px;
+    color: rgba(200, 200, 200, 1);
+    margin-top: 0px;
+}
+
+#Identity .CheckboxGender {
+    margin: 0px 30px 0px 30px;
+    padding: 0px;
+}
+
+#Identity .CheckboxGender > p {
+    font-size: 16;
+    margin-top: 0px;
+}

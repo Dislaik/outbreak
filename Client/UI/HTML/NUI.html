@@ -1,0 +1,1181 @@
+﻿<html>
+	<head>
+        <link rel="stylesheet" href="Assets/CSS/NUI.css" type="text/css">
+        <link rel="stylesheet" href="Assets/CSS/Identity.css" type="text/css">
+        <link rel="stylesheet" href="Assets/CSS/Skin.css" type="text/css">
+        <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+	</head>
+	<body>
+    <!-- Identity NUI -->
+		<div id="Identity">
+            <div class="LeftBox">
+                <div class="Logo"></div>
+                <form>
+                    <p>First Name </p> <input placeholder="Jhon" id="FirstName" autocomplete="off" maxlength="12"/>
+                    <p>Last Name </p> <input placeholder="Titor" id="LastName" autocomplete="off" maxlength="12"/>
+                    <p>Date of Birth</p> <input placeholder="MM/DD/YYYY" id="DateOfBirth" autocomplete="off" maxlength="10"/>
+                    <p>Sex</p>
+                    <div class="CheckboxContainer">
+                        <div class="CheckboxGender">
+                            <p>Male</p>
+                            <input type="checkbox" id="MaleCheckbox" class="Checkbox" onchange="CheckboxChange(this)" checked="true">
+                        </div>
+                        <div class="CheckboxGender">
+                            <p>Female</p>
+                            <input type="checkbox" id="FemaleCheckbox" class="Checkbox" onchange="CheckboxChange(this)">
+                        </div>
+                    </div>
+                </form>
+                <button id="IdentitySubmit" disabled>Create Identity</button>
+                    
+                <div class="InfoBox">
+                    <p>Support this project in www.patreon.com/dislaik <img src="Assets/Images/Identity/heart.png" width="12px"></p>
+                </div>
+            </div>
+		</div>
+    <!-- MaleSkin NUI -->
+        <div id="MaleSkin">
+            <div class="LeftBox">
+                <div class="MaleTab">
+                    <button class="MaleTabLinks" id="MaleAppearanceFirstClick" onclick="MaleTab(event, 'MaleAppearance')">Appearance</button>
+                    <button class="MaleTabLinks" onclick="MaleTab(event, 'MaleCosmetic')">Overlay</button>
+                    <button class="MaleTabLinks" onclick="MaleTab(event, 'MaleClothing')">Clothing</button>
+                </div>
+                <form id="MaleSkinForm">
+                    <div id="MaleAppearance" class="MaleTabContent">
+                        <div class="RadioImageBox">
+                            <p>Skin</p>
+                            <label>
+                                <input type="radio" name="skin" value="0" checked>
+                                <span class="color" style="background-color:#E7B78E;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="skin" value="2">
+                                <span class="color" style="background-color:#442F1E;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="skin" value="4">
+                                <span class="color" style="background-color:#C79C77;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="skin" value="6">
+                                <span class="color" style="background-color:#C7BA77;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="skin" value="8">
+                                <span class="color" style="background-color:#9B7554;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="skin" value="10">
+                                <span class="color" style="background-color:#C7A777;"></span>
+                            </label>
+                        </div>
+                        <hr>
+                        <div class="RadioImageBox">
+                            <p>Face</p>
+                            <label>
+                                <input type="radio" name="face" value="0" checked>
+                                <img src="Assets/Images/Skin/face0.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="1">
+                                <img src="Assets/Images/Skin/face1.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="2">
+                                <img src="Assets/Images/Skin/face2.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="3">
+                                <img src="Assets/Images/Skin/face3.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="4">
+                                <img src="Assets/Images/Skin/face4.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="5">
+                                <img src="Assets/Images/Skin/face5.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="6">
+                                <img src="Assets/Images/Skin/face6.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="7">
+                                <img src="Assets/Images/Skin/face7.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="8">
+                                <img src="Assets/Images/Skin/face8.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="9">
+                                <img src="Assets/Images/Skin/face9.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="10">
+                                <img src="Assets/Images/Skin/face10.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="11">
+                                <img src="Assets/Images/Skin/face11.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="12">
+                                <img src="Assets/Images/Skin/face12.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="13">
+                                <img src="Assets/Images/Skin/face13.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="14">
+                                <img src="Assets/Images/Skin/face14.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="15">
+                                <img src="Assets/Images/Skin/face15.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="16">
+                                <img src="Assets/Images/Skin/face16.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="17">
+                                <img src="Assets/Images/Skin/face17.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="18">
+                                <img src="Assets/Images/Skin/face18.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="19">
+                                <img src="Assets/Images/Skin/face19.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="20">
+                                <img src="Assets/Images/Skin/face20.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="42">
+                                <img src="Assets/Images/Skin/face42.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="43">
+                                <img src="Assets/Images/Skin/face43.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="44">
+                                <img src="Assets/Images/Skin/face44.png">
+                            </label>
+                        </div>
+                        <hr>
+                        <div class="RadioImageBox">
+                            <p>Hair</p>
+                            <label>
+                                <input type="radio" name="hair" value="0" checked>
+                                <img src="Assets/Images/Skin/hair0.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="1">
+                                <img src="Assets/Images/Skin/hair1.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="2">
+                                <img src="Assets/Images/Skin/hair2.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="3">
+                                <img src="Assets/Images/Skin/hair3.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="4">
+                                <img src="Assets/Images/Skin/hair4.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="5">
+                                <img src="Assets/Images/Skin/hair5.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="6">
+                                <img src="Assets/Images/Skin/hair6.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="7">
+                                <img src="Assets/Images/Skin/hair7.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="8">
+                                <img src="Assets/Images/Skin/hair8.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="9">
+                                <img src="Assets/Images/Skin/hair9.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="10">
+                                <img src="Assets/Images/Skin/hair10.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="11">
+                                <img src="Assets/Images/Skin/hair11.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="12">
+                                <img src="Assets/Images/Skin/hair12.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="13">
+                                <img src="Assets/Images/Skin/hair13.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="14">
+                                <img src="Assets/Images/Skin/hair14.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="15">
+                                <img src="Assets/Images/Skin/hair15.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="16">
+                                <img src="Assets/Images/Skin/hair16.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="17">
+                                <img src="Assets/Images/Skin/hair17.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="18">
+                                <img src="Assets/Images/Skin/hair18.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="19">
+                                <img src="Assets/Images/Skin/hair19.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="20">
+                                <img src="Assets/Images/Skin/hair20.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="21">
+                                <img src="Assets/Images/Skin/hair21.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="22">
+                                <img src="Assets/Images/Skin/hair22.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="24">
+                                <img src="Assets/Images/Skin/hair24.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="25">
+                                <img src="Assets/Images/Skin/hair25.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="26">
+                                <img src="Assets/Images/Skin/hair26.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="27">
+                                <img src="Assets/Images/Skin/hair27.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="28">
+                                <img src="Assets/Images/Skin/hair28.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="29">
+                                <img src="Assets/Images/Skin/hair29.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="30">
+                                <img src="Assets/Images/Skin/hair30.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="31">
+                                <img src="Assets/Images/Skin/hair31.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="32">
+                                <img src="Assets/Images/Skin/hair32.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="33">
+                                <img src="Assets/Images/Skin/hair33.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="34">
+                                <img src="Assets/Images/Skin/hair34.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="35">
+                                <img src="Assets/Images/Skin/hair35.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="36">
+                                <img src="Assets/Images/Skin/hair36.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="72">
+                                <img src="Assets/Images/Skin/hair72.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="73">
+                                <img src="Assets/Images/Skin/hair73.png">
+                            </label>
+                        </div>
+                        <div class="RadioImageBox">
+                            <p>Hair Color</p>
+                            <label>
+                                <input type="radio" name="haircolor" value="0" checked>
+                                <span class="colorsub" style="background-color:#1C1F21;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="1">
+                                <span class="colorsub" style="background-color:#272A2C;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="2">
+                                <span class="colorsub" style="background-color:#312E2C;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="3">
+                                <span class="colorsub" style="background-color:#35261C;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="4">
+                                <span class="colorsub" style="background-color:#4B321F;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="5">
+                                <span class="colorsub" style="background-color:#5C3B24;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="6">
+                                <span class="colorsub" style="background-color:#6D4C35;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="7">
+                                <span class="colorsub" style="background-color:#6B503B;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="8">
+                                <span class="colorsub" style="background-color:#765C45;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="9">
+                                <span class="colorsub" style="background-color:#7F684E;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="10">
+                                <span class="colorsub" style="background-color:#99815D;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="11">
+                                <span class="colorsub" style="background-color:#A79369;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="12">
+                                <span class="colorsub" style="background-color:#AF9C70;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="13">
+                                <span class="colorsub" style="background-color:#BBA063;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="14">
+                                <span class="colorsub" style="background-color:#D6B97B;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="15">
+                                <span class="colorsub" style="background-color:#DAC38E;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="16">
+                                <span class="colorsub" style="background-color:#9F7F59;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="17">
+                                <span class="colorsub" style="background-color:#845039;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="18">
+                                <span class="colorsub" style="background-color:#682B1F;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="19">
+                                <span class="colorsub" style="background-color:#61120C;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="20">
+                                <span class="colorsub" style="background-color:#640F0A;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="21">
+                                <span class="colorsub" style="background-color:#7C140F;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="22">
+                                <span class="colorsub" style="background-color:#A02E19;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="23">
+                                <span class="colorsub" style="background-color:#B64B28;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="24">
+                                <span class="colorsub" style="background-color:#A2502F;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="25">
+                                <span class="colorsub" style="background-color:#AA4E2B;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="26">
+                                <span class="colorsub" style="background-color:#626262;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="27">
+                                <span class="colorsub" style="background-color:#808080;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="28">
+                                <span class="colorsub" style="background-color:#AAAAAA;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="29">
+                                <span class="colorsub" style="background-color:#C5C5C5;"></span>
+                            </label>
+                        </div>
+                        <hr>
+                        <div class="RadioImageBox">
+                            <p>Eyes Color</p>
+                            <label>
+                                <input type="radio" name="eyescolor" value="0" checked>
+                                <span class="colorsub" style="background-color:#449244;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="1">
+                                <span class="colorsub" style="background-color:#204420;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="2">
+                                <span class="colorsub" style="background-color:#9ed8f3;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="3">
+                                <span class="colorsub" style="background-color:#5184be;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="4">
+                                <span class="colorsub" style="background-color:#2e6d48;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="5">
+                                <span class="colorsub" style="background-color:#5e310c;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="6">
+                                <span class="colorsub" style="background-color:#c09841;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="7">
+                                <span class="colorsub" style="background-color:#a5a5a5;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="8">
+                                <span class="colorsub" style="background-color:#c7c7c7;"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="MaleCosmetic" class="MaleTabContent">
+                        <div class="Container">
+                            <p>Blemishes</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="MaleRangeButton" name="blemishes" onclick="LeftRange('blemishes')">❮</button>
+                                <input type="range" class="slider" id="blemishes" name="blemishes" min="-1" max="23" value="-1">
+                                <button type="button" class="MaleRangeButton" name="blemishes" onclick="RightRange('blemishes')">❯</button>
+                            </div>
+                            <hr>
+                            <p>Beard</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="MaleRangeButton" name="beard" onclick="LeftRange('beard')">❮</button>
+                                <input type="range" class="slider" id="beard" name="beard" min="-1" max="28" value="-1">
+                                <button type="button" class="MaleRangeButton" name="beard" onclick="RightRange('beard')">❯</button>
+                            </div>
+                            <hr>
+                            <p>Eyebrows</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="MaleRangeButton" name="eyebrows" onclick="LeftRange('eyebrows')">❮</button>
+                                <input type="range" class="slider" id="eyebrows" name="eyebrows" min="0" max="33" value="0">
+                                <button type="button" class="MaleRangeButton" name="eyebrows" onclick="RightRange('eyebrows')">❯</button>
+                            </div>
+                            <hr>
+                            <p>Wrinkles</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="MaleRangeButton" name="wrinkles" onclick="LeftRange('wrinkles')">❮</button>
+                                <input type="range" class="slider" id="wrinkles" name="wrinkles" min="-1" max="14" value="-1">
+                                <button type="button" class="MaleRangeButton" name="wrinkles" onclick="RightRange('wrinkles')">❯</button>
+                            </div>
+                            <hr>
+                            <p>Complexion</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="MaleRangeButton" name="complexion" onclick="LeftRange('complexion')">❮</button>
+                                <input type="range" class="slider" id="complexion" name="complexion" min="-1" max="11" value="-1">
+                                <button type="button" class="MaleRangeButton" name="complexion" onclick="RightRange('complexion')">❯</button>
+                            </div>
+                            <hr>
+                            <p>Sun Damage</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="MaleRangeButton" name="sundamage" onclick="LeftRange('sundamage')">❮</button>
+                                <input type="range" class="slider" id="sundamage" name="sundamage" min="-1" max="10" value="-1">
+                                <button type="button" class="MaleRangeButton" name="sundamage" onclick="RightRange('sundamage')">❯</button>
+                            </div>
+                            <hr>
+                            <p>Freckles</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="MaleRangeButton" name="freckles" onclick="LeftRange('freckles')">❮</button>
+                                <input type="range" class="slider" id="freckles" name="freckles" min="-1" max="17" value="-1">
+                                <button type="button" class="MaleRangeButton" name="freckles" onclick="RightRange('freckles')">❯</button>
+                            </div>
+                            <hr>
+                            <p>Chest Hair</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="MaleRangeButton" name="chesthair" onclick="LeftRange('chesthair')">❮</button>
+                                <input type="range" class="slider" id="chesthair" name="chesthair" min="-1" max="16" value="-1">
+                                <button type="button" class="MaleRangeButton" name="chesthair" onclick="RightRange('chesthair')">❯</button>
+                            </div>
+                            <hr>
+                            <p>Body Blemishes</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="MaleRangeButton" name="bodyblemishes" onclick="LeftRange('bodyblemishes')">❮</button>
+                                <input type="range" class="slider" id="bodyblemishes" name="bodyblemishes" min="-1" max="11" value="-1">
+                                <button type="button" class="MaleRangeButton" name="bodyblemishes" onclick="RightRange('bodyblemishes')">❯</button>
+                            </div>
+                        </div>
+                      </div>                  
+                    <div id="MaleClothing" class="MaleTabContent">
+                        <div class="Container">
+                            <p>Hat</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="MaleRangeButton" onclick="MaleRangeHat('Left')">❮</button>
+                                <input type="range" class="slider" id="MaleHat" min="0" max="6" value="0" step="1">
+                                <button type="button" class="MaleRangeButton" onclick="MaleRangeHat('Right')">❯</button>
+                                <div id="MaleHatValue"></div>
+                            </div>
+                            <hr>
+                            <p>Top</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="MaleRangeButton" onclick="MaleRangeTop('Left')">❮</button>
+                                <input type="range" class="slider" id="MaleTop" min="0" max="6" value="0" step="1">
+                                <button type="button" class="MaleRangeButton" onclick="MaleRangeTop('Right')">❯</button>
+                                <div id="MaleTopValue"></div>
+                                <div id="MaleUndershirtValue"></div>
+                                <div id="MaleTorsoValue"></div>
+                            </div>
+                            <hr>
+                            <p>Legs</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="MaleRangeButton" onclick="MaleRangeLegs('Left')">❮</button>
+                                <input type="range" class="slider" id="MaleLegs" min="0" max="6" value="0" step="1">
+                                <button type="button" class="MaleRangeButton" onclick="MaleRangeLegs('Right')">❯</button>
+                                <div id="MaleLegsValue"></div>
+                            </div>
+                            <hr>
+                            <p>Shoes</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="MaleRangeButton" onclick="MaleRangeShoes('Left')">❮</button>
+                                <input type="range" class="slider" id="MaleShoes" min="0" max="6" value="0" step="1">
+                                <button type="button" class="MaleRangeButton" onclick="MaleRangeShoes('Right')">❯</button>
+                                <div id="MaleShoesValue"></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <button id="MaleSubmit" class="submit">Save Changes</button>
+                <div class="Keys"> 
+                    <div class="RightKeyContainer">
+                        <p>Toggle View</p>
+                        <div class="KeysContainer">
+                            <p class="RotationButton">TAB</p>
+                        </div>
+                    </div>
+                    <div class="RightKeyContainer">
+                        <p>Rotation</p>
+                        <div class="KeysContainer">
+                            <p class="RotationButton">A</p>
+                            <p class="RotationButton">D</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FemaleSkin NUI -->
+        <div id="FemaleSkin">
+            <div class="LeftBox">
+                <div class="FemaleTab">
+                    <button class="FemaleTabLinks" id="FemaleAppearanceFirstClick" onclick="FemaleTab(event, 'FemaleAppearance')">Appearance</button>
+                    <button class="FemaleTabLinks" onclick="FemaleTab(event, 'FemaleCosmetic')">Overlay</button>
+                    <button class="FemaleTabLinks" onclick="FemaleTab(event, 'FemaleClothing')">Clothing</button>
+                </div>
+                <form id="FemaleSkinForm">
+                    <div id="FemaleAppearance" class="FemaleTabContent">
+                        <div class="RadioImageBox">
+                            <p>Skin</p>
+                            <label>
+                                <input type="radio" name="skin" value="0" checked>
+                                <span class="color" style="background-color:#E7B78E;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="skin" value="2">
+                                <span class="color" style="background-color:#442F1E;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="skin" value="4">
+                                <span class="color" style="background-color:#C79C77;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="skin" value="6">
+                                <span class="color" style="background-color:#C7BA77;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="skin" value="8">
+                                <span class="color" style="background-color:#9B7554;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="skin" value="10">
+                                <span class="color" style="background-color:#C7A777;"></span>
+                            </label>
+                        </div>
+                        <hr>
+                        <div class="RadioImageBox">
+                            <p>Face</p>
+                            <label>
+                                <input type="radio" name="face" value="21" checked>
+                                <img src="Assets/Images/Skin/face21.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="22">
+                                <img src="Assets/Images/Skin/face22.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="23">
+                                <img src="Assets/Images/Skin/face23.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="24">
+                                <img src="Assets/Images/Skin/face24.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="25">
+                                <img src="Assets/Images/Skin/face25.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="26">
+                                <img src="Assets/Images/Skin/face26.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="27">
+                                <img src="Assets/Images/Skin/face27.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="28">
+                                <img src="Assets/Images/Skin/face28.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="29">
+                                <img src="Assets/Images/Skin/face29.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="30">
+                                <img src="Assets/Images/Skin/face30.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="31">
+                                <img src="Assets/Images/Skin/face31.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="32">
+                                <img src="Assets/Images/Skin/face32.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="33">
+                                <img src="Assets/Images/Skin/face33.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="34">
+                                <img src="Assets/Images/Skin/face34.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="35">
+                                <img src="Assets/Images/Skin/face35.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="36">
+                                <img src="Assets/Images/Skin/face36.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="37">
+                                <img src="Assets/Images/Skin/face37.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="38">
+                                <img src="Assets/Images/Skin/face38.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="39">
+                                <img src="Assets/Images/Skin/face39.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="40">
+                                <img src="Assets/Images/Skin/face40.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="face" value="41">
+                                <img src="Assets/Images/Skin/face41.png">
+                            </label>
+                        </div>
+                        <hr>
+                        <div class="RadioImageBox">
+                            <p>Hair</p>
+                            <label>
+                                <input type="radio" name="hair" value="0" checked>
+                                <img src="Assets/Images/Skin/femalehair0.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="1">
+                                <img src="Assets/Images/Skin/femalehair1.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="2">
+                                <img src="Assets/Images/Skin/femalehair2.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="3">
+                                <img src="Assets/Images/Skin/femalehair3.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="4">
+                                <img src="Assets/Images/Skin/femalehair4.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="5">
+                                <img src="Assets/Images/Skin/femalehair5.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="6">
+                                <img src="Assets/Images/Skin/femalehair6.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="7">
+                                <img src="Assets/Images/Skin/femalehair7.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="8">
+                                <img src="Assets/Images/Skin/femalehair8.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="9">
+                                <img src="Assets/Images/Skin/femalehair9.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="10">
+                                <img src="Assets/Images/Skin/femalehair10.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="11">
+                                <img src="Assets/Images/Skin/femalehair11.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="12">
+                                <img src="Assets/Images/Skin/femalehair12.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="13">
+                                <img src="Assets/Images/Skin/femalehair13.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="14">
+                                <img src="Assets/Images/Skin/femalehair14.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="15">
+                                <img src="Assets/Images/Skin/femalehair15.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="16">
+                                <img src="Assets/Images/Skin/femalehair16.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="17">
+                                <img src="Assets/Images/Skin/femalehair17.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="18">
+                                <img src="Assets/Images/Skin/femalehair18.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="19">
+                                <img src="Assets/Images/Skin/femalehair19.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="20">
+                                <img src="Assets/Images/Skin/femalehair20.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="21">
+                                <img src="Assets/Images/Skin/femalehair21.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="22">
+                                <img src="Assets/Images/Skin/femalehair22.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="23">
+                                <img src="Assets/Images/Skin/femalehair23.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="25">
+                                <img src="Assets/Images/Skin/femalehair25.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="26">
+                                <img src="Assets/Images/Skin/femalehair26.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="27">
+                                <img src="Assets/Images/Skin/femalehair27.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="28">
+                                <img src="Assets/Images/Skin/femalehair28.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="29">
+                                <img src="Assets/Images/Skin/femalehair29.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="30">
+                                <img src="Assets/Images/Skin/femalehair30.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="31">
+                                <img src="Assets/Images/Skin/femalehair31.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="32">
+                                <img src="Assets/Images/Skin/femalehair32.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="33">
+                                <img src="Assets/Images/Skin/femalehair33.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="34">
+                                <img src="Assets/Images/Skin/femalehair34.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="35">
+                                <img src="Assets/Images/Skin/femalehair35.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="36">
+                                <img src="Assets/Images/Skin/femalehair36.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="37">
+                                <img src="Assets/Images/Skin/femalehair37.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="38">
+                                <img src="Assets/Images/Skin/femalehair38.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="76">
+                                <img src="Assets/Images/Skin/femalehair76.png">
+                            </label>
+                            <label>
+                                <input type="radio" name="hair" value="77">
+                                <img src="Assets/Images/Skin/femalehair77.png">
+                            </label>
+                        </div>
+                        <div class="RadioImageBox">
+                            <p>Hair Color</p>
+                            <label>
+                                <input type="radio" name="haircolor" value="0" checked>
+                                <span class="colorsub" style="background-color:#1C1F21;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="1">
+                                <span class="colorsub" style="background-color:#272A2C;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="2">
+                                <span class="colorsub" style="background-color:#312E2C;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="3">
+                                <span class="colorsub" style="background-color:#35261C;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="4">
+                                <span class="colorsub" style="background-color:#4B321F;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="5">
+                                <span class="colorsub" style="background-color:#5C3B24;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="6">
+                                <span class="colorsub" style="background-color:#6D4C35;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="7">
+                                <span class="colorsub" style="background-color:#6B503B;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="8">
+                                <span class="colorsub" style="background-color:#765C45;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="9">
+                                <span class="colorsub" style="background-color:#7F684E;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="10">
+                                <span class="colorsub" style="background-color:#99815D;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="11">
+                                <span class="colorsub" style="background-color:#A79369;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="12">
+                                <span class="colorsub" style="background-color:#AF9C70;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="13">
+                                <span class="colorsub" style="background-color:#BBA063;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="14">
+                                <span class="colorsub" style="background-color:#D6B97B;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="15">
+                                <span class="colorsub" style="background-color:#DAC38E;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="16">
+                                <span class="colorsub" style="background-color:#9F7F59;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="17">
+                                <span class="colorsub" style="background-color:#845039;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="18">
+                                <span class="colorsub" style="background-color:#682B1F;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="19">
+                                <span class="colorsub" style="background-color:#61120C;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="20">
+                                <span class="colorsub" style="background-color:#640F0A;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="21">
+                                <span class="colorsub" style="background-color:#7C140F;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="22">
+                                <span class="colorsub" style="background-color:#A02E19;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="23">
+                                <span class="colorsub" style="background-color:#B64B28;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="24">
+                                <span class="colorsub" style="background-color:#A2502F;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="25">
+                                <span class="colorsub" style="background-color:#AA4E2B;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="26">
+                                <span class="colorsub" style="background-color:#626262;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="27">
+                                <span class="colorsub" style="background-color:#808080;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="28">
+                                <span class="colorsub" style="background-color:#AAAAAA;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="haircolor" value="29">
+                                <span class="colorsub" style="background-color:#C5C5C5;"></span>
+                            </label>
+                        </div>
+                        <hr>
+                        <div class="RadioImageBox">
+                            <p>Eyes Color</p>
+                            <label>
+                                <input type="radio" name="eyescolor" value="0" checked>
+                                <span class="colorsub" style="background-color:#449244;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="1">
+                                <span class="colorsub" style="background-color:#204420;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="2">
+                                <span class="colorsub" style="background-color:#9ed8f3;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="3">
+                                <span class="colorsub" style="background-color:#5184be;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="4">
+                                <span class="colorsub" style="background-color:#2e6d48;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="5">
+                                <span class="colorsub" style="background-color:#5e310c;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="6">
+                                <span class="colorsub" style="background-color:#c09841;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="7">
+                                <span class="colorsub" style="background-color:#a5a5a5;"></span>
+                            </label>
+                            <label>
+                                <input type="radio" name="eyescolor" value="8">
+                                <span class="colorsub" style="background-color:#c7c7c7;"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="FemaleCosmetic" class="FemaleTabContent">
+                        <div class="Container">
+                            <p>Blemishes</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="FemaleRangeButton" name="blemishes" onclick="LeftRange('femaleblemishes')">❮</button>
+                                <input type="range" class="slider" id="femaleblemishes" name="blemishes" min="-1" max="23" value="-1">
+                                <button type="button" class="FemaleRangeButton" name="blemishes" onclick="RightRange('femaleblemishes')">❯</button>
+                            </div>
+                            <hr>
+                            <p>Eyebrows</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="FemaleRangeButton" name="eyebrows" onclick="LeftRange('femaleeyebrows')">❮</button>
+                                <input type="range" class="slider" id="femaleeyebrows" name="eyebrows" min="0" max="33" value="0">
+                                <button type="button" class="FemaleRangeButton" name="eyebrows" onclick="RightRange('femaleeyebrows')">❯</button>
+                            </div>
+                            <hr>
+                            <p>Wrinkles</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="FemaleRangeButton" name="wrinkles" onclick="LeftRange('femalewrinkles')">❮</button>
+                                <input type="range" class="slider" id="femalewrinkles" name="wrinkles" min="-1" max="14" value="-1">
+                                <button type="button" class="FemaleRangeButton" name="wrinkles" onclick="RightRange('femalewrinkles')">❯</button>
+                            </div>
+                            <hr>
+                            <p>Complexion</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="FemaleRangeButton" name="complexion" onclick="LeftRange('femalecomplexion')">❮</button>
+                                <input type="range" class="slider" id="femalecomplexion" name="complexion" min="-1" max="11" value="-1">
+                                <button type="button" class="FemaleRangeButton" name="complexion" onclick="RightRange('femalecomplexion')">❯</button>
+                            </div>
+                            <hr>
+                            <p>Sun Damage</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="FemaleRangeButton" name="sundamage" onclick="LeftRange('femalesundamage')">❮</button>
+                                <input type="range" class="slider" id="femalesundamage" name="sundamage" min="-1" max="10" value="-1">
+                                <button type="button" class="FemaleRangeButton" name="sundamage" onclick="RightRange('femalesundamage')">❯</button>
+                            </div>
+                            <hr>
+                            <p>Freckles</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="FemaleRangeButton" name="freckles" onclick="LeftRange('femalefreckles')">❮</button>
+                                <input type="range" class="slider" id="femalefreckles" name="freckles" min="-1" max="17" value="-1">
+                                <button type="button" class="FemaleRangeButton" name="freckles" onclick="RightRange('femalefreckles')">❯</button>
+                            </div>
+                            <hr>
+                            <p>Body Blemishes</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="FemaleRangeButton" name="bodyblemishes" onclick="LeftRange('femalebodyblemishes')">❮</button>
+                                <input type="range" class="slider" id="femalebodyblemishes" name="bodyblemishes" min="-1" max="11" value="-1">
+                                <button type="button" class="FemaleRangeButton" name="bodyblemishes" onclick="RightRange('femalebodyblemishes')">❯</button>
+                            </div>
+                        </div>
+                      </div>                  
+                    <div id="FemaleClothing" class="FemaleTabContent">
+                        <div class="Container">
+                            <p>Hat</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="FemaleRangeButton" onclick="FemaleRangeHat('Left')">❮</button>
+                                <input type="range" class="slider" id="FemaleHat" min="0" max="6" value="0" step="1">
+                                <button type="button" class="FemaleRangeButton" onclick="FemaleRangeHat('Right')">❯</button>
+                                <div id="FemaleHatValue"></div>
+                            </div>
+                            <hr>
+                            <p>Top</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="FemaleRangeButton" onclick="FemaleRangeTop('Left')">❮</button>
+                                <input type="range" class="slider" id="FemaleTop" min="0" max="6" value="0" step="1">
+                                <button type="button" class="FemaleRangeButton" onclick="FemaleRangeTop('Right')">❯</button>
+                                <div id="FemaleTopValue"></div>
+                                <div id="FemaleUndershirtValue"></div>
+                                <div id="FemaleTorsoValue"></div>
+                            </div>
+                            <hr>
+                            <p>Legs</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="FemaleRangeButton" onclick="FemaleRangeLegs('Left')">❮</button>
+                                <input type="range" class="slider" id="FemaleLegs" min="0" max="6" value="0" step="1">
+                                <button type="button" class="FemaleRangeButton" onclick="FemaleRangeLegs('Right')">❯</button>
+                                <div id="FemaleLegsValue"></div>
+                            </div>
+                            <hr>
+                            <p>Shoes</p>
+                            <div class="slidecontainer">
+                                <button type="button" class="FemaleRangeButton" onclick="FemaleRangeShoes('Left')">❮</button>
+                                <input type="range" class="slider" id="FemaleShoes" min="0" max="6" value="0" step="1">
+                                <button type="button" class="FemaleRangeButton" onclick="FemaleRangeShoes('Right')">❯</button>
+                                <div id="FemaleShoesValue"></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <button id="FemaleSubmit" class="submit">Save Changes</button>
+                <div class="Keys"> 
+                    <div class="RightKeyContainer">
+                        <p>Toggle View</p>
+                        <div class="KeysContainer">
+                            <p class="RotationButton">TAB</p>
+                        </div>
+                    </div>
+                    <div class="RightKeyContainer">
+                        <p>Rotation</p>
+                        <div class="KeysContainer">
+                            <p class="RotationButton">A</p>
+                            <p class="RotationButton">D</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Script -->
+        <script src="Assets/JS/NUI.js" type="text/javascript"></script>
+        <script src="Assets/JS/Identity.js"></script>
+        <script src="Assets/JS/Skin.js"></script>
+	</body>
+</html>

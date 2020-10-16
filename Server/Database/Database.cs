@@ -17,6 +17,7 @@ namespace Outbreak
             MySqlConnectionStringBuilder Builder = new MySqlConnectionStringBuilder
             {
                 Server = Config.Host,
+                Port = Config.Port,
                 UserID = Config.User,
                 Password = Config.Password,
                 Database = Config.Database

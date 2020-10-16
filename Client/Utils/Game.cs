@@ -52,5 +52,23 @@ namespace Outbreak.Utils
             AddTextComponentString(Text);
             DrawText(X, Y);
         }
+
+        public static int CreateCamera(int Cam, float RotX, float RotY, float RotZ)
+        {
+            if (!DoesCamExist(Cam))
+            {
+                Cam = CreateCam("DEFAULT_SCRIPTED_CAMERA", true);
+            }
+            SetCamActive(Cam, true);
+            RenderScriptCams(true, true, 500, true, true);
+            SetCamRot(Cam, RotX, RotY, -RotZ, 2);
+
+            return Cam;
+        }
+        public static void DeleteCamera(int Cam)
+        {
+            SetCamActive(Cam, false);
+            RenderScriptCams(false, true, 500, true, true);
+        }
     }
 }
