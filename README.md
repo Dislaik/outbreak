@@ -1,4 +1,4 @@
-# Zombie Outbreak V 0.4.9
+# Zombie Outbreak V 0.6.5
 Zombie Outbreak is a Zombie Surival RPG Framework, you will must survive and fight against hordes of zombies to ensure your survival.
 
 ![](https://i.imgur.com/sE2NCpr.png)

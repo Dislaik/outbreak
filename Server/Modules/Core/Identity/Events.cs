@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CitizenFX.Core;
+using Outbreak.Core;
+using static CitizenFX.Core.Native.API;
 
-namespace Outbreak.Base
+namespace Outbreak.Core
 {
-    public partial class Example
+    public partial class Identity
     {
         private void Events()
         {
-
+            
         }
     }
 }

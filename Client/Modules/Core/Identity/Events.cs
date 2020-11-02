@@ -19,7 +19,7 @@ namespace Outbreak.Core
             {
                 SendNuiMessage("{ \"Type\": \"Identity\", \"Display\": false }");
                 Utils.Game.DeleteCamera(Cam);
-                TriggerServerEvent("Identity:SetPlayerIdentity", $"{Data["FirstName"]} {Data["LastName"]}", Data["DateOfBirth"].ToString(), Data["Sex"].ToString(), "User", "Survivor");
+                TriggerServerEvent("Identity:SetPlayerIdentity", $"{Data["FirstName"]} {Data["LastName"]}", Data["DateOfBirth"].ToString(), Data["Sex"].ToString(), "User", "Survivor", Inventory.Money);
 
                 if (Data["Sex"].ToString() == "Male")
                 {
@@ -31,7 +31,7 @@ namespace Outbreak.Core
                 }
 
                 Skin.DefaultComponents(Data["Sex"].ToString());
-                Skin.NUI(Data["Sex"].ToString(), "true");
+                Skin.NUI(Data["Sex"].ToString(), true);
                 Player.Loaded = true;
                 Player.GetData();
             });

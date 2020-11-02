@@ -17,17 +17,18 @@ namespace Outbreak.Core
         public static string Sex { get; set; }
         public static string Group { get; set; }
         public static string Faction { get; set; }
-        private bool Dead = false;
-        private int OnPressed = 0;
+        public static bool Dead { get; set; } = false;
+        private int OnPressed { get; set; } = 0;
+        //List<int> Players = new List<int>();
 
         public Player()
-        {
-            Events();
+        { Events();
 
 
             Tick += GetPlayerCoords;
             Tick += DeathDetection;
             Tick += DeathMessage;
+            Tick += WeaponWheelHidden;
         }
 
         public static void GetData()
@@ -47,6 +48,14 @@ namespace Outbreak.Core
         {
             TriggerServerEvent("Player:Spawned");
             TriggerServerEvent("Player:InitPosition");
+
+            TriggerServerEvent("Player:Test", new Action<IDictionary<string, dynamic>, int>((Data, ItemsID) =>
+            {
+                Inventory.ItemsDroped = Data;
+                Inventory.ItemsDropedID = ItemsID;
+                Inventory.CreateItemsDropedServer();
+            }));
+
         }
 
         public async Task GetPlayerCoords()
@@ -55,7 +64,7 @@ namespace Outbreak.Core
             if (Loaded)
             {
                 Vector3 PlayerCoords = GetEntityCoords(PlayerPedId(), true);
-                Dictionary<string, string> PlayerCoordsDictionary = new Dictionary<string, string>
+                Dictionary<string, dynamic> PlayerCoordsDictionary = new Dictionary<string, dynamic>
                 {
                     { "X", (PlayerCoords.X).ToString() },
                     { "Y", (PlayerCoords.Y).ToString() },
@@ -118,6 +127,7 @@ namespace Outbreak.Core
                     OnPressed += 1;
                     if (OnPressed > 30)
                     {
+                        TriggerServerEvent("Player:ClearInventory");
                         DoScreenFadeOut(1000);
                         await Delay(2000);
                         NetworkResurrectLocalPlayer(Config.PlayerDeathRespawn.X, Config.PlayerDeathRespawn.Y, Config.PlayerDeathRespawn.Z, Config.PlayerDeathRespawn.Heading, true, false);
@@ -173,5 +183,26 @@ namespace Outbreak.Core
             await Task.FromResult(0);
         }
 
+        private async Task WeaponWheelHidden()
+        {
+            //HideHudAndRadarThisFrame();
+            BlockWeaponWheelThisFrame();
+            DisableControlAction(0, 37,true);
+
+            await Task.FromResult(0);
+        }
+
+        /*public static int GetPlayers()
+        {
+            for (int i = 0; i <= Config.PlayerServerSlots; i++)
+            {
+                if (NetworkIsPlayerActive(i))
+                {
+                    GetActivePlayers();
+                }
+            }
+
+            return Players;
+        }*/
     }
 }

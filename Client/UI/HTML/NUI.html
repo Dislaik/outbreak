@@ -3,7 +3,10 @@
         <link rel="stylesheet" href="Assets/CSS/NUI.css" type="text/css">
         <link rel="stylesheet" href="Assets/CSS/Identity.css" type="text/css">
         <link rel="stylesheet" href="Assets/CSS/Skin.css" type="text/css">
+        <link rel="stylesheet" href="Assets/CSS/Inventory.css" type="text/css">
         <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 	</head>
 	<body>
     <!-- Identity NUI -->
@@ -1173,9 +1176,35 @@
                 </div>
             </div>
         </div>
+        <div id="Inventory">
+            <div class="RightBox">
+                <div class="Container">
+                    <div id="SlotsContainer"></div>
+                    <div class="ButtonContainer">
+                        <div id="Use"><a>Use</a></div>
+                        <div id="Give"><p>Give</p><input value="1" id="GiveInput" autocomplete="off"/></div>
+                        <div id="Throw"><p>Throw</p><input value="1" id="ThrowInput" autocomplete="off"/></div>
+                        <p id="TotalWeight"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="Loot">
+            <div class="LeftBox">
+                <div class="Container">
+                    <div id="SlotsContainerLoot"></div>
+                </div>
+            </div>
+        </div>
+        <div id="QuickSlots">
+            <div class="BottomBox">
+                <div class="asd"></div>
+            </div>
+        </div>
         <!-- Script -->
         <script src="Assets/JS/NUI.js" type="text/javascript"></script>
         <script src="Assets/JS/Identity.js"></script>
         <script src="Assets/JS/Skin.js"></script>
+        <script src="./Assets/JS/Inventory.js" type="text/javascript"></script>
 	</body>
 </html>

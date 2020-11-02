@@ -9,8 +9,8 @@ C:\Users\Dislaik\Desktop\server\resources\outbreak\server\Release\MsgPack.dll
 C:\Users\Dislaik\Desktop\server\resources\outbreak\server\Release\CitizenFX.Core.pdb
 C:\Users\Dislaik\Desktop\server\resources\outbreak\server\Release\CitizenFX.Core.xml
 C:\Users\Dislaik\Desktop\server\resources\outbreak\server\Release\MsgPack.xml
-C:\Users\Dislaik\Desktop\server\resources\outbreak\server\obj\Debug\Server.csprojAssemblyReference.cache
 C:\Users\Dislaik\Desktop\server\resources\outbreak\server\obj\Debug\Server.csproj.CoreCompileInputs.cache
 C:\Users\Dislaik\Desktop\server\resources\outbreak\server\obj\Debug\Server.csproj.CopyComplete
 C:\Users\Dislaik\Desktop\server\resources\outbreak\server\obj\Debug\Outbreak.Server.net.dll
 C:\Users\Dislaik\Desktop\server\resources\outbreak\server\Release\Newtonsoft.Json.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\server\obj\Debug\Server.csprojAssemblyReference.cache

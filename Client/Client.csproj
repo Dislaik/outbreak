@@ -71,19 +71,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\Config.cs" />
+    <Compile Include="Data\Weapon.cs" />
     <Compile Include="Locales\Translation.cs" />
-    <Compile Include="Modules\Base\Example\Events.cs" />
-    <Compile Include="Modules\Base\Example\Main.cs" />
-    <Compile Include="Modules\Base\Example\Locales.cs" />
+    <Compile Include="Modules\User\Example\Data\Config.cs" />
+    <Compile Include="Modules\User\Example\Events.cs" />
+    <Compile Include="Modules\User\Example\Main.cs" />
+    <Compile Include="Modules\User\Example\Data\Locales.cs" />
     <Compile Include="Modules\Core\Admin\Events.cs" />
     <Compile Include="Modules\Core\Environment\Events.cs" />
     <Compile Include="Modules\Core\Identity\Events.cs" />
+    <Compile Include="Modules\Core\Inventory\Events.cs" />
+    <Compile Include="Modules\Core\Inventory\Main.cs" />
     <Compile Include="Modules\Core\Plague\Events.cs" />
     <Compile Include="Modules\Core\Player\Events.cs" />
     <Compile Include="Modules\Core\Player\Main.cs" />
     <Compile Include="Modules\Core\Skin\Events.cs" />
     <Compile Include="Modules\Core\Skin\Main.cs" />
-    <Compile Include="Root\Commands.cs" />
+    <Compile Include="Root\Functions.cs" />
     <Compile Include="Modules\Core\Admin\Main.cs" />
     <Compile Include="Modules\Core\Environment\Main.cs" />
     <Compile Include="Modules\Core\Identity\Main.cs" />
@@ -95,12 +99,12 @@
     <Compile Include="Utils\String.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\" />
     <Folder Include="Loadscreen\" />
-    <Folder Include="Modules\User\" />
+    <Folder Include="Modules\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="UI\HTML\Assets\CSS\Identity.css" />
+    <Content Include="UI\HTML\Assets\CSS\Inventory.css" />
     <Content Include="UI\HTML\Assets\CSS\NUI.css" />
     <Content Include="UI\HTML\Assets\CSS\Skin.css" />
     <Content Include="UI\HTML\Assets\Images\Identity\heart.png" />
@@ -169,6 +173,7 @@
     <Content Include="UI\HTML\Assets\Images\Skin\hair8.png" />
     <Content Include="UI\HTML\Assets\Images\Skin\hair9.png" />
     <Content Include="UI\HTML\Assets\JS\Identity.js" />
+    <Content Include="UI\HTML\Assets\JS\Inventory.js" />
     <Content Include="UI\HTML\Assets\JS\NUI.js" />
     <Content Include="UI\HTML\Assets\JS\Skin.js" />
     <Content Include="UI\HTML\NUI.html" />

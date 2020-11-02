@@ -15,8 +15,7 @@ namespace Outbreak.Core
         private string PlayerGroup { get; } = "PLAYER";
         private string ZombieGroup { get; } = "ZOMBIE";
         public Plague()
-        {
-            Events();
+        { Events();
 
             uint GroupHandle = 0;
             AddRelationshipGroup(ZombieGroup, ref GroupHandle);

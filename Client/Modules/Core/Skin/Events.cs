@@ -12,10 +12,13 @@ namespace Outbreak.Core
     {
         private void Events()
         {
+            EventHandlers["Skin:LoadPlayerSkin"] += new Action<string, IDictionary<string, object>>(LoadPlayer);
+            EventHandlers["Skin:OpenNUI"] += new Action<string, bool>(NUI);
+
             RegisterNuiCallbackType("Skin:Submit");
             EventHandlers["__cfx_nui:Skin:Submit"] += new Action<IDictionary<string, object>, CallbackDelegate>((Data, CB) =>
             {
-                Dictionary<string, string> PlayerSkinDictionary = new Dictionary<string, string>
+                Dictionary<string, dynamic> PlayerSkinDictionary = new Dictionary<string, dynamic>
                 {
                     { "Skin", Data["Skin"].ToString() },
                     { "Face", Data["Face"].ToString() },
@@ -43,10 +46,11 @@ namespace Outbreak.Core
                 Console.Info($"Skin Created: {PlayerSkin}");
 
                 TriggerServerEvent("Skin:SetPlayerSkin", PlayerSkin);
-                NUI(Player.Sex, "false");
+                NUI(Player.Sex, false);
                 SetNuiFocus(false, false);
                 MenuOpen = false;
                 DisplayRadar(true);
+                Inventory.QuickSlots(true);
                 Utils.Game.DeleteCamera(Cam);
             });
 
@@ -117,8 +121,6 @@ namespace Outbreak.Core
                     ViewCamera = true;
                 }
             });
-
-            EventHandlers["Skin:LoadPlayerSkin"] += new Action<string, IDictionary<string, object>>(LoadPlayer);
         }
     }
 }

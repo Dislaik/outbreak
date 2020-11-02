@@ -16,12 +16,12 @@ namespace Outbreak.Utils
 
     public class String
     {
-        public static string DictionaryToString(Dictionary<string, string> dictionary)
+        public static string DictionaryToString(Dictionary<string, dynamic> dictionary)
         {
             string dictionaryString = "{";
-            foreach (KeyValuePair<string, string> keyValues in dictionary)
+            foreach (KeyValuePair<string, dynamic> keyValues in dictionary)
             {
-                dictionaryString += "\"" +keyValues.Key + "\":" + keyValues.Value + ", ";
+                dictionaryString += "\"" +keyValues.Key + "\":" + keyValues.Value + ",";
             }
             return dictionaryString.TrimEnd(',', ' ') + "}";
         }
@@ -39,5 +39,3 @@ namespace Outbreak
     }
 
 }
-
-

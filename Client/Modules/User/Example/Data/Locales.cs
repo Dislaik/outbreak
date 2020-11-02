@@ -5,22 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using CitizenFX.Core;
 
-namespace Outbreak.Base
+namespace Outbreak.User
 {
     public partial class Example
     {
         public void Translations()
         {
             Translate.Locale["EN"] = new Dictionary<string, string>(){
-	            {"TEST1", "1 english"},
-	            {"TEST2", "2 english"},
-	            {"TEST3", "3 english"}
+	            {"Example:Test", "This is a Example"}
             };
 
             Translate.Locale["ES"] = new Dictionary<string, string>(){
-                {"TEST1", "1 spanish"},
-                {"TEST2", "2 spanish"},
-                {"TEST3", "3 spanish"}
+                {"Example:Test", "Esto es un ejemplo"}
             };
         }
     }

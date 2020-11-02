@@ -14,14 +14,8 @@ namespace Outbreak.Core
     {
         public int Cam { get; set; } = 20;
         public Identity()
-        {
-            Events();
+        { Events();
 
-            Command.Register("delchar", "User", new Action<int, List<object>, string>((source, args, raw) =>
-            {
-                NUI();
-                
-            }), "Delete your current character");
         }
         public void NUI()
         {
@@ -30,6 +24,8 @@ namespace Outbreak.Core
             SendNuiMessage("{ \"Type\": \"Identity\", \"Display\": true }");
             SetNuiFocus(true, true);
             DisplayRadar(false);
+
+            Inventory.QuickSlots(false);
         }
     }
 }

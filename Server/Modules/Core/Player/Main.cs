@@ -12,20 +12,15 @@ using System.Dynamic;
 
 namespace Outbreak.Core
 {
-    public partial class Player_ : BaseScript
+    public partial class IPlayer : BaseScript
     {
+        public IPlayer()
+        { Events();
+            Database.Initialize();
 
-        public Player_()
-        {
-            Events();
         }
 
-        private void CallbackGroup([FromSource] Player Source, NetworkCallbackDelegate CB)
-        {
-            CB.Invoke(GetDataDatabase(Source));
-        }
-
-        private ExpandoObject GetDataDatabase([FromSource] Player Source)
+        public static ExpandoObject GetDataDatabase([FromSource] Player Source)
         {
             string Identifier = Source.Identifiers[Config.PlayerIdentifier];
             MySqlDataReader Result = Database.ExecuteSelectQuery($"SELECT Name, `Date Of Birth`, Sex, `Group`, Faction FROM users WHERE Identifier = '{Identifier}'");
@@ -42,35 +37,6 @@ namespace Outbreak.Core
             Database.Connection.Close();
 
             return Data;
-        }
-
-        private async void OnPlayerConnecting([FromSource] Player source, string playerName, dynamic setKickReason, dynamic deferrals)
-        {
-            deferrals.defer();
-
-            await Delay(0);
-
-            var Identifier = source.Identifiers[Config.PlayerIdentifier];
-            var IP = source.Identifiers["ip"];
-
-            if (!string.IsNullOrEmpty(Identifier))
-            {
-                if (!GetPlayerExistDB(Identifier))
-                {
-                    Database.ExecuteInsertQuery($"INSERT INTO users (Identifier, Nickname) VALUES ('{Identifier}', '{playerName}')");
-                    Debug.WriteLine($"^1[Outbreak]^5[INFO]^7 {playerName} [{Identifier}] - Joined for first time to server!");
-                }
-                else
-                {
-                    Debug.WriteLine($"^1[Outbreak]^5[INFO]^7 {playerName} - User Authenticated {Identifier}");
-                }
-            }
-            else
-            {
-                deferrals.done($"You dont have {Config.PlayerIdentifier} identifier used for this server.");
-            }
-
-            deferrals.done();
         }
         private bool GetPlayerExistDB(string Identifier)
         {
@@ -128,57 +94,242 @@ namespace Outbreak.Core
 
             return GetPlayerPositionDB;
         }
-        public void OnPlayerRegister([FromSource] Player Source)
+        public static void AddInventoryItem([FromSource] Player Source, string Name, int Count)
         {
-            string Identifier = Source.Identifiers[Config.PlayerIdentifier];
-
-            if (string.IsNullOrEmpty(GetPlayerGenderDB(Identifier)))
+            if (!Enum.IsDefined(typeof(Weapon.Hash), Name) && Inventory.Items.ContainsKey(Name))
             {
-                TriggerClientEvent(Source, "Identity:Register");
+                string PlayerInventory = Inventory.GetInventory(Source);
+                var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
+
+                bool found = false;
+                foreach (var Item in Dictionary)
+                {
+                    if (Item.Key == Name)
+                    {
+                        Dictionary[Name] += Count;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    Dictionary.Add(Name, Count);
+                }
+
+                string NewInventory = JsonConvert.SerializeObject(Dictionary);
+                Inventory.UpdateInventory(Source, NewInventory);
             }
             else
             {
-                string JSON = GetPlayerSkinDB(Identifier);
-                var PlayerSkin = JsonConvert.DeserializeObject<IDictionary<string, object>>(JSON);
-
-                TriggerClientEvent(Source, "Skin:LoadPlayerSkin", GetPlayerGenderDB(Identifier), PlayerSkin);
+                ChatMessage.Error(Source, $"Item [{Name}] does not exist!");
             }
-
-        }
-        public void SetPlayerRegistered([FromSource] Player source, string name, string dob, string gender, string group, string faction)
-        {
-            string Identifier = source.Identifiers[Config.PlayerIdentifier];
-            Debug.WriteLine($"{name} {dob} {gender} {group}");
-            Database.ExecuteUpdateQuery($"UPDATE users SET Name = '{name}', `Date Of Birth` = '{dob}', Sex = '{gender}', `Group` = '{group}', Faction = '{faction}' WHERE Identifier = '{Identifier}'");
+            
         }
 
-        public void SetPlayerPositionDB([FromSource] Player Source, string position)
+        public static void AddWeapon([FromSource] Player Source, string Name, int Ammo = 0, dynamic Component = null, int Tint = 1)// Configurar
         {
-            string Identifier = Source.Identifiers[Config.PlayerIdentifier];
-            Database.ExecuteUpdateQuery($"UPDATE users SET Position = '{position}' WHERE Identifier = '{Identifier}'");
-        }
+            string PlayerInventory = Inventory.GetInventory(Source);
+            var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
 
-        public void OnPlayerPosition([FromSource] Player Source)
-        {
-            string Identifier = Source.Identifiers[Config.PlayerIdentifier];
-
-            if (!string.IsNullOrEmpty(GetPlayerPositionDB(Identifier)))
+            if (Enum.TryParse(Name, out Weapon.Hash WeaponHash))
             {
-                string json = GetPlayerPositionDB(Identifier);
-                var PlayerPosition = JsonConvert.DeserializeObject<Dictionary<string, float>>(json);
-                float X = PlayerPosition["X"];
-                float Y = PlayerPosition["Y"];
-                float Z = PlayerPosition["Z"];
+                bool found = false;
+                foreach (var Item in Dictionary)
+                {
+                    if (Item.Key == Name)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    dynamic Data = new ExpandoObject();
+                    Data.Ammo = Ammo;
+                    Data.Components = Component; //Not ready yet
+                    if (Tint == null)//Not ready yet
+                    { Data.Tint = 0; }//Not ready yet
+                    else { Data.Tint = Tint; }//Not ready yet
 
-                TriggerClientEvent(Source, "Player:SetPosition", X, Y, Z);
+                    Dictionary.Add(Name, Data);
+                }
             }
+
+            string NewInventory = JsonConvert.SerializeObject(Dictionary);
+            Inventory.UpdateInventory(Source, NewInventory);
         }
 
-        public void SetPlayerSkin([FromSource] Player Source, string Skin)
+        public static void RemoveWeapon([FromSource] Player Source, string Name) //Ready!
+        {
+            string PlayerInventory = Inventory.GetInventory(Source);
+            var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
+
+            if (Enum.TryParse(Name, out Weapon.Hash WeaponHash))
+            {
+                foreach (var Item in Dictionary)
+                {
+                    if (Item.Key == Name)
+                    {
+                        Dictionary.Remove(Name);
+                        break;
+                    }
+                }
+            }
+
+            string NewInventory = JsonConvert.SerializeObject(Dictionary);
+            Inventory.UpdateInventory(Source, NewInventory);
+        }
+
+        public static void RemoveWeaponAmmo([FromSource] Player Source, string Name, int Ammo)
+        {
+            string PlayerInventory = Inventory.GetInventory(Source);
+            var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
+
+            if (Enum.TryParse(Name, out Weapon.Hash WeaponHash))
+            {
+                foreach (dynamic Item in Dictionary.Keys.ToList())
+                {
+                    if (Item == Name)
+                    {
+                        Dictionary[Item].Ammo = Dictionary[Item].Ammo - Ammo;
+                        break;
+                    }
+                }
+            }
+
+            string NewInventory = JsonConvert.SerializeObject(Dictionary);
+            Inventory.UpdateInventory(Source, NewInventory);
+        }
+
+        public static void AddWeaponAmmo([FromSource] Player Source, string Name, int Ammo)
+        {
+            string PlayerInventory = Inventory.GetInventory(Source);
+            var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
+
+            if (Enum.TryParse(Name, out Weapon.Hash WeaponHash))
+            {
+                foreach (dynamic Item in Dictionary.Keys.ToList())
+                {
+                    if (Item == Name)
+                    {
+                        Dictionary[Item].Ammo += Ammo;
+                        break;
+                    }
+                }
+            }
+
+            string NewInventory = JsonConvert.SerializeObject(Dictionary);
+            Inventory.UpdateInventory(Source, NewInventory);
+        }
+
+        public static bool CanCarryInventoryItem([FromSource] Player Source, string Name, int Amount)
+        {
+            string PlayerInventory = Inventory.GetInventory(Source);
+            var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
+
+            bool found = false;
+            foreach (var Item in Dictionary)
+            {
+                if (Item.Key == Name)
+                {
+                    found = true;
+                    if (Convert.ToInt32(Inventory.Items[Name].Limit) >= (Convert.ToInt32(Item.Value) + Amount))
+                    {
+                        return true;
+                        break;
+                    }
+                }
+            }
+            if (!found)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool HasWeapon([FromSource] Player Source, string Name)
+        {
+            string PlayerInventory = Inventory.GetInventory(Source);
+            var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
+
+            foreach (var Item in Dictionary)
+            {
+                if (Item.Key == Name)
+                {
+                    return true;
+                    break;
+                }
+            }
+
+            return false;
+        }
+
+        public static void RemoveInventoryItem([FromSource] Player Source, string Name, int Amount)
+        {
+            string PlayerInventory = Inventory.GetInventory(Source);
+            var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
+
+            foreach (dynamic Item in Dictionary)
+            {
+                if (Item.Key == Name)
+                {
+                    Dictionary[Name] -= Amount;
+                    break;
+                }
+            }
+            if (Dictionary[Name] < 1)
+            {
+                Dictionary.Remove(Name);
+            }
+
+            string NewInventory = JsonConvert.SerializeObject(Dictionary);
+            Inventory.UpdateInventory(Source, NewInventory);
+        }
+
+        public static string GetName([FromSource] Player Source)
         {
             string Identifier = Source.Identifiers[Config.PlayerIdentifier];
-            Database.ExecuteUpdateQuery($"UPDATE users SET Skin = '{Skin}' WHERE Identifier = '{Identifier}'");
+            MySqlDataReader Result = Database.ExecuteSelectQuery($"SELECT Name FROM users WHERE Identifier = '{Identifier}'");
 
+            string Data = "";
+            while (Result.Read())
+            {
+                Data = Result["Name"].ToString();
+            }
+            Database.Connection.Close();
+
+            return Data;
+        }
+
+        public static void Notification([FromSource] Player Source, string Message)
+        {
+            Source.TriggerEvent("Player:Notification", Message);
+        }
+
+        public static float GetCurrentWeight([FromSource] Player Source)
+        {
+            float TotalWeight = 0f;
+
+            string PlayerInventory = Inventory.GetInventory(Source);
+            var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
+
+            foreach (var Item in Dictionary.Keys)
+            {
+                if (Inventory.Items.ContainsKey(Item))
+                {
+                    if (Enum.IsDefined(typeof(Weapon.Hash), Item))
+                    {
+                        TotalWeight += Convert.ToSingle(Inventory.Items[Item].Weight);
+                    }
+                    else
+                    {
+                        TotalWeight += Convert.ToSingle(Inventory.Items[Item].Weight) * Convert.ToInt32(Dictionary[Item]);
+                    }
+                }
+            }
+
+            return TotalWeight;
         }
     }
 }

@@ -7,7 +7,7 @@
             $("#Identity").hide();
         }
     }
-    DisplayIdentity(false)
+    DisplayIdentity(false);
 
     function DisplayMaleSkin(bool) {
         if (bool) {
@@ -23,35 +23,36 @@
             $("#FemaleSkin").hide();
         }
     }
-    DisplayMaleSkin(false)
-    DisplayFemaleSkin(false)
-    
+    DisplayMaleSkin(false);
+    DisplayFemaleSkin(false);
+
     window.addEventListener('message', function(event) {
         var item = event.data;
         if (item.Type === "Identity") {
             if (item.Display == true) {
-                DisplayIdentity(true)
+                DisplayIdentity(true);
             } else {
-                DisplayIdentity(false)
+                DisplayIdentity(false);
             }
         }
 
         if (item.Type == "Skin") {
             if (item.Sex == "Male") {
                 if (item.Display == true) {
-                    DisplayMaleSkin(true)
+                    DisplayMaleSkin(true);
                 } else {
-                    DisplayMaleSkin(false)
+                    DisplayMaleSkin(false);
                 }
             }
             else if (item.Sex == "Female") {
                 if (item.Display == true) {
-                    DisplayFemaleSkin(true)
+                    DisplayFemaleSkin(true);
                 } else {
-                    DisplayFemaleSkin(false)
+                    DisplayFemaleSkin(false);
                 }
             }
         }
+
         /*if (item.locale == "EN") {
             $("#name").html("Hello World");
         }*/
@@ -232,6 +233,14 @@
         return
     })
 
+    /*$(document).on ("click", ".Slots", function () {
+        SetSlots(dictionary);
+        $.post('http://outbreak/Inventory:SelectItem', JSON.stringify({
+                Item: this.id
+        }));
+        return
+    });*/
+
     $(document).on('keydown', function(event) {
         if (event.which == 65) {
             $.post('http://outbreak/Skin:RotateLeft', JSON.stringify({
@@ -246,8 +255,9 @@
             return
         }
         if (event.which == 9) {
-            $.post('http://outbreak/Skin:View');
+            $.post('http://outbreak/Skin:View', JSON.stringify({
+            }));
+            return
         }
     });
-
 })

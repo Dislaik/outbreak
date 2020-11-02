@@ -1,0 +1,14 @@
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\Outbreak.Client.net.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\Outbreak.Client.net.pdb
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\CitizenFX.Core.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\System.Reflection.Metadata.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\System.Collections.Immutable.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\MsgPack.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\CitizenFX.Core.pdb
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\CitizenFX.Core.xml
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\Release\MsgPack.xml
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\obj\Release\Client.csprojAssemblyReference.cache
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\obj\Release\Client.csproj.CoreCompileInputs.cache
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\obj\Release\Client.csproj.CopyComplete
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\obj\Release\Outbreak.Client.net.dll
+C:\Users\Dislaik\Desktop\server\resources\outbreak\client\obj\Release\Outbreak.Client.net.pdb

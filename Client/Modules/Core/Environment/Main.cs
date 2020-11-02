@@ -13,7 +13,7 @@ namespace Outbreak.Core
     {
         private dynamic SafeZones { get; } = new[]
         {
-            new {X = 450.5966f , Y = -998.9636f, Z = 30.6896f, Width = 80.0f, Height = 65.0f, Rotation = 0}
+            new {X = 450.5966f , Y = -998.9636f, Z = 28.4284f, Width = 80.0f, Height = 65.0f}
         };
         private dynamic RadiationZones { get; } = new[]
         {
@@ -32,8 +32,7 @@ namespace Outbreak.Core
         };
 
         public Environment()
-        {
-            Events();
+        { Events();
 
             SetArtificialLightsState(true);
             SetScenarioGroupEnabled("LSA_Planes", false);
@@ -46,6 +45,7 @@ namespace Outbreak.Core
             Tick += SafeZone;
             Tick += InteriorLights;
             Tick += DisableServices;
+            Tick += DrawMarkerTest;
         }
 
         private async Task CheckVehicles()
@@ -200,6 +200,16 @@ namespace Outbreak.Core
             }
 
             await Delay(500);
+        }
+
+        private async Task DrawMarkerTest()
+        {
+            foreach (var i in SafeZones)
+            {
+                DrawMarker(43, i.X, i.Y, i.Z - 3f, 0f, 0f, 0f, 0f, 0f, 0f, i.Width, i.Height, 10.0f, 104, 255, 80, 40, false, false, 2, false, null, null, false);
+            }
+
+            await Task.FromResult(0);
         }
     }
 }

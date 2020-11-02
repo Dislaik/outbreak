@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -12,11 +13,9 @@ namespace Outbreak.Core
 {
     public partial class Admin : BaseScript
     {
-        Translation Translate = new Translation(Config.Lang);
+        Translation Translate { get; } = new Translation(Config.Lang);
         public Admin()
-        {
-            Events();
-            Translate.Global();
+        { Events(); Translate.Global();
 
             Menu MainMenu = new Menu(Translate._("Admin:Menu_Title"), Translate._("Admin:Menu_Subtitle"))
             {
@@ -66,12 +65,6 @@ namespace Outbreak.Core
 
                 await Task.FromResult(0);
             };
-
-            Command.Register("test", "User", new Action<int, List<object>, string>((source, args, raw) =>
-            {
-                Console.Debug("This is a test LOL");
-
-            }), "Suggestion Test");
 
         }
 

@@ -16,35 +16,22 @@ namespace Outbreak.Core
         private static int Cam = 2;
 
         public Skin()
-        {
-            Events();
-
-
-            Command.Register("skin", "User", new Action<int, List<object>, string>((source, args, raw) =>
-            {
-                NUI(Player.Sex, "true");
-
-            }), "On NUI");
-
-            Command.Register("off", "User", new Action<int, List<object>, string>((source, args, raw) =>
-            {
-                SendNuiMessage("{ \"Type\": \"Skin\", \"Sex\": \"Male\", \"Display\": false }");
-                SendNuiMessage("{ \"Type\": \"Skin\", \"Sex\": \"Female\", \"Display\": false }");
-                SetNuiFocus(false, false);
-
-            }), "Off NUI");
-
+        { Events();
 
             Tick += SkinCamera;
         }
 
-        public static void NUI(string Sex, string Display)
+        public static void NUI(string Sex, bool Display)
         {
+            string Display_;
+            if (Display) { Display_ = "true"; }
+            else { Display_ = "false"; }
+
             string JSON = "" +
                 "{" +
                     $"\"Type\": \"Skin\"," +
                     $"\"Sex\": \"{Sex}\"," +
-                    $"\"Display\": {Display}" +
+                    $"\"Display\": {Display_}" +
                 "}" +
             "";
 
@@ -52,9 +39,10 @@ namespace Outbreak.Core
             Vector3 PlayerCoords = GetEntityCoords(PlayerPedId(), true);
             SetCamCoord(Cam, PlayerCoords.X + 0.2f, PlayerCoords.Y + 0.5f, PlayerCoords.Z + 0.6f);
             SendNuiMessage(JSON);
-            SetNuiFocus(true, true);
+            SetNuiFocus(Display, Display);
             DisplayRadar(false);
             MenuOpen = true;
+            Inventory.QuickSlots(false);
         }
 
         private async Task SkinCamera()
@@ -82,6 +70,7 @@ namespace Outbreak.Core
             PlayerSkinComponents(PlayerSkin);
             Player.Loaded = true;
             Player.GetData();
+            Inventory.QuickSlots(true);
 
         }
         public static async void SetModelToPlayer(string Model)

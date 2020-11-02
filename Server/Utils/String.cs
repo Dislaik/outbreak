@@ -9,11 +9,14 @@ namespace Outbreak.Utils
 {
     public class String
     {
-        public static Dictionary<string, string> StringToDictionary(string Json)
+        public static string DictionaryStringToInt(Dictionary<string, int> dictionary)
         {
-            string json = @"{" + Json + "}";
-            Dictionary<string, string> values = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
-            return values;
+            string dictionaryString = "{";
+            foreach (KeyValuePair<string, int> keyValues in dictionary)
+            {
+                dictionaryString += "\"" + keyValues.Key + "\":" + keyValues.Value + ", ";
+            }
+            return dictionaryString.TrimEnd(',', ' ') + "}";
         }
     }
 }
