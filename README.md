@@ -7,31 +7,13 @@ Zombie Outbreak is a Zombie Surival RPG Framework, you will must survive and fig
 - Synchronized zombies
 - Vehicles abandoned
 - Safe zones
+- Identity creation
 - Character creation
+- Inventory system
 
 ## Requirements
-- [Visual Studio 2019](https://visualstudio.microsoft.com/es/vs/)
+- [Visual Studio](https://visualstudio.microsoft.com/es/vs/)
 - [MariaDB](https://downloads.mariadb.org/)
-
-## Installation
-1. Donwload this repository
-2. Put `outbreak` folder in your folder resources
-3. Add the resource in your `server.cfg`
-
-It should look like this
-```cfg
-ensure mapmanager
-ensure spawnmanager
-ensure sessionmanager
-ensure chat
-ensure rconlog
-ensure baseevents
-ensure outbreak
-```
-4. Add database `outbreak.sql` to your server
-5. Open file `outbreak.sln` with Visual Studio
-6. Establish the connection to the database in `Server/Config/Config.cs`
-8. Compile (F7) the project for save the changes
 
 ## Documentation
 Take a look at [Wiki](https://github.com/Dislaik/outbreak/wiki)
