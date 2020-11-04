@@ -14,12 +14,17 @@ namespace Outbreak.Core
         public Identity()
         {Events();
 
-            Command.Register("delchar", "User", new Action<Player, List<object>, string>((Source, Arguments, Raw) =>
+            Command.Register("delchar", "User", new Action<CitizenFX.Core.Player, List<object>, string>((Source, Arguments, Raw) =>
             {
                 Source.TriggerEvent("Identity:Register");
 
             }), "Delete your current character");
 
+            Command.Register("delchar", "Admin", new Action<CitizenFX.Core.Player, List<object>, string>((Source, Arguments, Raw) =>
+            {
+                Source.TriggerEvent("Identity:Register");
+
+            }), "Delete your current character");
         }
     }
 }

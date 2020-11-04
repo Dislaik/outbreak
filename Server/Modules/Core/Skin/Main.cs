@@ -15,9 +15,9 @@ namespace Outbreak.Core
         public Skin()
         {Events();
 
-            Command.Register("skin", "Admin", new Action<Player, List<object>, string>((Source, Arguments, Raw) =>
+            Command.Register("skin", "Admin", new Action<CitizenFX.Core.Player, List<object>, string>((Source, Arguments, Raw) =>
             {
-                dynamic PlayerData = IPlayer.GetDataDatabase(Source);
+                dynamic PlayerData = Player.GetDataDatabase(Source);
                 string PlayerSex = PlayerData.Sex;
                 Source.TriggerEvent("Skin:OpenNUI", PlayerSex, true);
 

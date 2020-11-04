@@ -1,10 +1,9 @@
-﻿using CitizenFX.Core;
-using CitizenFX.Core.UI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Threading.Tasks;
+using CitizenFX.Core;
 using static CitizenFX.Core.Native.API;
 
 namespace Outbreak.Core
@@ -14,7 +13,6 @@ namespace Outbreak.Core
         private void Events()
         {
             EventHandlers["Inventory:Update"] += new Action(UpdatePlayerInventory);
-            EventHandlers["Inventory:OffNUI"] += new Action<bool>(NUI);
             EventHandlers["Inventory:UpdateItemsDropedCallback"] += new Action<IDictionary<string, dynamic>, int>(UpdateItemsDropedCallback);
             EventHandlers["Inventory:UpdateItemLootablee"] += new Action<string>(UpdateItemLootablee);
 
@@ -55,7 +53,7 @@ namespace Outbreak.Core
                         {
                             if (Convert.ToInt32(Amount) < 1 && !string.IsNullOrEmpty(Amount.ToString()))
                             {
-                                Player.Notification("~r~[Error]~s~ Invalid amount to give");
+                                UI.ShowNotification("~r~[Error]~s~ Invalid amount to give");
                             }
                             else
                             {
@@ -74,7 +72,7 @@ namespace Outbreak.Core
                                     }
                                     else
                                     {
-                                        Player.Notification("~r~[Error]~s~ Invalid amount to give");
+                                        UI.ShowNotification("~r~[Error]~s~ Invalid amount to give");
                                     }
                                 }
                             }
@@ -82,7 +80,7 @@ namespace Outbreak.Core
                     }
                     else
                     {
-                        Player.Notification("~b~[Info]~s~ No players nearby");
+                        UI.ShowNotification("~b~[Info]~s~ No players nearby");
                     }
                 }
             });
@@ -96,7 +94,7 @@ namespace Outbreak.Core
                     {
                         if (Convert.ToInt32(Amount) < 1)
                         {
-                            Player.Notification("[Error] Invalid amount to throw");
+                            UI.ShowNotification("[Error] Invalid amount to throw");
                         }
                         else
                         {

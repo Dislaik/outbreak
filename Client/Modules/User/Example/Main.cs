@@ -13,7 +13,7 @@ namespace Outbreak.User
     {
         Translation Translate { get; } = new Translation(Config.Lang);
         public Example()
-        {Events(); Translations();
+        {Events(); Locales();
 
             //Console.Debug(Translate._("Example:Test"));
         }

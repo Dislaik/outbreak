@@ -26,12 +26,6 @@ namespace Outbreak.Core
             Database.Initialize();
             GetItemDatabase();
 
-            Command.Register("off", "Admin", new Action<Player, List<object>, string>((Source, Arguments, Raw) =>
-            {
-                Source.TriggerEvent("Inventory:OffNUI", false);
-
-            }), "Off NUI");
-
         }
         private void GetItemDatabase()
         {
@@ -50,13 +44,13 @@ namespace Outbreak.Core
 
             Database.Connection.Close();
         }
-        public static void UpdateInventory([FromSource] Player Source, string Items)
+        public static void UpdateInventory([FromSource] CitizenFX.Core.Player Source, string Items)
         {
             string Identifier = Source.Identifiers[Config.PlayerIdentifier];
             Database.ExecuteUpdateQuery($"UPDATE users SET Inventory = '{Items}' WHERE Identifier = '{Identifier}'");
             TriggerClientEvent("Inventory:Update");
         }
-        public static string GetInventory([FromSource] Player Source)
+        public static string GetInventory([FromSource] CitizenFX.Core.Player Source)
         {
             string Identifier = Source.Identifiers[Config.PlayerIdentifier];
             MySqlDataReader Result = Database.ExecuteSelectQuery($"SELECT Inventory FROM users WHERE Identifier = '{Identifier}'");

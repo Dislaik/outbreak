@@ -74,8 +74,15 @@
     <Compile Include="Config\Config.cs" />
     <Compile Include="Data\Weapon.cs" />
     <Compile Include="Init.cs" />
+    <Compile Include="Locales\Translation.cs" />
+    <Compile Include="Modules\Base\Building\Events.cs" />
+    <Compile Include="Modules\Base\Building\Main.cs" />
+    <Compile Include="Modules\Base\Tent\Events.cs" />
+    <Compile Include="Modules\Base\Tent\Main.cs" />
     <Compile Include="Modules\Core\Admin\Events.cs" />
     <Compile Include="Modules\Core\Admin\Main.cs" />
+    <Compile Include="Modules\Core\UI\Events.cs" />
+    <Compile Include="Modules\Core\UI\Main.cs" />
     <Compile Include="Modules\User\Example\Events.cs" />
     <Compile Include="Modules\User\Example\Main.cs" />
     <Compile Include="Modules\Core\Identity\Events.cs" />
@@ -95,8 +102,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Loadscreen\" />
-    <Folder Include="Locales\" />
-    <Folder Include="Modules\Base\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MySqlConnector">
@@ -117,6 +122,10 @@
     <PackageReference Include="System.Threading.Tasks.Extensions">
       <Version>4.3.0</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Modules\Base\Building\SQL\buildings.sql" />
+    <Content Include="Modules\Base\Tent\SQL\tents.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

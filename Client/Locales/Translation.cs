@@ -6,8 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CitizenFX.Core;
 
-
-
 namespace Outbreak
 {
     public class Translation

@@ -12,23 +12,23 @@ using static CitizenFX.Core.Native.API;
 
 namespace Outbreak.Core
 {
-    public partial class IPlayer
+    public partial class Player
     {
         private void Events()
         {
-            EventHandlers["playerConnecting"] += new Action<Player, string, dynamic, dynamic>(OnPlayerConnecting);
-            EventHandlers["Player:Spawned"] += new Action<Player>(OnPlayerRegister);
-            EventHandlers["Player:Data"] += new Action<Player, NetworkCallbackDelegate>(CallbackGroup);
-            EventHandlers["Identity:SetPlayerIdentity"] += new Action<Player, string, string, string, string, string, string>(SetPlayerRegistered);
-            EventHandlers["Skin:SetPlayerSkin"] += new Action<Player, string>(SetPlayerSkin);
-            EventHandlers["Player:GetPosition"] += new Action<Player, string>(SetPlayerPositionDB);
-            EventHandlers["Player:InitPosition"] += new Action<Player>(OnPlayerPosition);
-            EventHandlers["Player:GetInventory"] += new Action<Player, NetworkCallbackDelegate>(CallbackGetInventory);
-            EventHandlers["Player:Test"] += new Action<Player, NetworkCallbackDelegate>(CallbackGetItemsDroped);
-            EventHandlers["Player:ClearInventory"] += new Action<Player>(ClearInventory);
+            EventHandlers["playerConnecting"] += new Action<CitizenFX.Core.Player, string, dynamic, dynamic>(OnPlayerConnecting);
+            EventHandlers["Player:Spawned"] += new Action<CitizenFX.Core.Player>(OnPlayerRegister);
+            EventHandlers["Player:Data"] += new Action<CitizenFX.Core.Player, NetworkCallbackDelegate>(CallbackGroup);
+            EventHandlers["Identity:SetPlayerIdentity"] += new Action<CitizenFX.Core.Player, string, string, string, string, string, string>(SetPlayerRegistered);
+            EventHandlers["Skin:SetPlayerSkin"] += new Action<CitizenFX.Core.Player, string>(SetPlayerSkin);
+            EventHandlers["Player:GetPosition"] += new Action<CitizenFX.Core.Player, string>(SetPlayerPositionDB);
+            EventHandlers["Player:InitPosition"] += new Action<CitizenFX.Core.Player>(OnPlayerPosition);
+            EventHandlers["Player:GetInventory"] += new Action<CitizenFX.Core.Player, NetworkCallbackDelegate>(CallbackGetInventory);
+            EventHandlers["Player:Test"] += new Action<CitizenFX.Core.Player, NetworkCallbackDelegate>(CallbackGetItemsDroped);
+            EventHandlers["Player:ClearInventory"] += new Action<CitizenFX.Core.Player>(ClearInventory);
         }
 
-        private async void OnPlayerConnecting([FromSource] Player source, string playerName, dynamic setKickReason, dynamic deferrals)
+        private async void OnPlayerConnecting([FromSource] CitizenFX.Core.Player source, string playerName, dynamic setKickReason, dynamic deferrals)
         {
             await Delay(0);
 
@@ -54,7 +54,7 @@ namespace Outbreak.Core
 
             deferrals.done();
         }
-        public void OnPlayerRegister([FromSource] Player Source)
+        public void OnPlayerRegister([FromSource] CitizenFX.Core.Player Source)
         {
             string Identifier = Source.Identifiers[Config.PlayerIdentifier];
 
@@ -71,28 +71,28 @@ namespace Outbreak.Core
             }
 
         }
-        private void CallbackGroup([FromSource] Player Source, NetworkCallbackDelegate CB)
+        private void CallbackGroup([FromSource] CitizenFX.Core.Player Source, NetworkCallbackDelegate CB)
         {
             CB.Invoke(GetDataDatabase(Source));
         }
-        public void SetPlayerRegistered([FromSource] Player source, string name, string dob, string gender, string group, string faction, string money)
+        public void SetPlayerRegistered([FromSource] CitizenFX.Core.Player source, string name, string dob, string gender, string group, string faction, string money)
         {
             string Identifier = source.Identifiers[Config.PlayerIdentifier];
             Debug.WriteLine($"{name} {dob} {gender} {group}");
             Database.ExecuteUpdateQuery($"UPDATE users SET Name = '{name}', `Date Of Birth` = '{dob}', Sex = '{gender}', `Group` = '{group}', Faction = '{faction}', Money = '{money}' WHERE Identifier = '{Identifier}'");
         }
-        public void SetPlayerSkin([FromSource] Player Source, string Skin)
+        public void SetPlayerSkin([FromSource] CitizenFX.Core.Player Source, string Skin)
         {
             string Identifier = Source.Identifiers[Config.PlayerIdentifier];
             Database.ExecuteUpdateQuery($"UPDATE users SET Skin = '{Skin}' WHERE Identifier = '{Identifier}'");
 
         }
-        public void SetPlayerPositionDB([FromSource] Player Source, string position)
+        public void SetPlayerPositionDB([FromSource] CitizenFX.Core.Player Source, string position)
         {
             string Identifier = Source.Identifiers[Config.PlayerIdentifier];
             Database.ExecuteUpdateQuery($"UPDATE users SET Position = '{position}' WHERE Identifier = '{Identifier}'");
         }
-        public void OnPlayerPosition([FromSource] Player Source)
+        public void OnPlayerPosition([FromSource] CitizenFX.Core.Player Source)
         {
             string Identifier = Source.Identifiers[Config.PlayerIdentifier];
 
@@ -107,7 +107,7 @@ namespace Outbreak.Core
                 TriggerClientEvent(Source, "Player:SetPosition", X, Y, Z);
             }
         }
-        private void CallbackGetInventory([FromSource] Player Source, NetworkCallbackDelegate CB)
+        private void CallbackGetInventory([FromSource] CitizenFX.Core.Player Source, NetworkCallbackDelegate CB)
         {
             string PlayerInventory = Inventory.GetInventory(Source);
             var InventoryItems = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
@@ -132,7 +132,7 @@ namespace Outbreak.Core
             CB.Invoke(NUIInventory);
         }
 
-        private void CallbackGetItemsDroped([FromSource] Player Source, NetworkCallbackDelegate CB)
+        private void CallbackGetItemsDroped([FromSource] CitizenFX.Core.Player Source, NetworkCallbackDelegate CB)
         {
             if (Inventory.ItemsDroped.Count > 0)
             {
@@ -140,7 +140,7 @@ namespace Outbreak.Core
             }
         }
 
-        private void ClearInventory([FromSource] Player Source)
+        private void ClearInventory([FromSource] CitizenFX.Core.Player Source)
         {
             Inventory.UpdateInventory(Source,"{}");
         }

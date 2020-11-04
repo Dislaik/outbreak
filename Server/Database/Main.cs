@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using MySqlConnector;
 using System.Data;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Outbreak
 {
@@ -54,6 +56,12 @@ namespace Outbreak
         public static void ExecuteUpdateQuery(string Sql)
         {
             ExecuteInsertQuery(Sql);
+        }
+
+        public static void ExecuteMigrationQuery(string TypeModule, string Module, string SQL)
+        {
+            string SQLFile = File.ReadAllText($"resources\\outbreak\\Server\\Modules\\{TypeModule}\\{Module}\\SQL\\{SQL}.sql");
+            ExecuteInsertQuery(SQLFile);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Outbreak.User
 {
     public partial class Example
     {
-        public void Translations()
+        private void Locales()
         {
             Translate.Locale["EN"] = new Dictionary<string, string>(){
 	            {"Example:Test", "This is a Example"}

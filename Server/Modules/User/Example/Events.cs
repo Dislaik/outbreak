@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CitizenFX.Core;
-using Outbreak.Core;
 using static CitizenFX.Core.Native.API;
 
 namespace Outbreak.User
@@ -13,9 +12,9 @@ namespace Outbreak.User
     {
         private void Events()
         {
-            EventHandlers["Inventory:RegisterItem[example]"] += new Action<Player, string>(RegisterItem);
+            EventHandlers["Inventory:RegisterItem[example]"] += new Action<CitizenFX.Core.Player, string>(RegisterItem);
         }
-        private void RegisterItem([FromSource] Player Source, string Item)
+        private void RegisterItem([FromSource] CitizenFX.Core.Player Source, string Item)
         {
             Console.Debug($"{Item} doing something");
         }

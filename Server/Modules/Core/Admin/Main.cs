@@ -16,7 +16,7 @@ namespace Outbreak.Core
         public Admin()
         { Events();
 
-            Command.Register("giveitem", "Admin", new Action<Player, List<object>, string>((Source, Arguments, Raw) =>
+            Command.Register("giveitem", "Admin", new Action<CitizenFX.Core.Player, List<object>, string>((Source, Arguments, Raw) =>
             {
                 try
                 {
@@ -26,19 +26,19 @@ namespace Outbreak.Core
                     }
                     else if (Arguments.ToList().Count() < 3)
                     {
-                        IPlayer.AddInventoryItem(Source, Arguments[0].ToString(), Convert.ToInt32(Arguments[1]));
+                        Player.AddItem(Source, Arguments[0].ToString(), Convert.ToInt32(Arguments[1]));
 
                     }
                     else
                     {
-                        Player Player = Players.AsEnumerable().ToList().FirstOrDefault(k => k.Handle == Arguments[2].ToString());
-                        if (Player == null)
+                        CitizenFX.Core.Player TargetPlayer = Players.AsEnumerable().ToList().FirstOrDefault(k => k.Handle == Arguments[2].ToString());
+                        if (TargetPlayer == null)
                         {
                             ChatMessage.Error(Source, "Player ID not found");
                         }
                         else
                         {
-                            IPlayer.AddInventoryItem(Player, Arguments[0].ToString(), Convert.ToInt32(Arguments[1]));
+                            Player.AddItem(TargetPlayer, Arguments[0].ToString(), Convert.ToInt32(Arguments[1]));
                         }
                     }
                 }
@@ -49,7 +49,7 @@ namespace Outbreak.Core
             new { name = "Amount", help = "Amount of items" },
             new { name = "ID", help = "Player ID" });
 
-            Command.Register("giveweapon", "Admin", new Action<Player, List<object>, string>((Source, Arguments, Raw) =>
+            Command.Register("removeitem", "Admin", new Action<CitizenFX.Core.Player, List<object>, string>((Source, Arguments, Raw) =>
             {
                 try
                 {
@@ -59,22 +59,50 @@ namespace Outbreak.Core
                     }
                     else if (Arguments.ToList().Count() < 3)
                     {
-                        //IPlayer.AddInventoryItem(Source, Arguments[0].ToString(), Convert.ToInt32(Arguments[1]));
-                        IPlayer.AddWeapon(Source, Arguments[0].ToString(), Convert.ToInt32(Arguments[1]));
-
+                        Player.RemoveItem(Source, Arguments[0].ToString(), Convert.ToInt32(Arguments[1]));
                     }
                     else
                     {
-                        Player TargetPlayer = Players.AsEnumerable().ToList().FirstOrDefault(k => k.Handle == Arguments[2].ToString());
+                        CitizenFX.Core.Player TargetPlayer = Players.AsEnumerable().ToList().FirstOrDefault(k => k.Handle == Arguments[2].ToString());
                         if (TargetPlayer == null)
                         {
                             ChatMessage.Error(Source, "Player ID not found");
                         }
                         else
                         {
-                            //IPlayer.AddInventoryItem(TargetPlayer, Arguments[0].ToString(), Convert.ToInt32(Arguments[1]));
-                            IPlayer.AddWeapon(TargetPlayer, Arguments[0].ToString(), Convert.ToInt32(Arguments[1]));
+                            Player.RemoveItem(TargetPlayer, Arguments[0].ToString(), Convert.ToInt32(Arguments[1]));
+                        }
+                    }
+                }
+                catch { }
 
+            }), "Remove items from player inventory",
+            new { name = "Item", help = "Item to be removed" },
+            new { name = "Amount", help = "Amount of items" },
+            new { name = "ID", help = "Player ID" });
+
+            Command.Register("giveweapon", "Admin", new Action<CitizenFX.Core.Player, List<object>, string>((Source, Arguments, Raw) =>
+            {
+                try
+                {
+                    if (Arguments.ToList().Count() < 1)
+                    {
+                        ChatMessage.Error(Source, "Missing arguments to define");
+                    }
+                    else if (Arguments.ToList().Count() < 3)
+                    {
+                        Player.AddWeapon(Source, Arguments[0].ToString(), Convert.ToInt32(Arguments[1]));
+                    }
+                    else
+                    {
+                        CitizenFX.Core.Player TargetPlayer = Players.AsEnumerable().ToList().FirstOrDefault(k => k.Handle == Arguments[2].ToString());
+                        if (TargetPlayer == null)
+                        {
+                            ChatMessage.Error(Source, "Player ID not found");
+                        }
+                        else
+                        {
+                            Player.AddWeapon(TargetPlayer, Arguments[0].ToString(), Convert.ToInt32(Arguments[1]));
                         }
                     }
                 }
@@ -85,6 +113,37 @@ namespace Outbreak.Core
             new { name = "Ammo", help = "Weapon ammo" },
             new { name = "ID", help = "Player ID" });
 
+            Command.Register("removeweapon", "Admin", new Action<CitizenFX.Core.Player, List<object>, string>((Source, Arguments, Raw) =>
+            {
+                try
+                {
+                    if (Arguments.ToList().Count() < 1)
+                    {
+                        ChatMessage.Error(Source, "Missing arguments to define");
+                    }
+                    else if (Arguments.ToList().Count() < 3)
+                    {
+                        Player.RemoveWeapon(Source, Arguments[0].ToString());
+                    }
+                    else
+                    {
+                        CitizenFX.Core.Player TargetPlayer = Players.AsEnumerable().ToList().FirstOrDefault(k => k.Handle == Arguments[2].ToString());
+                        if (TargetPlayer == null)
+                        {
+                            ChatMessage.Error(Source, "Player ID not found");
+                        }
+                        else
+                        {
+                            Player.RemoveWeapon(TargetPlayer, Arguments[0].ToString());
+                        }
+                    }
+                }
+                catch { }
+
+            }), "Remove Weapon from player inventory",
+            new { name = "Weapon", help = "Weapon name" },
+            new { name = "Ammo", help = "Weapon ammo" },
+            new { name = "ID", help = "Player ID" });
         }
     }
 }

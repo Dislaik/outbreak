@@ -6,7 +6,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using CitizenFX.Core;
-using Outbreak.Core;
 using static CitizenFX.Core.Native.API;
 
 namespace Outbreak.User
@@ -17,7 +16,7 @@ namespace Outbreak.User
         {
             Events();
 
-            Command.Register("example", "Admin", new Action<Player, List<object>, string>((Source, Arguments, Raw) =>
+            Command.Register("example", "Admin", new Action<CitizenFX.Core.Player, List<object>, string>((Source, Arguments, Raw) =>
             {
 
                 //Source.TriggerEvent("Example:Test");

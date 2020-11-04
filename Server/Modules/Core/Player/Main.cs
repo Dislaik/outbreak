@@ -12,15 +12,15 @@ using System.Dynamic;
 
 namespace Outbreak.Core
 {
-    public partial class IPlayer : BaseScript
+    public partial class Player : BaseScript
     {
-        public IPlayer()
+        public Player()
         { Events();
             Database.Initialize();
 
         }
 
-        public static ExpandoObject GetDataDatabase([FromSource] Player Source)
+        public static ExpandoObject GetDataDatabase([FromSource] CitizenFX.Core.Player Source)
         {
             string Identifier = Source.Identifiers[Config.PlayerIdentifier];
             MySqlDataReader Result = Database.ExecuteSelectQuery($"SELECT Name, `Date Of Birth`, Sex, `Group`, Faction FROM users WHERE Identifier = '{Identifier}'");
@@ -94,7 +94,7 @@ namespace Outbreak.Core
 
             return GetPlayerPositionDB;
         }
-        public static void AddInventoryItem([FromSource] Player Source, string Name, int Count)
+        public static void AddItem([FromSource] CitizenFX.Core.Player Source, string Name, int Amount)
         {
             if (!Enum.IsDefined(typeof(Weapon.Hash), Name) && Inventory.Items.ContainsKey(Name))
             {
@@ -106,14 +106,14 @@ namespace Outbreak.Core
                 {
                     if (Item.Key == Name)
                     {
-                        Dictionary[Name] += Count;
+                        Dictionary[Name] += Amount;
                         found = true;
                         break;
                     }
                 }
                 if (!found)
                 {
-                    Dictionary.Add(Name, Count);
+                    Dictionary.Add(Name, Amount);
                 }
 
                 string NewInventory = JsonConvert.SerializeObject(Dictionary);
@@ -121,17 +121,38 @@ namespace Outbreak.Core
             }
             else
             {
-                ChatMessage.Error(Source, $"Item [{Name}] does not exist!");
+                ChatMessage.Error(Source, $"Item [{Name}] does not exist in table \"items\" database!");
             }
             
         }
-
-        public static void AddWeapon([FromSource] Player Source, string Name, int Ammo = 0, dynamic Component = null, int Tint = 1)// Configurar
+        public static void RemoveItem([FromSource] CitizenFX.Core.Player Source, string Name, int Amount)
         {
             string PlayerInventory = Inventory.GetInventory(Source);
             var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
 
-            if (Enum.TryParse(Name, out Weapon.Hash WeaponHash))
+            foreach (dynamic Item in Dictionary)
+            {
+                if (Item.Key == Name)
+                {
+                    Dictionary[Name] -= Amount;
+                    break;
+                }
+            }
+            if (Dictionary[Name] < 1)
+            {
+                Dictionary.Remove(Name);
+            }
+
+            string NewInventory = JsonConvert.SerializeObject(Dictionary);
+            Inventory.UpdateInventory(Source, NewInventory);
+        }
+
+        public static void AddWeapon([FromSource] CitizenFX.Core.Player Source, string Name, int Ammo = 0, dynamic Component = null, int Tint = 1)
+        {
+            string PlayerInventory = Inventory.GetInventory(Source);
+            var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
+
+            if (Enum.IsDefined(typeof(Weapon.Hash), Name) && Inventory.Items.ContainsKey(Name))
             {
                 bool found = false;
                 foreach (var Item in Dictionary)
@@ -154,12 +175,16 @@ namespace Outbreak.Core
                     Dictionary.Add(Name, Data);
                 }
             }
+            else
+            {
+                ChatMessage.Error(Source, $"Weapon [{Name}] does not exist in table \"items\" database!");
+            }
 
             string NewInventory = JsonConvert.SerializeObject(Dictionary);
             Inventory.UpdateInventory(Source, NewInventory);
         }
 
-        public static void RemoveWeapon([FromSource] Player Source, string Name) //Ready!
+        public static void RemoveWeapon([FromSource] CitizenFX.Core.Player Source, string Name) //Ready!
         {
             string PlayerInventory = Inventory.GetInventory(Source);
             var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
@@ -180,28 +205,7 @@ namespace Outbreak.Core
             Inventory.UpdateInventory(Source, NewInventory);
         }
 
-        public static void RemoveWeaponAmmo([FromSource] Player Source, string Name, int Ammo)
-        {
-            string PlayerInventory = Inventory.GetInventory(Source);
-            var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
-
-            if (Enum.TryParse(Name, out Weapon.Hash WeaponHash))
-            {
-                foreach (dynamic Item in Dictionary.Keys.ToList())
-                {
-                    if (Item == Name)
-                    {
-                        Dictionary[Item].Ammo = Dictionary[Item].Ammo - Ammo;
-                        break;
-                    }
-                }
-            }
-
-            string NewInventory = JsonConvert.SerializeObject(Dictionary);
-            Inventory.UpdateInventory(Source, NewInventory);
-        }
-
-        public static void AddWeaponAmmo([FromSource] Player Source, string Name, int Ammo)
+        public static void AddWeaponAmmo([FromSource] CitizenFX.Core.Player Source, string Name, int Ammo)
         {
             string PlayerInventory = Inventory.GetInventory(Source);
             var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
@@ -222,7 +226,28 @@ namespace Outbreak.Core
             Inventory.UpdateInventory(Source, NewInventory);
         }
 
-        public static bool CanCarryInventoryItem([FromSource] Player Source, string Name, int Amount)
+        public static void RemoveWeaponAmmo([FromSource] CitizenFX.Core.Player Source, string Name, int Ammo)
+        {
+            string PlayerInventory = Inventory.GetInventory(Source);
+            var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
+
+            if (Enum.TryParse(Name, out Weapon.Hash WeaponHash))
+            {
+                foreach (dynamic Item in Dictionary.Keys.ToList())
+                {
+                    if (Item == Name)
+                    {
+                        Dictionary[Item].Ammo = Dictionary[Item].Ammo - Ammo;
+                        break;
+                    }
+                }
+            }
+
+            string NewInventory = JsonConvert.SerializeObject(Dictionary);
+            Inventory.UpdateInventory(Source, NewInventory);
+        }
+
+        public static bool CanCarryItem([FromSource] CitizenFX.Core.Player Source, string Name, int Amount)
         {
             string PlayerInventory = Inventory.GetInventory(Source);
             var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
@@ -248,7 +273,7 @@ namespace Outbreak.Core
             return false;
         }
 
-        public static bool HasWeapon([FromSource] Player Source, string Name)
+        public static bool HasWeapon([FromSource] CitizenFX.Core.Player Source, string Name)
         {
             string PlayerInventory = Inventory.GetInventory(Source);
             var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
@@ -265,29 +290,7 @@ namespace Outbreak.Core
             return false;
         }
 
-        public static void RemoveInventoryItem([FromSource] Player Source, string Name, int Amount)
-        {
-            string PlayerInventory = Inventory.GetInventory(Source);
-            var Dictionary = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(PlayerInventory);
-
-            foreach (dynamic Item in Dictionary)
-            {
-                if (Item.Key == Name)
-                {
-                    Dictionary[Name] -= Amount;
-                    break;
-                }
-            }
-            if (Dictionary[Name] < 1)
-            {
-                Dictionary.Remove(Name);
-            }
-
-            string NewInventory = JsonConvert.SerializeObject(Dictionary);
-            Inventory.UpdateInventory(Source, NewInventory);
-        }
-
-        public static string GetName([FromSource] Player Source)
+        public static string GetName([FromSource] CitizenFX.Core.Player Source)
         {
             string Identifier = Source.Identifiers[Config.PlayerIdentifier];
             MySqlDataReader Result = Database.ExecuteSelectQuery($"SELECT Name FROM users WHERE Identifier = '{Identifier}'");
@@ -302,12 +305,7 @@ namespace Outbreak.Core
             return Data;
         }
 
-        public static void Notification([FromSource] Player Source, string Message)
-        {
-            Source.TriggerEvent("Player:Notification", Message);
-        }
-
-        public static float GetCurrentWeight([FromSource] Player Source)
+        public static float GetCurrentWeight([FromSource] CitizenFX.Core.Player Source)
         {
             float TotalWeight = 0f;
 

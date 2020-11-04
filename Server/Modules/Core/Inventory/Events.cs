@@ -18,28 +18,28 @@ namespace Outbreak.Core
     {
         private void Events()
         {
-            EventHandlers["Inventory:UpdateWeaponAmmo"] += new Action<Player, string>(WeaponAmmo);
-            EventHandlers["Inventory:UpdateItemsDroped"] += new Action<Player, IDictionary<string, dynamic>, string>(UpdateItemDroped);
-            EventHandlers["Inventory:UpdateSerializeItems"] += new Action<Player, IDictionary<string, dynamic>, NetworkCallbackDelegate>(UpdateSerializeItems);
-            EventHandlers["Inventory:RemoveItem"] += new Action<Player, string, int>(RemoveItem);
-            EventHandlers["Inventory:AddLootableWeapons"] += new Action<Player, string, int, string>(AddLootableWeapons);
-            EventHandlers["Inventory:AddLootableItems"] += new Action<Player, string, string>(AddLootableItems);
-            EventHandlers["Inventory:PlayerGiveItem"] += new Action<Player, int, string, int>(PlayerGiveItem);
-            EventHandlers["Inventory:PlayerGiveWeapon"] += new Action<Player, int, string, int>(PlayerGiveWeapon);
+            EventHandlers["Inventory:UpdateWeaponAmmo"] += new Action<CitizenFX.Core.Player, string>(WeaponAmmo);
+            EventHandlers["Inventory:UpdateItemsDroped"] += new Action<CitizenFX.Core.Player, IDictionary<string, dynamic>, string>(UpdateItemDroped);
+            EventHandlers["Inventory:UpdateSerializeItems"] += new Action<CitizenFX.Core.Player, IDictionary<string, dynamic>, NetworkCallbackDelegate>(UpdateSerializeItems);
+            EventHandlers["Inventory:RemoveItem"] += new Action<CitizenFX.Core.Player, string, int>(RemoveItem);
+            EventHandlers["Inventory:AddLootableWeapons"] += new Action<CitizenFX.Core.Player, string, int, string>(AddLootableWeapons);
+            EventHandlers["Inventory:AddLootableItems"] += new Action<CitizenFX.Core.Player, string, string>(AddLootableItems);
+            EventHandlers["Inventory:PlayerGiveItem"] += new Action<CitizenFX.Core.Player, int, string, int>(PlayerGiveItem);
+            EventHandlers["Inventory:PlayerGiveWeapon"] += new Action<CitizenFX.Core.Player, int, string, int>(PlayerGiveWeapon);
         }
 
-        private void WeaponAmmo([FromSource]Player Source, string WeaponName)
+        private void WeaponAmmo([FromSource] CitizenFX.Core.Player Source, string WeaponName)
         {
-            IPlayer.RemoveWeaponAmmo(Source, WeaponName, 1);
+            Player.RemoveWeaponAmmo(Source, WeaponName, 1);
         }
-        private void UpdateItemDroped([FromSource] Player Source, IDictionary<string, dynamic> ItemsDropedClient, string NewItemsDropedID)
+        private void UpdateItemDroped([FromSource] CitizenFX.Core.Player Source, IDictionary<string, dynamic> ItemsDropedClient, string NewItemsDropedID)
         {
             ItemsDroped = ItemsDropedClient;
             ItemsDropedID += 1;
 
             TriggerClientEvent("Inventory:UpdateItemsDropedCallback", ItemsDroped, NewItemsDropedID);
         }
-        private void UpdateSerializeItems([FromSource] Player Source, IDictionary<string, dynamic> ItemsDropedClient, NetworkCallbackDelegate CB)
+        private void UpdateSerializeItems([FromSource] CitizenFX.Core.Player Source, IDictionary<string, dynamic> ItemsDropedClient, NetworkCallbackDelegate CB)
         {
 
             foreach (dynamic Item in ItemsDropedClient.Keys.ToList())
@@ -65,57 +65,57 @@ namespace Outbreak.Core
             string NewInventory = JsonConvert.SerializeObject(ItemsDropedClient);
             CB.Invoke(NewInventory);
         }
-        private void RemoveItem([FromSource] Player Source, string Name, int Amount)
+        private void RemoveItem([FromSource] CitizenFX.Core.Player Source, string Name, int Amount)
         {
             if (Enum.IsDefined(typeof(Weapon.Hash), Name))
             {
-                IPlayer.RemoveWeapon(Source, Name);
+                Player.RemoveWeapon(Source, Name);
             }
             else
             {
-                IPlayer.RemoveInventoryItem(Source, Name, Amount);
+                Player.RemoveItem(Source, Name, Amount);
             }
             
         }
-        private void AddLootableWeapons([FromSource] Player Source, string Name, int Ammo, string ID)
+        private void AddLootableWeapons([FromSource] CitizenFX.Core.Player Source, string Name, int Ammo, string ID)
         {
-            if (IPlayer.GetCurrentWeight(Source) < Config.MaxPlayerWeight)
+            if (Player.GetCurrentWeight(Source) < Config.MaxPlayerWeight)
             {
-                if (!IPlayer.HasWeapon(Source, Name))
+                if (!Player.HasWeapon(Source, Name))
                 {
-                    IPlayer.AddWeapon(Source, Name, Ammo);
+                    Player.AddWeapon(Source, Name, Ammo);
                     Source.TriggerEvent("Inventory:UpdateItemLootablee", ID, true);
                 }
                 else
                 {
-                    IPlayer.Notification(Source, "~y~[Warning]~s~ You already have this weapon in your inventory");
+                    UI.ShowNotification(Source, "~y~[Warning]~s~ You already have this weapon in your inventory");
                 }
             }
             else
             {
-                IPlayer.Notification(Source, "~y~[Warning]~s~ Maximum weight reached, you cannot carry more things.");
+                UI.ShowNotification(Source, "~y~[Warning]~s~ Maximum weight reached, you cannot carry more things.");
             }
         }
-        private void AddLootableItems([FromSource] Player Source, string Name, string ID)
+        private void AddLootableItems([FromSource] CitizenFX.Core.Player Source, string Name, string ID)
         {
-            if (IPlayer.GetCurrentWeight(Source) < Config.MaxPlayerWeight)
+            if (Player.GetCurrentWeight(Source) < Config.MaxPlayerWeight)
             {
-                if (IPlayer.CanCarryInventoryItem(Source, Name, 1))
+                if (Player.CanCarryItem(Source, Name, 1))
                 {
-                    IPlayer.AddInventoryItem(Source, Name, 1);
+                    Player.AddItem(Source, Name, 1);
                     Source.TriggerEvent("Inventory:UpdateItemLootablee", ID);
                 }
                 else
                 {
-                    IPlayer.Notification(Source, "~y~[Warning]~s~ Item limit reached");
+                    UI.ShowNotification(Source, "~y~[Warning]~s~ Item limit reached");
                 }
             }
             else
             {
-                IPlayer.Notification(Source, "~y~[Warning]~s~ Maximum weight reached, you cannot carry more things.");
+                UI.ShowNotification(Source, "~y~[Warning]~s~ Maximum weight reached, you cannot carry more things.");
             }
         }
-        private string GetItemLimit([FromSource] Player Source, string Name)
+        private string GetItemLimit([FromSource] CitizenFX.Core.Player Source, string Name)
         {
             foreach (dynamic Item in Items.Keys)
             {
@@ -137,64 +137,64 @@ namespace Outbreak.Core
             }
             return $"Item [{Name}] does not exist!";
         }
-        private void PlayerGiveWeapon([FromSource] Player Source, int PlayerID, string Name, int Ammo)
+        private void PlayerGiveWeapon([FromSource] CitizenFX.Core.Player Source, int PlayerID, string Name, int Ammo)
         {
-            Player TargetPlayer = new PlayerList()[PlayerID];
+            CitizenFX.Core.Player TargetPlayer = new PlayerList()[PlayerID];
 
-            if (IPlayer.GetCurrentWeight(TargetPlayer) < Config.MaxPlayerWeight)
+            if (Player.GetCurrentWeight(TargetPlayer) < Config.MaxPlayerWeight)
             {
-                if (!IPlayer.HasWeapon(TargetPlayer, Name))
+                if (!Player.HasWeapon(TargetPlayer, Name))
                 {
-                    IPlayer.AddWeapon(TargetPlayer, Name, Ammo);
-                    IPlayer.RemoveWeapon(Source, Name);
+                    Player.AddWeapon(TargetPlayer, Name, Ammo);
+                    Player.RemoveWeapon(Source, Name);
 
-                    IPlayer.Notification(Source, $"~b~[Info]~s~ You gave an ~y~{GetItemLabel(Name)}~s~ to ~b~{IPlayer.GetName(TargetPlayer)}~s~.");
-                    IPlayer.Notification(TargetPlayer, $"~b~[Info]~s~ You received an ~y~{GetItemLabel(Name)}~s~ from ~b~{IPlayer.GetName(Source)}~s~.");
+                    UI.ShowNotification(Source, $"~b~[Info]~s~ You gave an ~y~{GetItemLabel(Name)}~s~ to ~b~{Player.GetName(TargetPlayer)}~s~.");
+                    UI.ShowNotification(TargetPlayer, $"~b~[Info]~s~ You received an ~y~{GetItemLabel(Name)}~s~ from ~b~{Player.GetName(Source)}~s~.");
                 }
                 else
                 {
-                    IPlayer.Notification(Source, $"~y~[Warning]~s~ You tried gave an ~y~{GetItemLabel(Name)}~s~ to ~b~{IPlayer.GetName(TargetPlayer)}~s~, but he already has one.");
-                    IPlayer.Notification(TargetPlayer, $"~y~[Warning]~s~ ~b~{IPlayer.GetName(Source)}~s~ tried to gave you an ~y~{GetItemLabel(Name)}~s~, but you already have one.");
+                    UI.ShowNotification(Source, $"~y~[Warning]~s~ You tried gave an ~y~{GetItemLabel(Name)}~s~ to ~b~{Player.GetName(TargetPlayer)}~s~, but he already has one.");
+                    UI.ShowNotification(TargetPlayer, $"~y~[Warning]~s~ ~b~{Player.GetName(Source)}~s~ tried to gave you an ~y~{GetItemLabel(Name)}~s~, but you already have one.");
                 }
             }
             else
             {
-                IPlayer.Notification(Source, $"~y~[Warning]~s~ You tried gave an ~y~{GetItemLabel(Name)}~s~ to ~b~{IPlayer.GetName(TargetPlayer)}~s~, but he can't carry more things.");
-                IPlayer.Notification(TargetPlayer, $"~y~[Warning]~s~ ~b~{IPlayer.GetName(Source)}~s~ tried to gave you an ~y~{GetItemLabel(Name)}~s~, but you can't carry more things.");
+                UI.ShowNotification(Source, $"~y~[Warning]~s~ You tried gave an ~y~{GetItemLabel(Name)}~s~ to ~b~{Player.GetName(TargetPlayer)}~s~, but he can't carry more things.");
+                UI.ShowNotification(TargetPlayer, $"~y~[Warning]~s~ ~b~{Player.GetName(Source)}~s~ tried to gave you an ~y~{GetItemLabel(Name)}~s~, but you can't carry more things.");
             }
         }
-        private void PlayerGiveItem([FromSource] Player Source, int PlayerID, string Name, int Amount)
+        private void PlayerGiveItem([FromSource] CitizenFX.Core.Player Source, int PlayerID, string Name, int Amount)
         {
-            Player TargetPlayer = new PlayerList()[PlayerID];
+            CitizenFX.Core.Player TargetPlayer = new PlayerList()[PlayerID];
 
-            if (IPlayer.GetCurrentWeight(TargetPlayer) < Config.MaxPlayerWeight)
+            if (Player.GetCurrentWeight(TargetPlayer) < Config.MaxPlayerWeight)
             {
-                if (IPlayer.CanCarryInventoryItem(TargetPlayer, Name, Amount))
+                if (Player.CanCarryItem(TargetPlayer, Name, Amount))
                 {
-                    IPlayer.RemoveInventoryItem(Source, Name, Amount);
-                    IPlayer.AddInventoryItem(TargetPlayer, Name, Amount);
+                    Player.RemoveItem(Source, Name, Amount);
+                    Player.AddItem(TargetPlayer, Name, Amount);
 
                     if (Amount > 1)
                     {
-                        IPlayer.Notification(Source, $"~b~[Info]~s~ You gave an ~y~{GetItemLabel(Name)}~s~ x{Amount} to ~b~{IPlayer.GetName(TargetPlayer)}~s~.");
-                        IPlayer.Notification(TargetPlayer, $"~b~[Info]~s~ You received an ~y~{GetItemLabel(Name)}~s~ x{Amount} from ~b~{IPlayer.GetName(Source)}~s~.");
+                        UI.ShowNotification(Source, $"~b~[Info]~s~ You gave an ~y~{GetItemLabel(Name)}~s~ x{Amount} to ~b~{Player.GetName(TargetPlayer)}~s~.");
+                        UI.ShowNotification(TargetPlayer, $"~b~[Info]~s~ You received an ~y~{GetItemLabel(Name)}~s~ x{Amount} from ~b~{Player.GetName(Source)}~s~.");
                     }
                     else
                     {
-                        IPlayer.Notification(Source, $"~b~[Info]~s~ You gave an ~y~{GetItemLabel(Name)}~s~ to ~b~{IPlayer.GetName(TargetPlayer)}~s~.");
-                        IPlayer.Notification(TargetPlayer, $"~b~[Info]~s~ You received an ~y~{GetItemLabel(Name)}~s~ from ~b~{IPlayer.GetName(Source)}~s~.");
+                        UI.ShowNotification(Source, $"~b~[Info]~s~ You gave an ~y~{GetItemLabel(Name)}~s~ to ~b~{Player.GetName(TargetPlayer)}~s~.");
+                        UI.ShowNotification(TargetPlayer, $"~b~[Info]~s~ You received an ~y~{GetItemLabel(Name)}~s~ from ~b~{Player.GetName(Source)}~s~.");
                     }
                 }
                 else
                 {
-                    IPlayer.Notification(Source, $"~y~[Warning]~s~ You tried gave an ~y~{GetItemLabel(Name)}~s~ to ~b~{IPlayer.GetName(TargetPlayer)}~s~, but he can't take more.");
-                    IPlayer.Notification(TargetPlayer, $"~y~[Warning]~s~ ~b~{IPlayer.GetName(Source)}~s~ tried to gave you an ~y~{GetItemLabel(Name)}~s~, but you can't take more.");
+                    UI.ShowNotification(Source, $"~y~[Warning]~s~ You tried gave an ~y~{GetItemLabel(Name)}~s~ to ~b~{Player.GetName(TargetPlayer)}~s~, but he can't take more.");
+                    UI.ShowNotification(TargetPlayer, $"~y~[Warning]~s~ ~b~{Player.GetName(Source)}~s~ tried to gave you an ~y~{GetItemLabel(Name)}~s~, but you can't take more.");
                 }
             }
             else
             {
-                IPlayer.Notification(Source, $"~y~[Warning]~s~ You tried gave an ~y~{GetItemLabel(Name)}~s~ to ~b~{IPlayer.GetName(TargetPlayer)}~s~, but he can't carry more things.");
-                IPlayer.Notification(TargetPlayer, $"~y~[Warning]~s~ ~b~{IPlayer.GetName(Source)}~s~ tried to gave you an ~y~{GetItemLabel(Name)}~s~, but you can't carry more things.");
+                UI.ShowNotification(Source, $"~y~[Warning]~s~ You tried gave an ~y~{GetItemLabel(Name)}~s~ to ~b~{Player.GetName(TargetPlayer)}~s~, but he can't carry more things.");
+                UI.ShowNotification(TargetPlayer, $"~y~[Warning]~s~ ~b~{Player.GetName(Source)}~s~ tried to gave you an ~y~{GetItemLabel(Name)}~s~, but you can't carry more things.");
             }
             
         }
