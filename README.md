@@ -19,7 +19,7 @@ Zombie Outbreak is a Zombie Surival RPG Framework, you will must survive and fig
 Take a look at [Wiki](https://github.com/Dislaik/outbreak/wiki)
 
 ### Discord
-https://discord.gg/5KZBHPP (Unofficial Discord)
+https://discord.gg/cejHPsgCam
 
 ### Patreon
 https://www.patreon.com/dislaik
