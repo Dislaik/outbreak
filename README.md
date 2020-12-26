@@ -11,8 +11,12 @@ Zombie Outbreak is a Zombie Surival RPG Framework, you will must survive and fig
 - Character creation
 - Inventory system
 
+## Requirements
+- [Visual Studio](https://visualstudio.microsoft.com/es/vs/)
+- [MariaDB](https://downloads.mariadb.org/)
+
 ## Documentation
-Take a look at [Wiki](https://github.com/Dislaik/zombieoutbreak/wiki)
+Take a look at [Wiki](https://github.com/Dislaik/outbreak/wiki)
 
 ### Discord
 https://discord.gg/cejHPsgCam
